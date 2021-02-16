@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="1.8">
+      <module name="client.SecretSantaServiсe.client.main" target="1.8" />
+      <module name="client.SecretSantaServiсe.client.test" target="1.8" />
+      <module name="io.swagger.SecretSantaServiсe.client.main" target="1.8" />
+      <module name="io.swagger.SecretSantaServiсe.client.test" target="1.8" />
+      <module name="io.swagger.SecretSantaServiсe.newclient.main" target="1.8" />
+      <module name="io.swagger.SecretSantaServiсe.newclient.test" target="1.8" />
+      <module name="SecretSantaServiсe.app" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="PREFER_TARGET_JDK_COMPILER" value="false" />
+  </component>
+</project>

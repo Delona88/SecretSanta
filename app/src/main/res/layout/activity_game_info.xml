@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.gameinfo.GameInfoActivity">
+
+    <LinearLayout
+            android:id="@+id/mainLinearShowGameInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <ScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+            <LinearLayout
+                    android:id="@+id/fillableLinearLayoutShowGameInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <Button
+                        android:id="@+id/buttonGoBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Назад"/>
+
+                <LinearLayout
+                        android:id="@+id/mainLinearShowGameInfo1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <TextView
+                            android:id="@+id/textViewShowGameInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_id_game"
+                            android:textSize="14pt"/>
+                    <TextView
+                            android:id="@+id/textViewShowGameInfoGameId"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=" "
+                            android:textSize="12pt"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:id="@+id/mainLinearShowGameInfo2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <TextView
+                            android:id="@+id/textViewShowGameInfoReceiver1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_receiver"
+                            android:textSize="14pt"/>
+
+                    <TextView
+                            android:id="@+id/textViewShowGameInfoReceiver"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=" "
+                            android:textSize="12pt"/>
+                    <TextView
+                            android:id="@+id/textViewShowGameInfoReceiverWish1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_receiver_wish"
+                            android:textSize="14pt"/>
+                    <TextView
+                            android:id="@+id/textViewShowGameInfoReceiverWish"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=" "
+                            android:textSize="12pt"/>
+
+                </LinearLayout>
+                <LinearLayout
+                        android:id="@+id/mainLinearShowGameInfo3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <TextView
+                            android:id="@+id/textViewShowGameInfo3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_your_wish"
+                            android:textSize="14pt"/>
+                    <TextView
+                            android:id="@+id/textViewShowGameInfoWish"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" "
+                            android:textSize="12pt"/>
+                    <TextView
+                            android:id="@+id/textViewShowGameInfoSendMessage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_wishlist"
+                            android:textSize="14pt"/>
+                    <EditText
+                            android:id="@+id/editTextShowGameInfoWish"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            tools:ignore="MissingConstraints"/>
+                    <Button
+                            android:id="@+id/buttonSendWish"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Отправить"/>
+
+                    <Button
+                            android:id="@+id/buttonDeleteGame"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Удалить игру"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            tools:ignore="MissingConstraints">
+
+        <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="invisible"/>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

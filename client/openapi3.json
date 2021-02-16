@@ -1,0 +1,742 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SecretSanta API",
+    "description": "Get and post persons and games",
+    "version": "1.0",
+    "contact": {
+      "name": "SecretSanta API",
+      "email": "delona88@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/"
+    }
+  ],
+  "paths": {
+    "/persons": {
+      "get": {
+        "tags": [
+          "Persons"
+        ],
+        "summary": "Get all persons",
+        "description": "Get all Persons",
+        "operationId": "getAllPersons",
+        "responses": {
+          "200": {
+            "description": "Array persons",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Person"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Persons"
+        ],
+        "summary": "Add person",
+        "description": "Add person",
+        "operationId": "addPerson",
+        "requestBody": {
+          "description": "Person",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/persons/{email}": {
+      "get": {
+        "tags": [
+          "Persons"
+        ],
+        "summary": "Get person by id",
+        "description": "Get person by id",
+        "operationId": "getPersonById",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "to get person",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Person",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Persons"
+        ],
+        "summary": "Replace person",
+        "description": "Replace person",
+        "operationId": "replacePerson",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "to get person",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Person",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Persons"
+        ],
+        "summary": "Delete person",
+        "description": "Delete person",
+        "operationId": "deletePerson",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/persons/{email}/persongame": {
+      "post": {
+        "tags": [
+          "Person games"
+        ],
+        "summary": "Add person game",
+        "description": "Add person game",
+        "operationId": "addPersonGameToPerson",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Array emails",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonGame"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/persons/{email}/persongame/{id}": {
+      "delete": {
+        "tags": [
+          "Person games"
+        ],
+        "summary": "Delete person game",
+        "description": "Delete person game",
+        "operationId": "deletePersonGameFromPerson",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/persons/{email}/persongame/{id}/naughtylist": {
+      "post": {
+        "tags": [
+          "Person games"
+        ],
+        "summary": "Set naughty list",
+        "description": "Set naughty list",
+        "operationId": "setNaughtyList",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Person game",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/persons/{email}/persongame/{id}/receiver": {
+      "post": {
+        "tags": [
+          "Person games"
+        ],
+        "summary": "Set receiver",
+        "description": "Set receiver",
+        "operationId": "setReceiver",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "receiverEmail",
+            "in": "query",
+            "description": "receiverEmail",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/persons/{email}/persongame/{id}/wishlist": {
+      "post": {
+        "tags": [
+          "Person games"
+        ],
+        "summary": "Set whishlist",
+        "description": "Set whishlist",
+        "operationId": "setWhishlist",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "wish",
+            "in": "query",
+            "description": "wishlist",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/persons/{email}/persongame/{id}/active": {
+      "post": {
+        "tags": [
+          "Person games"
+        ],
+        "summary": "Set active",
+        "description": "Set active",
+        "operationId": "setPersonGameActive",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "description": "active",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/games": {
+      "post": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Add game",
+        "description": "Create new game",
+        "operationId": "addGame",
+        "requestBody": {
+          "description": "game to add",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecretSantaGame"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Get new ID",
+        "description": "Get new ID",
+        "operationId": "getNewID",
+        "responses": {
+          "200": {
+            "description": "New ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/games/{id}": {
+      "get": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Get game by id",
+        "description": "Get game by id",
+        "operationId": "getGameById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "to get game",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Game",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecretSantaGame"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Delete game",
+        "description": "Delete game",
+        "operationId": "deleteGame",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/games/{id}/participants": {
+      "get": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Get all persons by game ID",
+        "description": "Get all persons by game ID",
+        "operationId": "getPersonsByGameId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Array persons",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Person"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/games/{id}/participants/{email}": {
+      "post": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Add participant",
+        "description": "Add participant",
+        "operationId": "addPersonInGame",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Delete participant",
+        "description": "Delete participant",
+        "operationId": "deletePersonFromGame",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/games/{id}/played": {
+      "post": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Set played",
+        "description": "Set played",
+        "operationId": "setGamePlayed",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "played",
+            "in": "query",
+            "description": "played",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/games/{id}/toss": {
+      "post": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Start toss",
+        "description": "Start toss",
+        "operationId": "startToss",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Person": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "games": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PersonGame"
+            }
+          }
+        }
+      },
+      "PersonGame": {
+        "type": "object",
+        "properties": {
+          "idGame": {
+            "type": "integer"
+          },
+          "receiverEmail": {
+            "type": "string"
+          },
+          "wishlist": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "arrayNaughtyListEmail": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "SecretSantaGame": {
+        "type": "object",
+        "properties": {
+          "idOfGame": {
+            "type": "integer"
+          },
+          "played": {
+            "type": "boolean"
+          },
+          "participantsEmail": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

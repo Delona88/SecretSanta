@@ -1,0 +1,8 @@
+{
+  "hideGenerationTimestamp": true,
+  "dateLibrary": "java8",
+  "library": "retrofit2",
+  "useRuntimeException": true
+
+
+}

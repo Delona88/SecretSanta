@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.example.secretsantaservi">
+
+    <permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+            android:name=".SecretSantaApplication"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            android:usesCleartextTraffic="true">
+        <activity android:name=".activities.PersonInfoActivity">
+        </activity>
+        <activity android:name=".activities.RegistrationActivity">
+        </activity>
+        <activity android:name=".activities.ConnectToGameActivity">
+        </activity>
+        <activity android:name=".activities.gameinfo.GameInfoActivity">
+        </activity>
+        <activity android:name=".activities.EnterEmailActivity">
+        </activity>
+        <activity android:name=".activities.allgames.AllGamesActivity">
+        </activity>
+        <activity android:name=".activities.NewParticipantActivity">
+        </activity>
+        <activity android:name=".activities.SelectSantaForSetParamsActivity">
+        </activity>
+        <activity android:name=".activities.SetParamsActivity">
+        </activity>
+        <activity android:name=".activities.newgame.NewGameActivity">
+        </activity>
+        <activity android:name=".quickplay.numbersofparicipants.NumberOfParticipants">
+        </activity>
+        <activity android:name=".quickplay.SelectNameForShowReceiver">
+        </activity>
+        <activity android:name=".quickplay.ShowSantasReceiver">
+        </activity>
+        <activity android:name=".quickplay.SetParamsForSanta">
+        </activity>
+        <activity android:name=".quickplay.SelectNameForSetParameters">
+        </activity>
+        <activity android:name=".quickplay.NamesOfParticipants">
+        </activity>
+        <activity android:name=".activities.SelectVersionActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

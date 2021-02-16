@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">SecretSantaServiсe</string>
+    <string name="title_number_of_participants">Введите количество участников</string>
+    <string name="title_names_of_participants">Введите имена участников</string>
+    <string name="title_select_name_for_set_parameters">Выберите участников для установки ограничений или нажмите
+        продолжить
+    </string>
+    <string name="title_select_name_for_set_params">Выберите участников для установки ограничений
+    </string>
+    <string name="title_select_name_for_show_receiver">Выберите санту для просмотра получателя</string>
+    <string name="title_select_local_or_network">Выберите версию</string>
+    <string name="title_input_id_or_create_new">Введите ID жеребьевки или создайте новую</string>
+    <string name="title_enter_name">Введите имя</string>
+    <string name="title_enter_email">Введите логин (email)</string>
+    <string name="title_select_game">Выберите игру</string>
+    <string name="title_enter_login">Введите логин (email)</string>
+    <string name="title_receiver">Получатель:</string>
+    <string name="title_id_game">Игра:</string>
+    <string name="title_wishlist">Напишите сообщение своему санте:</string>
+    <string name="title_your_wish">Ваше пожелание санте:</string>
+    <string name="title_enter_id_game">Введите id игы</string>
+    <string name="title_participants">Участники:</string>
+    <string name="title_connection_info">"Сообщите Id друзьям, чтобы они могли присоединиться, или добавьте их
+        самостоятельно"
+    </string>
+    <string name="title_go_back">Назад</string>
+    <string name="title_go_next">Продолжить</string>
+    <string name="title_create">Создать</string>
+    <string name="title_connect">Присоединиться</string>
+    <string name="title_santa_nd_receiver">Санта %s дарит подарок участнику %s</string>
+    <string name="title_person_added">Добавлен новый Person</string>
+    <string name="title_participant_added">Добавлен новый участник</string>
+    <string name="title_login">Войти</string>
+    <string name="title_registration">Регистрация</string>
+    <string name="title_name_of_participants">Введите данные участников</string>
+    <string name="title_registration_data">Заполните данные</string>
+    <string name="title_add_or_change">Добавить/Изменить</string>
+    <string name="title_choose_receivers_for_santa">Выберите кому %s может дарить подарок</string>
+    <string name="title_server_problem">Проблемы с сервером, попробуйте позже</string>
+    <string name="title_game_create">Игра %s создана</string>
+    <string name="title_participants_add">Участники добавлены. Установите ограничения и начните игру</string>
+    <string name="title_game_does_not_exist">Игра %s не существует или завершена</string>
+    <string name="title_change">Изменить</string>
+    <string name="title_person_info">Личный кабинет</string>
+    <string name="title_create_game">Создать игру</string>
+    <string name="title_connect_to_game">Присоединиться к игре</string>
+    <string name="title_quickplay_info">Игра не сохраняется. Выберите этот вариант, если все игроки присутствуют.
+    </string>
+    <string name="title_local_info">Игра сохраняется на устройстве. Выберите этот вариант, если нет возможности
+        подключиться к сети.
+    </string>
+    <string name="title_network_info">Игра сохраняется на сервере. Игроки могут присоединиться к игре с другого
+        устройства.
+        После жеребьевки увидят в списке игру и смогут посмотреть получателя
+    </string>
+    <string name="title_bad_conditions">Неверные условия. Невозможно установить получателей</string>
+    <string name="title_person_delete">Участник удален из игры</string>
+    <string name="title_wish_">Вы еще не отправили свое пожелание Санте \n</string>
+    <string name="title_incorrect_info">Введите корректные данные</string>
+    <string name="title_connected_to_game">
+        Вы добавлены к игре. Дождитесь пока будет проведена жеребьевка, зайдите в игру и посмотрите получателя.
+    </string>
+    <string name="title_login_not_found">
+        Такой логин не зарегистрирован
+    </string>
+    <string name="title_login_used">
+        Логин уже используется
+    </string>
+    <string name="title_registration_ok">
+        Регистрация прошла успешно
+    </string>
+    <string name="title_name_changed">
+        Имя изменено
+    </string>
+    <string name="title_email_changed">
+        Email изменен
+    </string>
+    <string name="title_participant_add_in_game">
+        Участник добавлен в игру
+    </string>
+    <string name="title_restrictions_set">
+        Ограничения установлены
+    </string>
+    <string name="title_wish_send">
+        Пожелание отправлено
+    </string>
+    <string name="title_game_delete">
+        Игра удалена из вашего списка
+    </string>
+
+    <string name="title_receiver_wish">
+        Пожелание получателя:
+    </string>
+    <string name="title_wish_not_sent_earlier">
+        Вы еще не отправили свое пожелание Санте
+    </string>
+    <string name="title_wish_already_sent_earlier">
+        Вы уже отправили Санте сообщение. Можете отправить еще раз, но не обижайтесь, если он уже выбрал Вам подарок
+    </string>
+
+</resources>

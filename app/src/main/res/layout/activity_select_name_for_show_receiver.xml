@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".quickplay.SelectNameForShowReceiver">
+    <LinearLayout
+            android:id="@+id/mainLinearLayoutSelectNameForShowReceiver"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <TextView
+                android:id="@+id/textViewSelectNameForShowReceiver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_select_name_for_show_receiver"
+                android:textSize="14pt"/>
+
+        <LinearLayout
+                android:id="@+id/fillableLinearLayoutAddNames"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+
+        <Button
+                android:id="@+id/buttonFinish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Завершить"
+        />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

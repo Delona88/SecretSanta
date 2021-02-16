@@ -1,0 +1,197 @@
+package com.example.secretsantaservi.activities;
+
+import android.view.View;
+import android.widget.*;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
+import com.example.secretsantaservi.API.MyCallback;
+import com.example.secretsantaservi.R;
+import com.example.secretsantaservi.SecretSantaApplication;
+import com.example.secretsantaservi.secretsanta.Person;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+
+public class SetParamsActivity extends AppCompatActivity {
+
+    private HashMap<String, CheckBox> checkBoxHM = new HashMap<>();
+    private LinearLayout linearLayoutSetParams;
+    private TextView textViewSetParams;
+    private Button buttonGoBackToSelectNameForSetParams;
+    private ProgressBar progressBar;
+
+    private SecretSantaApplication secretSantaApplication;
+
+    private ApiWithMyCallbackInterface client;
+
+    private Integer currentGameId;
+    private String currentPersonEmail;
+
+    private ArrayList<String> arrayNaughtylist;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_set_params);
+
+        secretSantaApplication = (SecretSantaApplication) getApplicationContext();
+
+        currentGameId = secretSantaApplication.getCurrentGameId();
+        currentPersonEmail = secretSantaApplication.getCurrentPersonEmail();
+
+        client = secretSantaApplication.getClient();
+
+        buildGUI();
+
+    }
+
+    public void buildGUI() {
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+
+        textViewSetParams = findViewById(R.id.textViewSetParams);
+
+        buttonGoBackToSelectNameForSetParams = findViewById(R.id.buttonGoBack);
+        buttonGoBackToSelectNameForSetParams.setOnClickListener(onClickListener);
+
+        linearLayoutSetParams = findViewById(R.id.fillableLinearLayoutSetParams);
+
+        startGetPersonAndNaughtylist();
+
+    }
+
+    private void startGetPersonAndNaughtylist() {
+        showProgressBar();
+        client.getPersonById(currentPersonEmail, new MyCallback<Person>() {
+            @Override
+            public void onResponse(Person response) {
+                Person person = response;
+                String santaName = person.getName();
+                arrayNaughtylist = person.getArrayNaughtyListEmailByGameId(currentGameId);
+                setTextWithSantaName(santaName);
+                startGetHMWithPersonsInfoAndCreateCheckBoxes();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                showToastServerProblem(t.toString());
+                hideProgressBar();
+            }
+        });
+    }
+
+    private void setTextWithSantaName(String santaName) {
+        String str = String.format(getResources().getString(R.string.title_choose_receivers_for_santa), santaName);// information.textForTextView.get(Information.NamesOfActivity.SET_PARAMS_FOR_SANTA), santaName);
+        textViewSetParams.setText(str);
+    }
+
+    private void startGetHMWithPersonsInfoAndCreateCheckBoxes() {
+        client.getHMWithPersonsInfo(currentGameId, new MyCallback<HashMap<String, String>>() {
+            @Override
+            public void onResponse(HashMap<String, String> response) {
+                HashMap<String, String> infoHM = response;
+                //secretSantaApplication.showToast("HMWithPersonsInfo получена");
+                createCheckBoxesWhithParticipantsInfo(infoHM);
+                hideProgressBar();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                showToastServerProblem(t.toString());
+                hideProgressBar();
+            }
+        });
+    }
+
+    public void createCheckBoxesWhithParticipantsInfo(HashMap<String, String> infoHM) {
+        for (String email : infoHM.keySet()) {
+            String textInfo = infoHM.get(email);
+            addNewNameCheckBoxInHMAndListener(email, textInfo);
+        }
+    }
+
+    public void addNewNameCheckBoxInHMAndListener(String email, String textInfo) {
+        if (!email.equals(currentPersonEmail)) {
+            CheckBox checkBox = new CheckBox(this);
+            checkBox.setText(textInfo);
+            checkBox.setOnClickListener(onClickListener);
+
+            if (isEmailInSantaNaughtylist(email)) { //установить невыбранными, если в Naughtylist
+                checkBox.setChecked(false);
+            } else {
+                checkBox.setChecked(true);
+            }
+
+            checkBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            linearLayoutSetParams.addView(checkBox);
+            checkBoxHM.put(email, checkBox);
+        } else {
+            checkBoxHM.put(email, null); //санты не должно быть в списке, помечаем null
+        }
+    }
+
+    private boolean isEmailInSantaNaughtylist(String email) {
+        return arrayNaughtylist.contains(email);
+    }
+
+    private final View.OnClickListener onClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == buttonGoBackToSelectNameForSetParams.getId()) {
+                createArrayNaughtylistAndAddToSanta();
+            }
+        }
+    };
+
+    private void createArrayNaughtylistAndAddToSanta() {
+        ArrayList<String> naughtyList = new ArrayList<>();
+        for (String email : checkBoxHM.keySet()) {
+            CheckBox checkBox = checkBoxHM.get(email);
+            if ((checkBox != null) && !(checkBox.isChecked())) {// && (!isEmailInSantaNaughtylist(email))) {
+                naughtyList.add(email);
+            }
+        }
+        startSetNaughtylist(naughtyList);
+    }
+
+    private void startSetNaughtylist(ArrayList<String> naughtyList) {
+        showProgressBar();
+        client.setNaughtyList(currentPersonEmail, currentGameId, naughtyList, new MyCallback<Object>() {
+            @Override
+            public void onResponse(Object response) {
+                showToastRestrictionsSet();
+                hideProgressBar();
+                finish();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                showToastServerProblem(t.toString());
+                hideProgressBar();
+            }
+        });
+    }
+
+    private void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar() {
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    public void showToastServerProblem(String t) {
+        String str = getResources().getString(R.string.title_server_problem) + "\n" + t;
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showToastRestrictionsSet() {
+        Toast.makeText(this, getResources().getString(R.string.title_restrictions_set), Toast.LENGTH_SHORT).show();
+    }
+
+}
