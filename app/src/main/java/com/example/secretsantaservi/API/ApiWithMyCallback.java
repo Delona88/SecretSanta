@@ -4,6 +4,7 @@ import android.content.Context;
 import com.example.secretsantaservi.API.repository.RepositoryFileWithHM;
 import com.example.secretsantaservi.API.repository.RepositoryHM;
 import com.example.secretsantaservi.API.repository.RepositoryInterface;
+import com.example.secretsantaservi.API.repository.repositoriesfactory.RepositoriesFactory;
 import com.example.secretsantaservi.secretsanta.*;
 
 import java.io.*;
@@ -21,24 +22,24 @@ public class ApiWithMyCallback implements ApiWithMyCallbackInterface {
     RepositoryInterface<Integer, SecretSantaGame> gamesRepository; //gamesRepository
     RepositoryInterface<String, Person> personsRepository;
 
+    //Context context; //для записи и чтения файла нужен контекст
 
-    Context context; //для записи и чтения файла нужен контекст
-
+/*
+    //по умолчанию HM
     public ApiWithMyCallback() {
         gamesRepository = new RepositoryHM<>();
         personsRepository = new RepositoryHM<>();
-
     }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
+    // по умолчанию с контекстом
     public ApiWithMyCallback(Context context) {
         this.context = context;
-
         gamesRepository = new RepositoryFileWithHM<>(FILE_NAME_HM_GAMES, context);
         personsRepository = new RepositoryFileWithHM<>(FILE_NAME_HM_PERSONS, context);
+    }*/
+
+    public ApiWithMyCallback(RepositoriesFactory factory){
+        gamesRepository = factory.createGamesRepository();
+        personsRepository = factory.createPersonsRepository();
     }
 
 

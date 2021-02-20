@@ -16,7 +16,6 @@ public class AllGamesPresenter {
     public AllGamesPresenter(AllGamesView activity, SecretSantaApplication secretSantaApplication) {
         this.activity = activity;
         this.secretSantaApplication = secretSantaApplication;
-        //this.authorizedPerson = secretSantaApplication.getAuthorizedPersonController();
         this.authorizedPersonEmail = secretSantaApplication.getAuthorizedPersonEmail();
         this.model = new AllGamesModel(secretSantaApplication.getClient());
     }
@@ -66,6 +65,7 @@ public class AllGamesPresenter {
 
 
     public void restart(){
+        authorizedPersonEmail = secretSantaApplication.getAuthorizedPersonEmail();
         init();
     }
 }

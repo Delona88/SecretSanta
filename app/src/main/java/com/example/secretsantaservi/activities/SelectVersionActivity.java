@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.secretsantaservi.API.ApiWithMyCallback;
 import com.example.secretsantaservi.API.ClientRetrofitWithMyCallback;
+import com.example.secretsantaservi.API.repository.repositoriesfactory.FileAndroidRepositoriesFactory;
+import com.example.secretsantaservi.API.repository.repositoriesfactory.SQLiteRepositoriesFactory;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
 import com.example.secretsantaservi.quickplay.numbersofparicipants.NumberOfParticipants;
@@ -75,7 +77,7 @@ public class SelectVersionActivity extends AppCompatActivity {
     }
 
     public void startLocalVersion() {
-        secretSantaApplication.setClient(new ApiWithMyCallback(this)); //TODo FilesHMWithMyCallback
+        secretSantaApplication.setClient(new ApiWithMyCallback(new SQLiteRepositoriesFactory(this)));
         Intent intent = new Intent(SelectVersionActivity.this, EnterEmailActivity.class);
         startActivity(intent);
         //finish();
