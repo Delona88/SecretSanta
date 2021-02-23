@@ -43,7 +43,7 @@ public class GameInfoActivity extends AppCompatActivity implements GameInfoView 
 
     public void buildGUI() {
         progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
+        //progressBar.setVisibility(View.INVISIBLE);
 
         textViewGameInfo = findViewById(R.id.textViewShowGameInfoGameId);
         textViewReceiverInfo = findViewById(R.id.textViewShowGameInfoReceiver);

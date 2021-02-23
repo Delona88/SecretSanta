@@ -140,18 +140,12 @@ public class PersonInfoActivity extends AppCompatActivity {
 
     private void startChangeEmail() {
         showProgressBar();
-        //TODO убрать
-        //authorizedPerson.getPerson().setEmail(getEmail());
-
         person.setEmail(getEmail());
         client.replacePerson(person, authorizedPersonEmail, new MyCallback<Object>() {
             @Override
             public void onResponse(Object response) {
-                showToastEmailChanged(getEmail());
-                //TODO убрать
-                //authorizedPerson.setPersonId(getEmail());
+                showToastEmailChanged();
                 secretSantaApplication.setAuthorizedPersonEmail(getEmail());
-
                 hideProgressBar();
             }
 
@@ -173,8 +167,6 @@ public class PersonInfoActivity extends AppCompatActivity {
 
     private void startChangeName() {
         showProgressBar();
-        //TODo
-        //authorizedPerson.getPerson().setName(getName());
         person.setName(getName());
 
         client.addPerson(person, new MyCallback<Object>() {
@@ -221,9 +213,9 @@ public class PersonInfoActivity extends AppCompatActivity {
     public void showToastNameChanged() {
         Toast.makeText(this, getResources().getString(R.string.title_name_changed), Toast.LENGTH_SHORT).show();
     }
-        //TODO
-    public void showToastEmailChanged(String s) {
-        Toast.makeText(this, getResources().getString(R.string.title_email_changed)+s, Toast.LENGTH_SHORT).show();
+
+    public void showToastEmailChanged() {
+        Toast.makeText(this, getResources().getString(R.string.title_email_changed), Toast.LENGTH_SHORT).show();
     }
 
     public void showToastLoginUsed() {

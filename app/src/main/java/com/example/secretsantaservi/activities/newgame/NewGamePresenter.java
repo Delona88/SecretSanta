@@ -68,15 +68,19 @@ public class NewGamePresenter {
         model.startToss(currentGameId, new MyCallback<Object>() {
             @Override
             public void onResponse(Object responseCode) {
-                int BAD_REQUEST = 400; //Неверно указаны ограничения. Невозможно установить получателей
+                activity.showToastGameCreate(currentGameId);
+                activity.hideProgressBar();
+                activity.finish();
+/*                int BAD_REQUEST = 400; //Неверно указаны ограничения. Невозможно установить получателей
                 if ((Integer) responseCode == BAD_REQUEST) {
                     activity.showToastBadConditions();
                     activity.hideProgressBar();
-                } else {
+                }
+*//*                } else {
                     activity.showToastGameCreate(currentGameId);
                     activity.hideProgressBar();
                     activity.finish();
-                }
+                }*/
             }
 
             @Override
@@ -85,9 +89,10 @@ public class NewGamePresenter {
                     //TODO test
                     activity.showToastBadConditions();
                     activity.hideProgressBar();
+                } else {
+                    activity.showToastServerProblem(t.toString());
+                    activity.hideProgressBar();
                 }
-                activity.showToastServerProblem(t.toString());
-                activity.hideProgressBar();
             }
         });
     }

@@ -37,7 +37,7 @@ public class ApiWithMyCallback implements ApiWithMyCallbackInterface {
         personsRepository = new RepositoryFileWithHM<>(FILE_NAME_HM_PERSONS, context);
     }*/
 
-    public ApiWithMyCallback(RepositoriesFactory factory){
+    public ApiWithMyCallback(RepositoriesFactory factory) {
         gamesRepository = factory.createGamesRepository();
         personsRepository = factory.createPersonsRepository();
     }
@@ -74,7 +74,7 @@ public class ApiWithMyCallback implements ApiWithMyCallbackInterface {
             SecretSantaGame game = gamesRepository.getById(id);
             game.addNewPersonInGameById(person.getEmail());
             game.deleteEmailFromArrayParticipantsEmail(oldEmail);
-            gamesRepository.update(game.getGameId(),game);
+            gamesRepository.update(game.getGameId(), game);
         }
 
         myCallback.onResponse(null);
@@ -114,42 +114,42 @@ public class ApiWithMyCallback implements ApiWithMyCallbackInterface {
     public void addPersonGameToPerson(String email, PersonGame personGame, MyCallback<Object> myCallback) {
         Person person = personsRepository.getById(email);
         person.addGame(personGame);
-        personsRepository.update(person.getEmail(),person);
+        personsRepository.update(person.getEmail(), person);
 
         myCallback.onResponse(null);
     }
 
     @Override
     public void deletePersonGameFromPerson(Integer gameId, String email, MyCallback<Object> myCallback) {
-        Person person =personsRepository.getById(email);
+        Person person = personsRepository.getById(email);
         person.deletePersonGameByGameId(gameId);
-        personsRepository.update(person.getEmail(),person);
+        personsRepository.update(person.getEmail(), person);
 
         myCallback.onResponse(null);
     }
 
     @Override
     public void setNaughtyList(String email, Integer gameId, ArrayList<String> arraylist, MyCallback<Object> myCallback) {
-        Person person =personsRepository.getById(email);
+        Person person = personsRepository.getById(email);
         person.setArrayNaughtyListEmailByGameId(arraylist, gameId);
-        personsRepository.update(person.getEmail(),person);
+        personsRepository.update(person.getEmail(), person);
 
         myCallback.onResponse(null);
     }
 
     @Override
     public void setReceiver(String emailSanta, Integer gameId, String emailReceiver, MyCallback<Object> myCallback) {
-        Person person =personsRepository.getById(emailSanta);
+        Person person = personsRepository.getById(emailSanta);
         person.setReceiverEmailByGameId(emailReceiver, gameId);
-        personsRepository.update(person.getEmail(),person);
+        personsRepository.update(person.getEmail(), person);
         myCallback.onResponse(null);
     }
 
     @Override
     public void setWhishlist(String email, Integer gameId, String wish, MyCallback<Object> myCallback) {
-        Person person =personsRepository.getById(email);
+        Person person = personsRepository.getById(email);
         person.setWishListByGameId(gameId, wish);
-        personsRepository.update(person.getEmail(),person);
+        personsRepository.update(person.getEmail(), person);
         myCallback.onResponse(null);
     }
 
@@ -157,7 +157,7 @@ public class ApiWithMyCallback implements ApiWithMyCallbackInterface {
     public void setPersonGameActive(Integer gameId, String email, Boolean activity, MyCallback<Object> myCallback) {
         Person person = personsRepository.getById(email);
         person.setPersonGameActivityByGameId(gameId, activity);
-        personsRepository.update(person.getEmail(),person);
+        personsRepository.update(person.getEmail(), person);
         myCallback.onResponse(null);
     }
 
@@ -200,11 +200,11 @@ public class ApiWithMyCallback implements ApiWithMyCallbackInterface {
     public void addPersonInGame(Integer gameId, String email, MyCallback<Object> myCallback) {
         SecretSantaGame game = gamesRepository.getById(gameId);
         game.addNewPersonInGameById(email);
-        gamesRepository.update(game.getGameId(),game);
+        gamesRepository.update(game.getGameId(), game);
 
         Person person = personsRepository.getById(email);
         person.addNewPersonGameById(gameId);
-        personsRepository.update(person.getEmail(),person);
+        personsRepository.update(person.getEmail(), person);
 
 
         myCallback.onResponse(null);
@@ -214,11 +214,11 @@ public class ApiWithMyCallback implements ApiWithMyCallbackInterface {
     public void deletePersonFromGame(Integer gameId, String email, MyCallback<Object> myCallback) {
         SecretSantaGame game = gamesRepository.getById(gameId);
         game.deleteEmailFromArrayParticipantsEmail(email);
-        gamesRepository.update(game.getGameId(),game);
+        gamesRepository.update(game.getGameId(), game);
 
         Person person = personsRepository.getById(email);
         person.deletePersonGameByGameId(gameId);
-        personsRepository.update(person.getEmail(),person);
+        personsRepository.update(person.getEmail(), person);
 
 
         myCallback.onResponse(null);
@@ -240,21 +240,21 @@ public class ApiWithMyCallback implements ApiWithMyCallbackInterface {
         //TODO изменить чтение/запись
         try {
             arrayPersons = toss.fillReceiversAndReturnParticipantsArray();
-            for (Person person : arrayPersons) {
-                String emailSanta = person.getEmail();
-                String emailReceiver = person.getReceiverEmailByGameId(gameId);
+            for (Person santa : arrayPersons) {
+                String emailSanta = santa.getEmail();
+                String emailReceiver = santa.getReceiverEmailByGameId(gameId);
 
-                Person person1 = personsRepository.getById(emailSanta);
-                person1.setReceiverEmailByGameId(emailReceiver, gameId);
-                personsRepository.update(person1.getEmail(),person);
+                Person person = personsRepository.getById(emailSanta);
+                person.setReceiverEmailByGameId(emailReceiver, gameId);
+                personsRepository.update(person.getEmail(), person);
 
             }
             int OK = 200; //используется HTTP код ответа
             myCallback.onResponse(OK);
         } catch (BadConditionsException badConditions) {
-            int BAD_REQUEST = 400;
-            myCallback.onResponse(BAD_REQUEST);
-            //myCallback.onFailure(badConditions);
+/*            int BAD_REQUEST = 400;
+            myCallback.onResponse(BAD_REQUEST);*/
+            myCallback.onFailure(badConditions);
             badConditions.printStackTrace();
         }
 

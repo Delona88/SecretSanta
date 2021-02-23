@@ -143,8 +143,6 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
     }
 
 
-
-    //TODO проверить
     @Override
     protected void onRestart() {
         super.onRestart();
