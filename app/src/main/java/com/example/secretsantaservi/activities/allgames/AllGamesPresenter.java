@@ -1,15 +1,15 @@
 package com.example.secretsantaservi.activities.allgames;
 
-import com.example.secretsantaservi.API.MyCallback;
+import io.swagger.client.secretsantaclient.MyCallback;
 import com.example.secretsantaservi.SecretSantaApplication;
-import com.example.secretsantaservi.secretsanta.PersonController;
+
 
 import java.util.ArrayList;
 
 public class AllGamesPresenter {
-    private AllGamesModel model;
-    private AllGamesView activity;
-    private SecretSantaApplication secretSantaApplication;
+    private final AllGamesModel model;
+    private final AllGamesView activity;
+    private final SecretSantaApplication secretSantaApplication;
 
     private String authorizedPersonEmail;
 

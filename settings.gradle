@@ -1,5 +1,7 @@
 include ':app',
-        ':client'
+        ':client',
+        ':server',
+        ':model'
 
 rootProject.name = "SecretSantaServiсe"
 

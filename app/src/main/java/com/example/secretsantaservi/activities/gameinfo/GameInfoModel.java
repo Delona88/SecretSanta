@@ -1,9 +1,10 @@
 package com.example.secretsantaservi.activities.gameinfo;
 
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
-import com.example.secretsantaservi.API.MyCallback;
-import com.example.secretsantaservi.secretsanta.Person;
-import com.example.secretsantaservi.secretsanta.PersonGame;
+import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
+import io.swagger.client.secretsantaclient.MyCallback;
+import secretsantamodel.Person;
+import secretsantamodel.PersonGame;
+
 
 public class GameInfoModel {
     ApiWithMyCallbackInterface client;
@@ -15,8 +16,7 @@ public class GameInfoModel {
     public void getPersonGameByPersonIdAndGameId(String email, Integer gameId, MyCallback<PersonGame> myCallback) {
         client.getPersonById(email, new MyCallback<Person>() {
             @Override
-            public void onResponse(Person response) {
-                Person person = response;
+            public void onResponse(Person person) {
                 PersonGame personGame = person.getPersonGameByID(gameId);
                 myCallback.onResponse(personGame);
             }

@@ -2,11 +2,39 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
-      <module name="client.SecretSantaServiсe.client.main" target="1.8" />
-      <module name="client.SecretSantaServiсe.client.test" target="1.8" />
       <module name="io.swagger.SecretSantaServiсe.newclient.main" target="1.8" />
       <module name="io.swagger.SecretSantaServiсe.newclient.test" target="1.8" />
+      <module name="model" target="11" />
+      <module name="Model.SecretSantaServiсe.Model.main" target="11" />
+      <module name="Model.SecretSantaServiсe.Model.test" target="11" />
+      <module name="repositories" target="11" />
+      <module name="Repositories.SecretSantaServiсe.Repositories.main" target="11" />
+      <module name="Repositories.SecretSantaServiсe.Repositories.test" target="11" />
+      <module name="SecretSanta.Model.SecretSantaServiсe.Model.main" target="11" />
+      <module name="SecretSanta.Model.SecretSantaServiсe.Model.test" target="11" />
+      <module name="SecretSanta.Repositories.SecretSantaServiсe.Repositories.main" target="11" />
+      <module name="SecretSanta.Repositories.SecretSantaServiсe.Repositories.test" target="11" />
+      <module name="SecretSanta.UseCases.SecretSantaServiсe.UseCases.main" target="11" />
+      <module name="SecretSanta.UseCases.SecretSantaServiсe.UseCases.test" target="11" />
       <module name="SecretSantaServiсe.app" target="11" />
+      <module name="SecretSantaServiсe.Model.main" target="11" />
+      <module name="SecretSantaServiсe.Model.test" target="11" />
+      <module name="SecretSantaServiсe.Repositiries" target="11" />
+      <module name="SecretSantaServiсe.Repositiries.main" target="11" />
+      <module name="SecretSantaServiсe.Repositiries.test" target="11" />
+      <module name="SecretSantaServiсe.Repositories.main" target="11" />
+      <module name="SecretSantaServiсe.Repositories.test" target="11" />
+      <module name="SecretSantaServiсe.UseCases.main" target="11" />
+      <module name="SecretSantaServiсe.UseCases.test" target="11" />
+      <module name="Server.SecretSanta.Model.SecretSantaServiсe.Model.main" target="11" />
+      <module name="Server.SecretSanta.Model.SecretSantaServiсe.Model.main~1" target="11" />
+      <module name="Server.SecretSanta.Model.SecretSantaServiсe.Model.test" target="11" />
+      <module name="Server.SecretSanta.Model.SecretSantaServiсe.Model.test~1" target="11" />
+      <module name="Server.SecretSanta.Repositories.SecretSantaServiсe.Repositories.main" target="11" />
+      <module name="Server.SecretSanta.Repositories.SecretSantaServiсe.Repositories.test" target="11" />
+      <module name="UseCases" target="11" />
+      <module name="UseCases.SecretSantaServiсe.UseCases.main" target="11" />
+      <module name="UseCases.SecretSantaServiсe.UseCases.test" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

@@ -4,23 +4,18 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
-import com.example.secretsantaservi.API.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
+import io.swagger.client.secretsantaclient.MyCallback;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
-import com.example.secretsantaservi.secretsanta.SecretSantaGame;
+import secretsantamodel.*;
+
 
 public class ConnectToGameActivity extends AppCompatActivity {
     private Button buttonNext;
     private Button buttonConnect;
-    private TextView textViewParticipants;
-    private TextView textViewParticipantsText;
     private EditText editText;
     private ProgressBar progressBar;
-
-    private SecretSantaApplication secretSantaApplication;
-    //private GameController existGameController;
-    //private PersonController authorizedPerson;
 
     private String authorizedPersonEmail;
 
@@ -32,9 +27,7 @@ public class ConnectToGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connect_to_game);
 
-        secretSantaApplication = (SecretSantaApplication) getApplicationContext();
-
-        //TODO authorizedPerson = secretSantaApplication.getAuthorizedPersonController();//нет
+        SecretSantaApplication secretSantaApplication = (SecretSantaApplication) getApplicationContext();
 
         authorizedPersonEmail = secretSantaApplication.getAuthorizedPersonEmail();
 
@@ -83,8 +76,7 @@ public class ConnectToGameActivity extends AppCompatActivity {
         showProgressBar();
         client.getGameById(id, new MyCallback<SecretSantaGame>() {
             @Override
-            public void onResponse(SecretSantaGame response) {
-                SecretSantaGame game = response;
+            public void onResponse(SecretSantaGame game) {
                 if (game != null && !game.isPlayed()) {
                     startAddPersonInGame(id);
                 } else {
@@ -101,9 +93,6 @@ public class ConnectToGameActivity extends AppCompatActivity {
     }
 
     private void startAddPersonInGame(Integer id) {
-        //TODO
-        //client.addPersonInGameById(existGameController.getGameId(), AuthorizedPerson.getInstance().getEmail(), new MyCallback<Object>() {
-
         client.addPersonInGame(id, authorizedPersonEmail, new MyCallback<Object>() {
             @Override
             public void onResponse(Object response) {
@@ -125,7 +114,7 @@ public class ConnectToGameActivity extends AppCompatActivity {
 
     public boolean isNumeric(String strNum) {
         try {
-            int d = Integer.parseInt(strNum);
+            Integer.parseInt(strNum);
         } catch (NumberFormatException | NullPointerException nfe) {
             return false;
         }

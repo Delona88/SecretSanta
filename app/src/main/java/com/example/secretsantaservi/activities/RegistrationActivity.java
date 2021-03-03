@@ -8,12 +8,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
-import com.example.secretsantaservi.API.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
+import io.swagger.client.secretsantaclient.MyCallback;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
 import com.example.secretsantaservi.activities.allgames.AllGamesActivity;
-import com.example.secretsantaservi.secretsanta.Person;
+import secretsantamodel.Person;
 
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -24,7 +24,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private SecretSantaApplication secretSantaApplication;
-    //private PersonController authorizedPerson;
     private ApiWithMyCallbackInterface client;
 
     @Override
@@ -33,7 +32,6 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         secretSantaApplication = (SecretSantaApplication) getApplicationContext();
-        //authorizedPerson = secretSantaApplication.getAuthorizedPersonController();
         client = secretSantaApplication.getClient();
 
         buildGUI();
@@ -96,7 +94,6 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onResponse(Object response) {
                 showToastRegistrationOk();
-                //TODo authorizedPerson.setPersonId(getEmail());
                 secretSantaApplication.setAuthorizedPersonEmail(getEmail());
                 hideProgressBar();
                 goToAllGames();
@@ -152,9 +149,6 @@ public class RegistrationActivity extends AppCompatActivity {
     public void showToastLoginUsed() {
         Toast.makeText(this, getResources().getString(R.string.title_login_used), Toast.LENGTH_SHORT).show();
     }
-
-
-
 
 }
 

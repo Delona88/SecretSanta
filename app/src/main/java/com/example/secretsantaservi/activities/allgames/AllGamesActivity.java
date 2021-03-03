@@ -6,12 +6,10 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.secretsantaservi.*;
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
 import com.example.secretsantaservi.activities.ConnectToGameActivity;
 import com.example.secretsantaservi.activities.newgame.NewGameActivity;
 import com.example.secretsantaservi.activities.PersonInfoActivity;
 import com.example.secretsantaservi.activities.gameinfo.GameInfoActivity;
-import com.example.secretsantaservi.secretsanta.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +29,6 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
 
     AllGamesPresenter presenter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +41,6 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-
     public void buildGUI() {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
@@ -60,7 +51,7 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
         buttonPersonInfo = findViewById(R.id.buttonPersonInfo);
         buttonPersonInfo.setOnClickListener(onClickListener);
 
-        buttonGoBack = findViewById(R.id.buttonGoBack);
+        buttonGoBack = findViewById(R.id.buttonGoNext);
         buttonGoBack.setOnClickListener(onClickListener);
 
         buttonCreateGame = findViewById(R.id.buttonCreateGame);
@@ -95,7 +86,6 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
             Button pressedButton = (Button) v;
             Integer id = getKeyByValue(buttonsHM, pressedButton);
             if (id != null) {
-                //TODO secretSantaApplication.createExistGameController(id);
                 secretSantaApplication.setCurrentGameId(id);
                 goToGameInfo();
             }
@@ -142,13 +132,6 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
 
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        presenter.restart();
-    }
-
     public void goToFillInfo() {
         Intent intent = new Intent(AllGamesActivity.this, NewGameActivity.class);
         startActivity(intent);
@@ -161,5 +144,11 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
             }
         }
         return null;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.restart();
     }
 }

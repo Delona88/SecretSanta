@@ -1,8 +1,7 @@
 package com.example.secretsantaservi.activities.newgame;
 
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
-import com.example.secretsantaservi.API.MyCallback;
-import com.example.secretsantaservi.R;
+import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
+import io.swagger.client.secretsantaclient.MyCallback;
 
 import java.util.HashMap;
 

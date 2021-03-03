@@ -1,17 +1,13 @@
 package com.example.secretsantaservi;
 
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
-import com.example.secretsantaservi.API.MyCallback;
-import com.example.secretsantaservi.API.testAPI.RepositoryHMWithMyCallback;
-import com.example.secretsantaservi.activities.gameinfo.GameInfoActivity;
-import com.example.secretsantaservi.activities.gameinfo.GameInfoPresenter;
+import com.example.secretsantaservi.api.ApiWithMyCallback;
+import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
+import io.swagger.client.secretsantaclient.MyCallback;
 import com.example.secretsantaservi.activities.newgame.NewGameActivity;
 import com.example.secretsantaservi.activities.newgame.NewGameModel;
 import com.example.secretsantaservi.activities.newgame.NewGamePresenter;
 import com.example.secretsantaservi.activities.newgame.NewGameView;
-import com.example.secretsantaservi.secretsanta.Person;
-import com.example.secretsantaservi.secretsanta.PersonGame;
-import com.example.secretsantaservi.secretsanta.SecretSantaGame;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +16,9 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import repositoryapi.repositoriesfactory.HMRepositoriesFactory;
+import secretsantamodel.*;
 
 public class TestNewGameActivity {
     NewGameView activity;
@@ -83,7 +82,7 @@ public class TestNewGameActivity {
         }
 
         //тестовые данные добавляются в клиентский HM
-        client = new RepositoryHMWithMyCallback();
+        client = new ApiWithMyCallback(new HMRepositoriesFactory());
         client.addPerson(person, new MyCallback<Object>() {
             @Override
             public void onResponse(Object response) {

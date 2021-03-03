@@ -11,13 +11,13 @@ import android.os.Bundle;
 import com.example.secretsantaservi.R;
 
 import java.util.ArrayList;
-import static com.example.secretsantaservi.quickplay.numbersofparicipants.NumberOfParticipantsPresenter.toss;
+import static com.example.secretsantaservi.quickplay.numbersofparicipantsMVP.NumberOfParticipantsPresenter.toss;
 
 public class SelectNameForShowReceiver extends AppCompatActivity {
-    ArrayList<Button> namesButton = new ArrayList(toss.getNumberOfParticipants());
-    Button buttonFinish;
-    TextView textViewSelectNameForShowReceiver;
-    LinearLayout linearLayoutAddNames;
+    private ArrayList<Button> namesButton = new ArrayList<>(toss.getNumberOfParticipants());
+    private Button buttonFinish;
+    private TextView textViewSelectNameForShowReceiver;
+    private LinearLayout linearLayoutAddNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class SelectNameForShowReceiver extends AppCompatActivity {
 
     }
 
-    public void buildGUI() {
+    private void buildGUI() {
         textViewSelectNameForShowReceiver = findViewById(R.id.textViewSelectNameForShowReceiver);
 
         buttonFinish = findViewById(R.id.buttonFinish);
@@ -39,11 +39,11 @@ public class SelectNameForShowReceiver extends AppCompatActivity {
         }
     }
 
-    public void addNewNameButtonAndListener(int index) {
+    private void addNewNameButtonAndListener(int index) {
         namesButton.add(new Button(this));
         namesButton.get(index).setText(toss.getNameByIndex(index));
         namesButton.get(index).setOnClickListener(onClickListener);
-        namesButton.get(index).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
+        namesButton.get(index).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         linearLayoutAddNames.addView(namesButton.get(index));
     }
 
@@ -57,7 +57,8 @@ public class SelectNameForShowReceiver extends AppCompatActivity {
                 Intent intent = new Intent(SelectNameForShowReceiver.this, ShowSantasReceiver.class);
                 intent.putExtra("indexButton2", indexOfPressedButton);
                 startActivity(intent);
-            } else {
+            }
+            if ( (v.getId() == buttonFinish.getId())){
                 finish();
             }
         }

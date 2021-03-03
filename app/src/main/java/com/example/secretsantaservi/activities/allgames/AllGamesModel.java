@@ -1,14 +1,14 @@
 package com.example.secretsantaservi.activities.allgames;
 
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
-import com.example.secretsantaservi.API.MyCallback;
-import com.example.secretsantaservi.secretsanta.Person;
+import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
+import io.swagger.client.secretsantaclient.MyCallback;
+import secretsantamodel.Person;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class AllGamesModel {
-    private ApiWithMyCallbackInterface client;
+    private final ApiWithMyCallbackInterface client;
 
     public AllGamesModel(ApiWithMyCallbackInterface client) {
         this.client = client;

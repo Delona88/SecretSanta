@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
 import com.example.secretsantaservi.activities.NewParticipantActivity;
@@ -28,15 +27,10 @@ public class NewGameActivity extends AppCompatActivity implements NewGameView {
     private ProgressBar progressBar;
 
     private SecretSantaApplication secretSantaApplication;
-    //private GameController newGameController;
-    private ApiWithMyCallbackInterface client;
 
     private Boolean allParticipantsAdded = false;
 
     private NewGamePresenter presenter;
-
-    //TODO test
-    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +42,9 @@ public class NewGameActivity extends AppCompatActivity implements NewGameView {
         }
 
         secretSantaApplication = (SecretSantaApplication) getApplicationContext();
-        //newGameController = secretSantaApplication.getNewGameController();
-
-        client = secretSantaApplication.getClient();
 
         presenter = new NewGamePresenter(this, (SecretSantaApplication) getApplicationContext());
         presenter.init();
-
-        //TODO test
-        textView = findViewById(R.id.textViewFillInfo);
 
     }
 
@@ -74,10 +62,12 @@ public class NewGameActivity extends AppCompatActivity implements NewGameView {
 
     public void buildGUI() {
 
+        textViewGameInfo = findViewById(R.id.textViewGameInfo);
+
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
-        buttonGoBack = findViewById(R.id.buttonGoBack);
+        buttonGoBack = findViewById(R.id.buttonGoNext);
         buttonGoBack.setOnClickListener(onClickListener);
 
         buttonUpdate = findViewById(R.id.buttonUpdate);
@@ -115,7 +105,6 @@ public class NewGameActivity extends AppCompatActivity implements NewGameView {
     }
 
     public void setGameInfo(Integer id) {
-        textViewGameInfo = findViewById(R.id.textViewGameInfo);
         String str = "Создана игра №" + id;
         textViewGameInfo.setText(str);
     }
@@ -144,7 +133,6 @@ public class NewGameActivity extends AppCompatActivity implements NewGameView {
             Button pressedButton = (Button) v;
             String email = getKeyByValue(buttonsHM, pressedButton);
             if (email != null) {
-                //TODO secretSantaApplication.createNewPersonController(email);
                 secretSantaApplication.setCurrentPersonEmail(email);
                 Intent intent = new Intent(NewGameActivity.this, NewParticipantActivity.class);
                 startActivity(intent);
@@ -156,16 +144,12 @@ public class NewGameActivity extends AppCompatActivity implements NewGameView {
                 buildGUI();
             }
             if (v.getId() == buttonAddParticipant.getId()) {
-                //TODO secretSantaApplication.createNewPersonController();
                 secretSantaApplication.setCurrentPersonEmail(null);
                 Intent intent = new Intent(NewGameActivity.this, NewParticipantActivity.class);
                 startActivity(intent);
             }
             if (v.getId() == buttonEndEdit.getId()) {
-                //startSetGamePlayed();
                 presenter.startSetGamePlayed();
-                //newGameController.setAllParticipantsAddedTrue();
-
                 allParticipantsAdded = true;
                 setViewsVisibility();
             }

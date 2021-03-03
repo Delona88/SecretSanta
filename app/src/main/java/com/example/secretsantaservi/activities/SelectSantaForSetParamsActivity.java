@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
-import com.example.secretsantaservi.API.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
+import io.swagger.client.secretsantaclient.MyCallback;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
 
@@ -19,13 +19,10 @@ public class SelectSantaForSetParamsActivity extends AppCompatActivity {
     private Button buttonGoBack;
     private ProgressBar progressBar;
     private LinearLayout linearLayoutSelectNameForSetParameters;
-    //private TextView textViewSelectNameForSetParameters;
 
     private SecretSantaApplication secretSantaApplication;
-
-    private Integer currentGameId;
-
     private ApiWithMyCallbackInterface client;
+    private Integer currentGameId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +30,10 @@ public class SelectSantaForSetParamsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_santa_for_set_params);
 
         secretSantaApplication = (SecretSantaApplication) getApplicationContext();
-        //newGameController = secretSantaApplication.getNewGameController();
         client = secretSantaApplication.getClient();
         currentGameId = secretSantaApplication.getCurrentGameId();
 
         buildGUI();
-
-        //TODO test
-        //textViewSelectNameForSetParameters = findViewById(R.id.textViewSelectNameForSetParameters);
 
     }
 
@@ -55,7 +48,7 @@ public class SelectSantaForSetParamsActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
-        buttonGoBack = findViewById(R.id.buttonGoBack);
+        buttonGoBack = findViewById(R.id.buttonGoNext);
         buttonGoBack.setOnClickListener(onClickListener);
 
         linearLayoutSelectNameForSetParameters = findViewById(R.id.fillableLinearLayoutSelectNameForSetParameters);
@@ -70,8 +63,7 @@ public class SelectSantaForSetParamsActivity extends AppCompatActivity {
         showProgressBar();
         client.getHMWithPersonsInfo(currentGameId, new MyCallback<HashMap<String, String>>() {
             @Override
-            public void onResponse(HashMap<String, String> response) {
-                HashMap<String, String> infoHM = response;
+            public void onResponse(HashMap<String, String> infoHM) {
                 createButtonsWithParticipantsInfo(infoHM);
                 hideProgressBar();
             }
@@ -109,8 +101,6 @@ public class SelectSantaForSetParamsActivity extends AppCompatActivity {
             Button pressedButton = (Button) v;
             String email = getKeyByValue(buttonsHM, pressedButton);
             if (email != null) {
-                //TODO secretSantaApplication.createNewPersonController(email);
-
                 secretSantaApplication.setCurrentPersonEmail(email);
                 goToSetParams();
             }

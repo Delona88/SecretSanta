@@ -1,22 +1,24 @@
 package com.example.secretsantaservi.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
-import com.example.secretsantaservi.API.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
+import io.swagger.client.secretsantaclient.MyCallback;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
 import com.example.secretsantaservi.activities.allgames.AllGamesActivity;
-import com.example.secretsantaservi.secretsanta.Person;
+import secretsantamodel.*;
+
+import static com.example.secretsantaservi.SecretSantaApplication.APP_PREFERENCE;
+import static com.example.secretsantaservi.SecretSantaApplication.APP_PREFERENCE_AUTHORIZED_PERSON_EMAIL;
 
 public class EnterEmailActivity extends AppCompatActivity {
     private ProgressBar progressBar;
@@ -50,7 +52,7 @@ public class EnterEmailActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
-        buttonGoBack= findViewById(R.id.buttonGoBack);
+        buttonGoBack= findViewById(R.id.buttonGoNext);
         buttonGoBack.setOnClickListener(onClickListener);
 
         buttonNext = findViewById(R.id.buttonNext);
@@ -100,18 +102,14 @@ public class EnterEmailActivity extends AppCompatActivity {
         showProgressBar();
         client.getPersonById(email, new MyCallback<Person>() {
             @Override
-            public void onResponse(Person response) {
+            public void onResponse(Person person) {
                 hideProgressBar();
-                Person person = response;
                 if (person != null) {
-                    //TODO test
-                    //secretSantaApplication.setAuthorizedPersonControllerEmail(email);
                     secretSantaApplication.setAuthorizedPersonEmail(email);
-                    secretSantaApplication.setAuthorizedPersonEmailInSharedPreferences(email);
+                    setAuthorizedPersonEmailInSharedPreferences(email);
                     goToAllGames();
                 } else {
-                    showLoginNotFound();
-                    //secretSantaApplication.showToast(R.string.title_login_not_found);
+                    showToastLoginNotFound();
                 }
             }
 
@@ -122,6 +120,14 @@ public class EnterEmailActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    public void setAuthorizedPersonEmailInSharedPreferences(String authorizedPersonEmail) {
+        //сохранение Email в настройках приложения
+        SharedPreferences settings = getSharedPreferences(APP_PREFERENCE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(APP_PREFERENCE_AUTHORIZED_PERSON_EMAIL, authorizedPersonEmail);
+        editor.apply();
     }
 
     private void showProgressBar() {
@@ -157,7 +163,7 @@ public class EnterEmailActivity extends AppCompatActivity {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
 
-    public void showLoginNotFound() {
+    public void showToastLoginNotFound() {
         Toast.makeText(this, getResources().getString(R.string.title_login_not_found), Toast.LENGTH_SHORT).show();
     }
 

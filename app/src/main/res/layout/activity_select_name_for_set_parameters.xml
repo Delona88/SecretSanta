@@ -18,7 +18,7 @@
                 android:text="@string/title_select_name_for_set_parameters"
                 android:textSize="14pt"/>
         <Button
-                android:id="@+id/buttonGoBack"
+                android:id="@+id/buttonGoNext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Продолжить"

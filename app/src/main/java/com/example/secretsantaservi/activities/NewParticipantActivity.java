@@ -5,11 +5,12 @@ import android.widget.Button;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
-import com.example.secretsantaservi.API.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
+import io.swagger.client.secretsantaclient.MyCallback;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
-import com.example.secretsantaservi.secretsanta.Person;
+
+import secretsantamodel.*;
 
 public class NewParticipantActivity extends AppCompatActivity {
     private Button buttonAdd;
@@ -17,22 +18,17 @@ public class NewParticipantActivity extends AppCompatActivity {
     private EditText editTextEmail;
     private ProgressBar progressBar;
 
-    private SecretSantaApplication secretSantaApplication;
-
     private Integer currentGameId;
     private String currentPersonEmail;
 
     private ApiWithMyCallbackInterface client;
-
-    //TODO test
-    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_participant);
 
-        secretSantaApplication = (SecretSantaApplication) getApplicationContext();
+        SecretSantaApplication secretSantaApplication = (SecretSantaApplication) getApplicationContext();
 
         currentGameId = secretSantaApplication.getCurrentGameId();
         currentPersonEmail = secretSantaApplication.getCurrentPersonEmail();
@@ -53,8 +49,6 @@ public class NewParticipantActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.editTextParticipantName);
         editTextEmail = findViewById(R.id.editTextParticipantEmail);
 
-        textView = findViewById(R.id.textViewNewParticipantEmail);
-
         if (currentPersonEmail != null) { //изменяем или добавляем
             startGetPersonByIdAndDeleteFromGame(); //изменяем
         }
@@ -64,8 +58,7 @@ public class NewParticipantActivity extends AppCompatActivity {
         showProgressBar();
         client.getPersonById(currentPersonEmail, new MyCallback<Person>() {
             @Override
-            public void onResponse(Person response) {
-                Person person = response;
+            public void onResponse(Person person) {
                 editTextName.setText(person.getName());
                 editTextEmail.setText(person.getEmail());
                 startDelete();
@@ -117,8 +110,7 @@ public class NewParticipantActivity extends AppCompatActivity {
         showProgressBar();
         client.getPersonById(getEmail(), new MyCallback<Person>() {
             @Override
-            public void onResponse(Person response) {
-                Person person = response;
+            public void onResponse(Person person) {
                 if (person == null) { //регистрируем игрока или добавляем ему игру
                     startAddPersonAndPersonInGame();
                 } else {
@@ -156,10 +148,7 @@ public class NewParticipantActivity extends AppCompatActivity {
             public void onResponse(Object response) {
                 showToastParticipantAdded();
                 hideProgressBar();
-
-                //TODO закончили работу
-                secretSantaApplication.setCurrentPersonEmail(null);
-                finish(); //иначе не успевают прогружаться участники на AllGames
+                finish();
             }
 
             @Override

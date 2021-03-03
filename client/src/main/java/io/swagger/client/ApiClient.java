@@ -97,7 +97,7 @@ public class ApiClient {
     json = new JSON();
     okBuilder = new OkHttpClient.Builder();
 
-    String baseUrl = "https://secretsantaservice.herokuapp.com:443/" ; //"http://192.168.1.52:8080/" "https://secretsantaservice.herokuapp.com:443/"
+    String baseUrl = "http://192.168.1.52:8080/" ; //"http://192.168.1.52:8080/" "https://secretsantaservice.herokuapp.com:443/"
     if (!baseUrl.endsWith("/"))
       baseUrl = baseUrl + "/";
 

@@ -8,24 +8,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.secretsantaservi.R;
 
-import static com.example.secretsantaservi.quickplay.numbersofparicipants.NumberOfParticipantsPresenter.toss;
+import static com.example.secretsantaservi.quickplay.numbersofparicipantsMVP.NumberOfParticipantsPresenter.toss;
 
 public class ShowSantasReceiver extends AppCompatActivity {
-    Button buttonGoBackToSelectNameForShowReceiver;
-    int indexSanta;
+    private Button buttonGoBackToSelectNameForShowReceiver;
+    private int indexSanta;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_santas_receiver);
 
-        int defaultValue =0;
+        int defaultValue = 0;
         indexSanta = getIntent().getIntExtra("indexButton2", defaultValue); //получаем из SelectNameForShowReceiver
 
         buildGUI();
     }
 
-    public void buildGUI() {
+    private void buildGUI() {
 
         TextView textViewShowSantasReceiver = findViewById(R.id.textViewShowSantasReceiver);
         String str1 = getResources().getString(R.string.title_santa_nd_receiver);

@@ -1,18 +1,16 @@
 package com.example.secretsantaservi.activities;
 
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
-import com.example.secretsantaservi.API.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
+import io.swagger.client.secretsantaclient.MyCallback;
 
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
-import com.example.secretsantaservi.secretsanta.Person;
+import secretsantamodel.Person;
+
 
 public class PersonInfoActivity extends AppCompatActivity {
     private Button buttonChangeEmail;
@@ -23,14 +21,10 @@ public class PersonInfoActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private SecretSantaApplication secretSantaApplication;
-    //private PersonController authorizedPerson;
     private ApiWithMyCallbackInterface client;
 
     private String authorizedPersonEmail;
     private Person person;
-
-    //TODO test
-    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +32,11 @@ public class PersonInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_person_info);
 
         secretSantaApplication = (SecretSantaApplication) getApplicationContext();
-        //authorizedPerson = secretSantaApplication.getAuthorizedPersonController();
         client = secretSantaApplication.getClient();
 
         authorizedPersonEmail = secretSantaApplication.getAuthorizedPersonEmail();
 
         buildGUI();
-
-        //TODO test
-        textView = findViewById(R.id.textViewNewParticipantEmail);
 
     }
 
@@ -55,7 +45,7 @@ public class PersonInfoActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
-        buttonGoBack = findViewById(R.id.buttonGoBack);
+        buttonGoBack = findViewById(R.id.buttonGoNext);
         buttonGoBack.setOnClickListener(onClickListener);
 
         buttonChangeEmail = findViewById(R.id.buttonChangeEmail);
@@ -76,9 +66,6 @@ public class PersonInfoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Person response) {
                 person = response;
-                //TODO убрать
-                //authorizedPerson.setPerson(person);
-
                 editTextName.setText(person.getName());
                 editTextEmail.setText(person.getEmail());
                 hideProgressBar();

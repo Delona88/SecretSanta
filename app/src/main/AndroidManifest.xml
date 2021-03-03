@@ -38,7 +38,7 @@
         </activity>
         <activity android:name=".activities.newgame.NewGameActivity">
         </activity>
-        <activity android:name=".quickplay.numbersofparicipants.NumberOfParticipants">
+        <activity android:name=".quickplay.numbersofparicipantsMVP.NumberOfParticipants">
         </activity>
         <activity android:name=".quickplay.SelectNameForShowReceiver">
         </activity>
@@ -50,7 +50,7 @@
         </activity>
         <activity android:name=".quickplay.NamesOfParticipants">
         </activity>
-        <activity android:name=".activities.SelectVersionActivity">
+        <activity android:name=".activities.MainSelectVersionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

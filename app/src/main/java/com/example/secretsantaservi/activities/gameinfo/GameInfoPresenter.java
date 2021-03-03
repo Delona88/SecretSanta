@@ -1,24 +1,23 @@
 package com.example.secretsantaservi.activities.gameinfo;
 
-import com.example.secretsantaservi.API.MyCallback;
+import io.swagger.client.secretsantaclient.MyCallback;
 import com.example.secretsantaservi.SecretSantaApplication;
-import com.example.secretsantaservi.secretsanta.Person;
-import com.example.secretsantaservi.secretsanta.PersonGame;
+import secretsantamodel.Person;
+import secretsantamodel.PersonGame;
+
 
 public class GameInfoPresenter {
-    private GameInfoView activity;
-    private GameInfoModel model;
-    private SecretSantaApplication secretSantaApplication;
+    private final GameInfoView activity;
+    private final GameInfoModel model;
 
-    private String authorizedPersonEmail;
-    private Integer currentGameId;
+    private final String authorizedPersonEmail;
+    private final Integer currentGameId;
 
 
     public GameInfoPresenter(GameInfoView view, SecretSantaApplication application) {
         this.activity = view;
-        this.secretSantaApplication = application;
-        this.authorizedPersonEmail = secretSantaApplication.getAuthorizedPersonEmail();
-        this.currentGameId = secretSantaApplication.getCurrentGameId();
+        this.authorizedPersonEmail = application.getAuthorizedPersonEmail();
+        this.currentGameId = application.getCurrentGameId();
         this.model = new GameInfoModel(application.getClient());
     }
 
@@ -31,8 +30,7 @@ public class GameInfoPresenter {
         activity.showProgressBar();
         model.getPersonGameByPersonIdAndGameId(authorizedPersonEmail, currentGameId, new MyCallback<PersonGame>() {
             @Override
-            public void onResponse(PersonGame response) {
-                PersonGame personGame = response;
+            public void onResponse(PersonGame personGame) {
                 activity.addPersonGameInfo("" + personGame.getGameId());
                 activity.addWishInfo(personGame.getWishlist());
                 startGetAndAddReceiverInfo(personGame.getReceiverEmail());
@@ -50,8 +48,7 @@ public class GameInfoPresenter {
     public void startGetAndAddReceiverInfo(String receiverEmail) {
         model.getPersonById(receiverEmail, new MyCallback<Person>() {
             @Override
-            public void onResponse(Person response) {
-                Person receiver = response;
+            public void onResponse(Person receiver) {
                 String receiverInfo;
                 if (receiver == null) {
                     receiverInfo = "Ваш получатель уже удалился из игры" + "\n";

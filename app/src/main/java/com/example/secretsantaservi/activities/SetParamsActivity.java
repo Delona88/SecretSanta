@@ -4,11 +4,12 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.secretsantaservi.API.ApiWithMyCallbackInterface;
-import com.example.secretsantaservi.API.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
+import io.swagger.client.secretsantaclient.MyCallback;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
-import com.example.secretsantaservi.secretsanta.Person;
+import secretsantamodel.Person;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +22,6 @@ public class SetParamsActivity extends AppCompatActivity {
     private TextView textViewSetParams;
     private Button buttonGoBackToSelectNameForSetParams;
     private ProgressBar progressBar;
-
-    private SecretSantaApplication secretSantaApplication;
 
     private ApiWithMyCallbackInterface client;
 
@@ -37,7 +36,7 @@ public class SetParamsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_params);
 
-        secretSantaApplication = (SecretSantaApplication) getApplicationContext();
+        SecretSantaApplication secretSantaApplication = (SecretSantaApplication) getApplicationContext();
 
         currentGameId = secretSantaApplication.getCurrentGameId();
         currentPersonEmail = secretSantaApplication.getCurrentPersonEmail();
@@ -55,7 +54,7 @@ public class SetParamsActivity extends AppCompatActivity {
 
         textViewSetParams = findViewById(R.id.textViewSetParams);
 
-        buttonGoBackToSelectNameForSetParams = findViewById(R.id.buttonGoBack);
+        buttonGoBackToSelectNameForSetParams = findViewById(R.id.buttonGoNext);
         buttonGoBackToSelectNameForSetParams.setOnClickListener(onClickListener);
 
         linearLayoutSetParams = findViewById(R.id.fillableLinearLayoutSetParams);
@@ -68,8 +67,7 @@ public class SetParamsActivity extends AppCompatActivity {
         showProgressBar();
         client.getPersonById(currentPersonEmail, new MyCallback<Person>() {
             @Override
-            public void onResponse(Person response) {
-                Person person = response;
+            public void onResponse(Person person) {
                 String santaName = person.getName();
                 arrayNaughtylist = person.getArrayNaughtyListEmailByGameId(currentGameId);
                 setTextWithSantaName(santaName);
@@ -92,9 +90,7 @@ public class SetParamsActivity extends AppCompatActivity {
     private void startGetHMWithPersonsInfoAndCreateCheckBoxes() {
         client.getHMWithPersonsInfo(currentGameId, new MyCallback<HashMap<String, String>>() {
             @Override
-            public void onResponse(HashMap<String, String> response) {
-                HashMap<String, String> infoHM = response;
-                //secretSantaApplication.showToast("HMWithPersonsInfo получена");
+            public void onResponse(HashMap<String, String> infoHM) {
                 createCheckBoxesWhithParticipantsInfo(infoHM);
                 hideProgressBar();
             }
@@ -120,7 +116,7 @@ public class SetParamsActivity extends AppCompatActivity {
             checkBox.setText(textInfo);
             checkBox.setOnClickListener(onClickListener);
 
-            if (isEmailInSantaNaughtylist(email)) { //установить невыбранными, если в Naughtylist
+            if (isEmailInSantaNaughtylist(email)) { //установить невыбранными, если в есть Naughtylist
                 checkBox.setChecked(false);
             } else {
                 checkBox.setChecked(true);

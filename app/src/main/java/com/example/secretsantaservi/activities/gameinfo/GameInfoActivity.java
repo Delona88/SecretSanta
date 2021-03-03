@@ -19,22 +19,12 @@ public class GameInfoActivity extends AppCompatActivity implements GameInfoView 
     private Button buttonDeleteGame;
     private ProgressBar progressBar;
 
-/*    private SecretSantaApplication secretSantaApplication;
-    private GameController existGameController;
-    private PersonController authorizedPerson;
-    private InterfaceApiWithMyCallback client;*/
-
     private GameInfoPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_info);
-
-/*        secretSantaApplication = (SecretSantaApplication) getApplicationContext();
-        existGameController = secretSantaApplication.getExistGameController();
-        authorizedPerson = secretSantaApplication.getAuthorizedPersonController();
-        client = secretSantaApplication.getClient();*/
 
         presenter = new GameInfoPresenter(this, (SecretSantaApplication) getApplicationContext());
         presenter.init();
@@ -43,7 +33,6 @@ public class GameInfoActivity extends AppCompatActivity implements GameInfoView 
 
     public void buildGUI() {
         progressBar = findViewById(R.id.progressBar);
-        //progressBar.setVisibility(View.INVISIBLE);
 
         textViewGameInfo = findViewById(R.id.textViewShowGameInfoGameId);
         textViewReceiverInfo = findViewById(R.id.textViewShowGameInfoReceiver);
@@ -56,7 +45,7 @@ public class GameInfoActivity extends AppCompatActivity implements GameInfoView 
         buttonDeleteGame = findViewById(R.id.buttonDeleteGame);
         buttonDeleteGame.setOnClickListener(onClickListener);
 
-        buttonBack = findViewById(R.id.buttonGoBack);
+        buttonBack = findViewById(R.id.buttonGoNext);
         buttonBack.setOnClickListener(onClickListener);
 
         buttonSendWish = findViewById(R.id.buttonSendWish);
