@@ -6,23 +6,27 @@ import secretsantamodel.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SecretSantaApi implements SecretSantaApiInterface {
-    /**
-     * HMRepositoriesFactory - для хранения в памяти
-     * FileRepositoriesFactory с параметрами IOFileLocal или IOFileDropBox - для сохранения в файл (локальный или DropBox)
-     */
 
     private final RepositoryInterface<String, Person> personsRepository;
     private final RepositoryInterface<Integer, SecretSantaGame> gamesRepository;
 
+
+    /**
+     * HMRepositoriesFactory - in-memory
+     * FileLocalRepositoriesFactory - for saving in local file
+     * FileDropBoxRepositoriesFactory - for saving in file and load to DropBox
+     */
     public SecretSantaApi(RepositoriesFactory factory) {
         this.personsRepository = factory.createPersonsRepository();
         this.gamesRepository = factory.createGamesRepository();
     }
 
     @Override
-    public HashMap<String, Person> getAllPersons() {
+    public ConcurrentHashMap<String, Person> getAllPersons() {
         return personsRepository.getAll();
     }
 
@@ -39,10 +43,9 @@ public class SecretSantaApi implements SecretSantaApiInterface {
 
     @Override
     public void replacePerson(String oldEmail, Person person) {
-        //TODO проверка на наличие ключа в HM на стороне клиента
         personsRepository.add(person.getEmail(), person);
         personsRepository.deleteById(oldEmail);
-        //замена email во всех играх
+
         ArrayList<Integer> idAllGames = person.getIdAllActiveGames();
         for (Integer id : idAllGames) {
             SecretSantaGame game = gamesRepository.getById(id);
@@ -88,7 +91,7 @@ public class SecretSantaApi implements SecretSantaApiInterface {
     @Override
     public void deletePersonGameFromPerson(Integer gameId, String email) {
         Person person = personsRepository.getById(email);
-        person.deletePersonGameByGameId(gameId);
+        person.deleteGameByGameId(gameId);
         personsRepository.update(person.getEmail(), person);
 
     }
@@ -118,7 +121,7 @@ public class SecretSantaApi implements SecretSantaApiInterface {
     @Override
     public void setPersonGameActive(Integer gameId, String email, Boolean activity) {
         Person person = personsRepository.getById(email);
-        person.setPersonGameActivityByGameId(gameId, activity);
+        person.setGameActivityByGameId(gameId, activity);
         personsRepository.update(person.getEmail(), person);
     }
 
@@ -142,7 +145,7 @@ public class SecretSantaApi implements SecretSantaApiInterface {
     public int getNewID() {
         int maxId = 0;
 
-        HashMap<Integer, SecretSantaGame> hashMap = gamesRepository.getAll();
+        Map<Integer, SecretSantaGame> hashMap = gamesRepository.getAll();
         for (Integer key : hashMap.keySet()) {
             if (key > maxId) {
                 maxId = key;
@@ -150,9 +153,7 @@ public class SecretSantaApi implements SecretSantaApiInterface {
         }
 
         maxId++;
-        //записать пустую игру, потом заменять
-        SecretSantaGame game = new SecretSantaGame(maxId);
-        gamesRepository.add(game.getGameId(), game);
+        gamesRepository.add(maxId, new SecretSantaGame(maxId));
         return maxId;
     }
 
@@ -163,7 +164,7 @@ public class SecretSantaApi implements SecretSantaApiInterface {
         gamesRepository.update(game.getGameId(), game);
 
         Person person = personsRepository.getById(email);
-        person.addNewPersonGameById(gameId);
+        person.addNewGameById(gameId);
         personsRepository.update(person.getEmail(), person);
     }
 
@@ -174,7 +175,7 @@ public class SecretSantaApi implements SecretSantaApiInterface {
         gamesRepository.update(game.getGameId(), game);
 
         Person person = personsRepository.getById(email);
-        person.deletePersonGameByGameId(gameId);
+        person.deleteGameByGameId(gameId);
         personsRepository.update(person.getEmail(), person);
     }
 
@@ -201,7 +202,6 @@ public class SecretSantaApi implements SecretSantaApiInterface {
         }
     }
 
-    //private
     private ArrayList<Person> createArrayPersons(ArrayList<String> arrayParticipantsEmail) {
         ArrayList<Person> persons = new ArrayList<>();
         for (String email : arrayParticipantsEmail) {

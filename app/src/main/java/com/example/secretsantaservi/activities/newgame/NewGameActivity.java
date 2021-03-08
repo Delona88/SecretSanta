@@ -129,7 +129,7 @@ public class NewGameActivity extends AppCompatActivity implements NewGameView {
 
         @Override
         public void onClick(View v) {
-            //проверка нажатия кнопки игрока
+
             Button pressedButton = (Button) v;
             String email = getKeyByValue(buttonsHM, pressedButton);
             if (email != null) {
@@ -170,7 +170,6 @@ public class NewGameActivity extends AppCompatActivity implements NewGameView {
         outState.putBoolean("allParticipantsAdded", allParticipantsAdded);
     }
 
-    //TODO проверить
     @Override
     protected void onRestart(){
         super.onRestart();

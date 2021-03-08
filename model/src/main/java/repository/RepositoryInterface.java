@@ -1,6 +1,6 @@
 package repository;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public interface RepositoryInterface<Key, Value> {
     void add(Key id, Value object);
@@ -11,6 +11,6 @@ public interface RepositoryInterface<Key, Value> {
 
     void deleteById(Key id);
 
-    HashMap<Key, Value> getAll();
+    ConcurrentHashMap<Key, Value> getAll();
 
 }

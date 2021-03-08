@@ -4,8 +4,8 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithCallbackInterface;
+import io.swagger.client.secretsantaclient.Callback;
 
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
@@ -21,7 +21,7 @@ public class PersonInfoActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private SecretSantaApplication secretSantaApplication;
-    private ApiWithMyCallbackInterface client;
+    private ApiWithCallbackInterface client;
 
     private String authorizedPersonEmail;
     private Person person;
@@ -62,7 +62,7 @@ public class PersonInfoActivity extends AppCompatActivity {
 
     private void startGetPersonByIdAndSet() {
         showProgressBar();
-        client.getPersonById(authorizedPersonEmail, new MyCallback<Person>() {
+        client.getPersonById(authorizedPersonEmail, new Callback<Person>() {
             @Override
             public void onResponse(Person response) {
                 person = response;
@@ -95,7 +95,6 @@ public class PersonInfoActivity extends AppCompatActivity {
         }
     };
 
-
     private void changeEmailOrGetMessage() {
         if (getEmail().length() != 0) {
             startGetPersonByIdCheckEmailAndReplace();
@@ -106,7 +105,7 @@ public class PersonInfoActivity extends AppCompatActivity {
 
     private void startGetPersonByIdCheckEmailAndReplace() {
         showProgressBar();
-        client.getPersonById(getEmail(), new MyCallback<Person>() {
+        client.getPersonById(getEmail(), new Callback<Person>() {
             @Override
             public void onResponse(Person response) {
                 if (response == null) {
@@ -128,7 +127,7 @@ public class PersonInfoActivity extends AppCompatActivity {
     private void startChangeEmail() {
         showProgressBar();
         person.setEmail(getEmail());
-        client.replacePerson(person, authorizedPersonEmail, new MyCallback<Object>() {
+        client.replacePerson(person, authorizedPersonEmail, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 showToastEmailChanged();
@@ -156,7 +155,7 @@ public class PersonInfoActivity extends AppCompatActivity {
         showProgressBar();
         person.setName(getName());
 
-        client.addPerson(person, new MyCallback<Object>() {
+        client.addPerson(person, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 showToastNameChanged();
@@ -170,7 +169,6 @@ public class PersonInfoActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private String getName() {
         return editTextName.getText().toString();

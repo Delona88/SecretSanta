@@ -1,6 +1,6 @@
 package com.example.secretsantaservi.activities.allgames;
 
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.Callback;
 import com.example.secretsantaservi.SecretSantaApplication;
 
 
@@ -27,7 +27,7 @@ public class AllGamesPresenter {
 
     public void startGetPersonWithIdAllGames() {
         activity.showProgressBar();
-        model.getIdAllActiveGamesByPersonId(authorizedPersonEmail, new MyCallback<ArrayList<Integer>>() {
+        model.getIdAllActiveGamesByPersonId(authorizedPersonEmail, new Callback<ArrayList<Integer>>() {
 
             @Override
             public void onResponse(ArrayList<Integer> response) {
@@ -46,7 +46,7 @@ public class AllGamesPresenter {
 
     public void startGetNewGameID() {
         activity.showProgressBar();
-        model.getNewID(new MyCallback<Integer>() {
+        model.getNewID(new Callback<Integer>() {
 
             @Override
             public void onResponse(Integer response) {

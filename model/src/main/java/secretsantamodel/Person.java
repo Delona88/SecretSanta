@@ -6,10 +6,13 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class Person implements Serializable{
+
     static final long serialVersionUID = 8208402250750954819L;
 
-    private String email; //уникальный идентификатор участника
+    private String email;
+
     private String name;
+
     private HashMap<Integer, PersonGame> games = new HashMap<>();
 
     public Person(String email,String name){
@@ -60,17 +63,17 @@ public class Person implements Serializable{
     }
 
     public void setArrayNaughtyListEmailByGameId(ArrayList<String> arrayNaughtyListEmail, int id){
-        games.get(id).setArrayNaughtyListEmail(arrayNaughtyListEmail);
+        games.get(id).setArrayNaughtyListEmails(arrayNaughtyListEmail);
     }
 
     public ArrayList<String> getArrayNaughtyListEmailByGameId(int id){
-        return games.get(id).getArrayNaughtyListEmail();
+        return games.get(id).getArrayNaughtyListEmails();
     }
 
     public ArrayList<Integer> getIdAllActiveGames(){
         ArrayList<Integer> gamesId = new ArrayList<>();
-        Collection<PersonGame> personsGames = games.values();
-        for (PersonGame personGame : personsGames){
+        Collection<PersonGame> personGames = this.games.values();
+        for (PersonGame personGame : personGames){
             if (personGame.isActive()) {
                 gamesId.add(personGame.getGameId());
             }
@@ -78,36 +81,36 @@ public class Person implements Serializable{
         return gamesId;
     }
 
-    public void addNewPersonGameById(int id){
-        PersonGame game = new PersonGame(id);
-        games.put(id,game);
+    public void addNewGameById(int id){
+        PersonGame personGame = new PersonGame(id);
+        games.put(id, personGame);
     }
 
     public void addGame(PersonGame personGame){
-        games.put(personGame.getGameId(),personGame);
+        games.put(personGame.getGameId(), personGame);
     }
 
 
-    public PersonGame getPersonGameByID(int id){
+    public PersonGame getGameByID(int id){
         return games.get(id);
     }
 
     public String getWhishListByGameId(int id){
-        if (getPersonGameByID(id) == null){ //игра была удалена игроком
+        if (getGameByID(id) == null){
             return null;
         }
-        return getPersonGameByID(id).getWishlist();
+        return getGameByID(id).getWishlist();
     }
 
     public void setWishListByGameId(int id,String wish){
-        getPersonGameByID(id).setWishlist(wish);
+        getGameByID(id).setWishlist(wish);
     }
 
-    public void deletePersonGameByGameId(Integer id){
+    public void deleteGameByGameId(Integer id){
         games.remove(id);
     }
 
-    public void setPersonGameActivityByGameId(Integer gameId, Boolean b){
+    public void setGameActivityByGameId(Integer gameId, Boolean b){
         games.get(gameId).setActivity(b);
     }
 

@@ -9,21 +9,23 @@ import secretsantamodel.SecretSantaGame;
 
 public class FileDropBoxRepositoriesFactory implements RepositoriesFactory {
 
-    private final String FILE_NAME_HM_GAMES ;//= "HashMapGames.ser";
-    private final String FILE_NAME_HM_PERSONS ;//= "HashMapPersons.ser";
+    private final String fileNameHmGames;
+    private final String fileNameHmPersons;
+    private final String accessToken;
 
-    public FileDropBoxRepositoriesFactory(String fileNameHmGames, String fileNameHmPersons) {
-        FILE_NAME_HM_GAMES = fileNameHmGames;
-        FILE_NAME_HM_PERSONS = fileNameHmPersons;
+    public FileDropBoxRepositoriesFactory(String accessToken, String fileNameHmGames, String fileNameHmPersons) {
+        this.accessToken = accessToken;
+        this.fileNameHmGames = fileNameHmGames;
+        this.fileNameHmPersons = fileNameHmPersons;
     }
 
     @Override
-    public repository.RepositoryInterface<String, Person> createPersonsRepository() {
-        return new RepositoryFileWithHM<>(new IOFileDropBox(), FILE_NAME_HM_PERSONS);
+    public RepositoryInterface<String, Person> createPersonsRepository() {
+        return new RepositoryFileWithHM<>(new IOFileDropBox(accessToken), fileNameHmPersons);
     }
 
     @Override
     public RepositoryInterface<Integer, SecretSantaGame> createGamesRepository() {
-        return new RepositoryFileWithHM<>(new IOFileDropBox(), FILE_NAME_HM_GAMES);
+        return new RepositoryFileWithHM<>(new IOFileDropBox(accessToken), fileNameHmGames);
     }
 }

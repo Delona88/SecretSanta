@@ -4,23 +4,23 @@ All URIs are relative to *http://localhost:8080/*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addGame**](GamesApi.md#addGame) | **POST** games | Add game
-[**addPersonInGame**](GamesApi.md#addPersonInGame) | **POST** games/{id}/participants/{email} | Add participant
-[**deleteGame**](GamesApi.md#deleteGame) | **DELETE** games/{id} | Delete game
-[**deletePersonFromGame**](GamesApi.md#deletePersonFromGame) | **DELETE** games/{id}/participants/{email} | Delete participant
-[**getGameById**](GamesApi.md#getGameById) | **GET** games/{id} | Get game by id
-[**getNewID**](GamesApi.md#getNewID) | **GET** games | Get new ID
-[**getPersonsByGameId**](GamesApi.md#getPersonsByGameId) | **GET** games/{id}/participants | Get all persons by game ID
-[**setGamePlayed**](GamesApi.md#setGamePlayed) | **POST** games/{id}/played | Set played
-[**startToss**](GamesApi.md#startToss) | **POST** games/{id}/toss | Start toss
+[**addGame**](GamesApi.md#addGame) | **POST** personGames | Add personGame
+[**addPersonInGame**](GamesApi.md#addPersonInGame) | **POST** personGames/{id}/participants/{email} | Add participant
+[**deleteGame**](GamesApi.md#deleteGame) | **DELETE** personGames/{id} | Delete personGame
+[**deletePersonFromGame**](GamesApi.md#deletePersonFromGame) | **DELETE** personGames/{id}/participants/{email} | Delete participant
+[**getGameById**](GamesApi.md#getGameById) | **GET** personGames/{id} | Get personGame by id
+[**getNewID**](GamesApi.md#getNewID) | **GET** personGames | Get new ID
+[**getPersonsByGameId**](GamesApi.md#getPersonsByGameId) | **GET** personGames/{id}/participants | Get all persons by personGame ID
+[**setGamePlayed**](GamesApi.md#setGamePlayed) | **POST** personGames/{id}/played | Set played
+[**startToss**](GamesApi.md#startToss) | **POST** personGames/{id}/toss | Start toss
 
 <a name="addGame"></a>
 # **addGame**
 > Void addGame(body)
 
-Add game
+Add personGame
 
-Create new game
+Create new personGame
 
 ### Example
 ```java
@@ -30,7 +30,7 @@ Create new game
 
 
 GamesApi apiInstance = new GamesApi();
-SecretSantaGame body = new SecretSantaGame(); // SecretSantaGame | game to add
+SecretSantaGame body = new SecretSantaGame(); // SecretSantaGame | personGame to add
 try {
     Void result = apiInstance.addGame(body);
     System.out.println(result);
@@ -44,7 +44,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**SecretSantaGame**](SecretSantaGame.md)| game to add |
+ **body** | [**SecretSantaGame**](SecretSantaGame.md)| personGame to add |
 
 ### Return type
 
@@ -110,9 +110,9 @@ No authorization required
 # **deleteGame**
 > Void deleteGame(id)
 
-Delete game
+Delete personGame
 
-Delete game
+Delete personGame
 
 ### Example
 ```java
@@ -202,9 +202,9 @@ No authorization required
 # **getGameById**
 > SecretSantaGame getGameById(id)
 
-Get game by id
+Get personGame by id
 
-Get game by id
+Get personGame by id
 
 ### Example
 ```java
@@ -214,7 +214,7 @@ Get game by id
 
 
 GamesApi apiInstance = new GamesApi();
-Integer id = 56; // Integer | to get game
+Integer id = 56; // Integer | to get personGame
 try {
     SecretSantaGame result = apiInstance.getGameById(id);
     System.out.println(result);
@@ -228,7 +228,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**| to get game |
+ **id** | **Integer**| to get personGame |
 
 ### Return type
 
@@ -288,9 +288,9 @@ No authorization required
 # **getPersonsByGameId**
 > List&lt;Person&gt; getPersonsByGameId(id)
 
-Get all persons by game ID
+Get all persons by personGame ID
 
-Get all persons by game ID
+Get all persons by personGame ID
 
 ### Example
 ```java

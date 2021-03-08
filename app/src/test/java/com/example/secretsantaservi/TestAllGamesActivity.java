@@ -1,8 +1,9 @@
 package com.example.secretsantaservi;
 
-import com.example.secretsantaservi.api.ApiWithMyCallback;
-import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
-import io.swagger.client.secretsantaclient.MyCallback;
+import com.example.secretsantaservi.androidrepository.repositoriesfactory.fortests.HMRepositoriesFactory;
+import com.example.secretsantaservi.api.ApiWithCallback;
+import io.swagger.client.secretsantaclient.ApiWithCallbackInterface;
+import io.swagger.client.secretsantaclient.Callback;
 
 import com.example.secretsantaservi.activities.allgames.AllGamesActivity;
 import com.example.secretsantaservi.activities.allgames.AllGamesPresenter;
@@ -16,7 +17,6 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import repositoryapi.repositoriesfactory.HMRepositoriesFactory;
 import secretsantamodel.*;
 
 public class TestAllGamesActivity {
@@ -24,7 +24,6 @@ public class TestAllGamesActivity {
     AllGamesView activity;
     SecretSantaApplication application;
 
-    //тестовые данные для клиента
     String personEmail;
     Person person;
     Integer gameId;
@@ -33,11 +32,10 @@ public class TestAllGamesActivity {
     ArrayList<String> arrayNaughtylistEmail;
     ArrayList<Integer> gamesId;
     String wish;
-    SecretSantaGame game;
+    SecretSantaGame secretSantaGame;
 
     @Before
     public void setup() {
-        //тестовые данные - person + personGame
         personEmail = "mary";
         person = new Person(personEmail, personEmail);
         gameId = 1;
@@ -48,11 +46,10 @@ public class TestAllGamesActivity {
         wish = "wish";
         personGame.setActivity(true);
         person.addGame(personGame);
-        game = new SecretSantaGame(gameId);
+        secretSantaGame = new SecretSantaGame(gameId);
 
-        //тестовые данные добавляются в клиентский HM
-        ApiWithMyCallbackInterface client = new ApiWithMyCallback(new HMRepositoriesFactory());
-        client.addPerson(person, new MyCallback<Object>() {
+        ApiWithCallbackInterface client = new ApiWithCallback(new HMRepositoriesFactory());
+        client.addPerson(person, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
             }
@@ -61,7 +58,7 @@ public class TestAllGamesActivity {
             public void onFailure(Throwable t) {
             }
         });
-        client.addGame(game, new MyCallback<Object>() {
+        client.addGame(secretSantaGame, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
             }
@@ -71,17 +68,13 @@ public class TestAllGamesActivity {
             }
         });
 
-        //для инициализации presenter нужены activity и application
         application = new SecretSantaApplication();
         application.setClient(client);
 
-        //в application должен быть авторизованный пользователь
         application.setAuthorizedPersonEmail(personEmail);
 
-        //Mockito для View
         activity = Mockito.mock(AllGamesActivity.class);
 
-        // инициализация presenter
         presenter = new AllGamesPresenter(activity, application);
     }
 

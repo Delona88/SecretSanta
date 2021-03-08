@@ -23,6 +23,7 @@
     <string name="title_connection_info">"Сообщите Id друзьям, чтобы они могли присоединиться, или добавьте их
         самостоятельно"
     </string>
+    <string name="title_end">Завершить</string>
     <string name="title_go_back">Назад</string>
     <string name="title_go_next">Продолжить</string>
     <string name="title_create">Создать</string>
@@ -97,5 +98,6 @@
     <string name="title_wish_already_sent_earlier">
         Вы уже отправили Санте сообщение. Можете отправить еще раз, но не обижайтесь, если он уже выбрал Вам подарок
     </string>
+
 
 </resources>

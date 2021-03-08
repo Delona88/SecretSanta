@@ -4,11 +4,12 @@ import secretsantamodel.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public interface SecretSantaApiInterface {
-//Persons
-    HashMap<String, Person> getAllPersons();
+    //Persons
+    ConcurrentHashMap<String, Person> getAllPersons();
 
     void addPerson(Person person);
 
@@ -18,14 +19,14 @@ public interface SecretSantaApiInterface {
 
     void deletePerson(String email);
 
-    HashMap<String, String> getHMWithPersonsInfo(Integer gameId); //возможно лучше вернуть Persons???
+    HashMap<String, String> getHMWithPersonsInfo(Integer gameId);
 
     HashMap<String, Person> getPersonsByGameId(Integer gameId);
 
-//Person games
+    //Person games
     void addPersonGameToPerson(String email, PersonGame personGame);
 
-    void deletePersonGameFromPerson(Integer gameId, String email); //подумать
+    void deletePersonGameFromPerson(Integer gameId, String email);
 
     void setNaughtyList(String email, Integer gameId, ArrayList<String> arraylist);
 
@@ -35,7 +36,7 @@ public interface SecretSantaApiInterface {
 
     void setPersonGameActive(Integer gameId, String email, Boolean activity);
 
-//Games
+    //Games
     void addGame(SecretSantaGame game);
 
     SecretSantaGame getGameById(int id);

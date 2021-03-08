@@ -1,6 +1,6 @@
 package com.example.secretsantaservi.activities.newgame;
 
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.Callback;
 import com.example.secretsantaservi.SecretSantaApplication;
 import secretsantamodel.BadConditionsException;
 
@@ -28,7 +28,7 @@ public class NewGamePresenter {
 
     public void startGetHMWithPersonsInfoAndCreateButtons() {
         activity.showProgressBar();
-        model.getHMWithPersonsInfo(currentGameId, new MyCallback<HashMap<String, String>>() {
+        model.getHMWithPersonsInfo(currentGameId, new Callback<HashMap<String, String>>() {
             @Override
             public void onResponse(HashMap<String, String> infoHM) {
                 activity.createButtonsWithParticipantsInfo(infoHM);
@@ -45,7 +45,7 @@ public class NewGamePresenter {
 
     public void startSetGamePlayed() {
         activity.showProgressBar();
-        model.setGamePlayedTrue(currentGameId, new MyCallback<Object>() {
+        model.setGamePlayedTrue(currentGameId, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 activity.showToastParticipantAdded();
@@ -62,22 +62,12 @@ public class NewGamePresenter {
 
     public void startToss() {
         activity.showProgressBar();
-        model.startToss(currentGameId, new MyCallback<Object>() {
+        model.startToss(currentGameId, new Callback<Object>() {
             @Override
             public void onResponse(Object responseCode) {
                 activity.showToastGameCreate(currentGameId);
                 activity.hideProgressBar();
                 activity.finish();
-/*                int BAD_REQUEST = 400; //Неверно указаны ограничения. Невозможно установить получателей
-                if ((Integer) responseCode == BAD_REQUEST) {
-                    activity.showToastBadConditions();
-                    activity.hideProgressBar();
-                }
-*//*                } else {
-                    activity.showToastGameCreate(currentGameId);
-                    activity.hideProgressBar();
-                    activity.finish();
-                }*/
             }
 
             @Override

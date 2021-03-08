@@ -5,6 +5,6 @@ import secretsantamodel.Person;
 import secretsantamodel.SecretSantaGame;
 
 public interface RepositoriesFactory {
-    repository.RepositoryInterface<String, Person> createPersonsRepository();
+    RepositoryInterface<String, Person> createPersonsRepository();
     RepositoryInterface<Integer, SecretSantaGame> createGamesRepository();
 }

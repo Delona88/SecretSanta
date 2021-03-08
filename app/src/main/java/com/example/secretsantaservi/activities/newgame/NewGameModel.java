@@ -1,19 +1,19 @@
 package com.example.secretsantaservi.activities.newgame;
 
-import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithCallbackInterface;
+import io.swagger.client.secretsantaclient.Callback;
 
 import java.util.HashMap;
 
 public class NewGameModel {
-    ApiWithMyCallbackInterface client;
+    ApiWithCallbackInterface client;
 
-    public NewGameModel(ApiWithMyCallbackInterface client) {
+    public NewGameModel(ApiWithCallbackInterface client) {
         this.client = client;
     }
 
-    public void getHMWithPersonsInfo(Integer gameId, MyCallback<HashMap<String, String>> myCallback) {
-        client.getHMWithPersonsInfo(gameId, new MyCallback<HashMap<String, String>>() {
+    public void getHMWithPersonsInfo(Integer gameId, Callback<HashMap<String, String>> myCallback) {
+        client.getHMWithPersonsInfo(gameId, new Callback<HashMap<String, String>>() {
             @Override
             public void onResponse(HashMap<String, String> response) {
                 myCallback.onResponse(response);
@@ -26,9 +26,9 @@ public class NewGameModel {
         });
     }
 
-    public void setGamePlayedTrue(Integer gameId, MyCallback<Object> myCallback) {
+    public void setGamePlayedTrue(Integer gameId, Callback<Object> myCallback) {
 
-        client.setGamePlayed(gameId, true, new MyCallback<Object>() {
+        client.setGamePlayed(gameId, true, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 myCallback.onResponse(response);
@@ -42,8 +42,8 @@ public class NewGameModel {
 
     }
 
-    public void startToss(Integer gameId, MyCallback<Object> myCallback) {
-        client.startToss(gameId, new MyCallback<Object>() {
+    public void startToss(Integer gameId, Callback<Object> myCallback) {
+        client.startToss(gameId, new Callback<Object>() {
             @Override
             public void onResponse(Object responseCode) {
                 myCallback.onResponse(responseCode);

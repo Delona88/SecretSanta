@@ -1,6 +1,6 @@
 package repositoryapi.repositoriesfactory;
 
-
+import repository.IOFile;
 import repository.RepositoryFileWithHM;
 
 import repository.RepositoryInterface;
@@ -9,22 +9,21 @@ import secretsantamodel.SecretSantaGame;
 
 public class FileLocalRepositoriesFactory implements RepositoriesFactory {
 
-    private final  String FILE_NAME_HM_GAMES ;//= "HashMapGames.ser";
-    private final  String FILE_NAME_HM_PERSONS ;//= "HashMapPersons.ser";
+    private final String fileNameHmGames;
+    private final String fileNameHmPersons;
 
     public FileLocalRepositoriesFactory(String fileNameHmGames, String fileNameHmPersons) {
-        FILE_NAME_HM_GAMES = fileNameHmGames;
-        FILE_NAME_HM_PERSONS = fileNameHmPersons;
+        this.fileNameHmGames = fileNameHmGames;
+        this.fileNameHmPersons = fileNameHmPersons;
     }
 
-
     @Override
-    public repository.RepositoryInterface<String, Person> createPersonsRepository() {
-        return new RepositoryFileWithHM<>(FILE_NAME_HM_PERSONS);
+    public RepositoryInterface<String, Person> createPersonsRepository() {
+        return new RepositoryFileWithHM<>(new IOFile(), fileNameHmPersons);
     }
 
     @Override
     public RepositoryInterface<Integer, SecretSantaGame> createGamesRepository() {
-        return new RepositoryFileWithHM<>(FILE_NAME_HM_GAMES);
+        return new RepositoryFileWithHM<>(new IOFile(), fileNameHmGames);
     }
 }

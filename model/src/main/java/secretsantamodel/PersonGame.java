@@ -4,24 +4,30 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class PersonGame implements Serializable {
+
     static final long serialVersionUID = 3896515597055585980L;
 
     private int gameId;
-    private ArrayList<String> arrayNaughtyListEmail = new ArrayList<>();
+
+    private ArrayList<String> arrayNaughtyListEmails = new ArrayList<>();
+
     private String receiverEmail;
+
     private String wishlist;
-    private boolean active = false; //true - розыгрыш проведен, назначен получатель
+
+    private boolean active = false;
 
     public PersonGame(int gameId) {
         this.gameId = gameId;
     }
 
-    public PersonGame(int gameId, String receiverEmail, String wishlist, boolean active, ArrayList<String> arrayNaughtyListEmail) {
+    public PersonGame(int gameId, String receiverEmail, String wishlist,
+                      boolean active, ArrayList<String> arrayNaughtyListEmails) {
         this.gameId = gameId;
         this.wishlist = wishlist;
         this.active = active;
         this.receiverEmail = receiverEmail;
-        this.arrayNaughtyListEmail = arrayNaughtyListEmail;
+        this.arrayNaughtyListEmails = arrayNaughtyListEmails;
     }
 
     public int getGameId() {
@@ -32,12 +38,12 @@ public class PersonGame implements Serializable {
         this.gameId = gameId;
     }
 
-    public ArrayList<String> getArrayNaughtyListEmail() {
-        return arrayNaughtyListEmail;
+    public ArrayList<String> getArrayNaughtyListEmails() {
+        return arrayNaughtyListEmails;
     }
 
-    public void setArrayNaughtyListEmail(ArrayList<String> arrayNaughtyListEmail) {
-        this.arrayNaughtyListEmail = arrayNaughtyListEmail;
+    public void setArrayNaughtyListEmails(ArrayList<String> arrayNaughtyListEmails) {
+        this.arrayNaughtyListEmails = arrayNaughtyListEmails;
     }
 
     public String getReceiverEmail() {
@@ -69,7 +75,7 @@ public class PersonGame implements Serializable {
     public String toString() {
         return "PersonGame{" +
                 "gameId=" + gameId +
-                ", arrayNaughtyListEmail=" + arrayNaughtyListEmail +
+                ", arrayNaughtyListEmail=" + arrayNaughtyListEmails +
                 ", receiverEmail='" + receiverEmail + '\'' +
                 ", wishlist='" + wishlist + '\'' +
                 ", active=" + active +

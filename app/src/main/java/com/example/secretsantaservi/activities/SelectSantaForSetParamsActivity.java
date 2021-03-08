@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithCallbackInterface;
+import io.swagger.client.secretsantaclient.Callback;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
 
@@ -21,7 +21,7 @@ public class SelectSantaForSetParamsActivity extends AppCompatActivity {
     private LinearLayout linearLayoutSelectNameForSetParameters;
 
     private SecretSantaApplication secretSantaApplication;
-    private ApiWithMyCallbackInterface client;
+    private ApiWithCallbackInterface client;
     private Integer currentGameId;
 
     @Override
@@ -61,7 +61,7 @@ public class SelectSantaForSetParamsActivity extends AppCompatActivity {
 
     private void startGetHMWithPersonsInfoAndCreateButtons() {
         showProgressBar();
-        client.getHMWithPersonsInfo(currentGameId, new MyCallback<HashMap<String, String>>() {
+        client.getHMWithPersonsInfo(currentGameId, new Callback<HashMap<String, String>>() {
             @Override
             public void onResponse(HashMap<String, String> infoHM) {
                 createButtonsWithParticipantsInfo(infoHM);

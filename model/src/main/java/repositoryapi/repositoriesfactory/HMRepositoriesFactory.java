@@ -7,10 +7,9 @@ import repository.RepositoryInterface;
 import secretsantamodel.Person;
 import secretsantamodel.SecretSantaGame;
 
-
 public class HMRepositoriesFactory implements RepositoriesFactory {
 
-    public repository.RepositoryInterface<String, Person> createPersonsRepository(){
+    public RepositoryInterface<String, Person> createPersonsRepository(){
         return new RepositoryHM<>();
     }
 

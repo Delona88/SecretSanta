@@ -1,9 +1,9 @@
 package repository;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RepositoryHM<Key, Value> implements RepositoryInterface<Key, Value> {
-    private HashMap<Key, Value> hashMap = new HashMap<>();
+    private ConcurrentHashMap<Key, Value> hashMap = new ConcurrentHashMap<>();
 
     @Override
     public void add(Key id, Value object) {
@@ -26,7 +26,7 @@ public class RepositoryHM<Key, Value> implements RepositoryInterface<Key, Value>
     }
 
     @Override
-    public HashMap<Key, Value> getAll() {
+    public ConcurrentHashMap<Key, Value> getAll() {
         return hashMap;
     }
 

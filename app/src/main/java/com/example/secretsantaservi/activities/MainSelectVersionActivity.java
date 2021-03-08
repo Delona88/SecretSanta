@@ -10,11 +10,11 @@ import android.os.Bundle;
 
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
-import com.example.secretsantaservi.quickplay.numbersofparicipantsMVP.NumberOfParticipants;
+import com.example.secretsantaservi.quickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity;
 
-import com.example.secretsantaservi.androidrepository.SQLiteRepositoriesFactory;
-import io.swagger.client.secretsantaclient.ClientRetrofitWithMyCallback;
-import com.example.secretsantaservi.api.ApiWithMyCallback;
+import com.example.secretsantaservi.androidrepository.repositoriesfactory.SQLiteRepositoriesFactory;
+import io.swagger.client.secretsantaclient.ClientRetrofitWithCallback;
+import com.example.secretsantaservi.api.ApiWithCallback;
 import static com.example.secretsantaservi.SecretSantaApplication.*;
 
 
@@ -42,7 +42,7 @@ public class MainSelectVersionActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences(APP_PREFERENCE, Context.MODE_PRIVATE);
         String email = settings.getString(APP_PREFERENCE_AUTHORIZED_PERSON_EMAIL, "");
 
-        secretSantaApplication.setAuthorizedPersonEmail(email); //пустой по умолчанию
+        secretSantaApplication.setAuthorizedPersonEmail(email);
     }
 
     public void buildGUI() {
@@ -73,24 +73,26 @@ public class MainSelectVersionActivity extends AppCompatActivity {
     };
 
     public void startQuick() {
-        Intent intent = new Intent(MainSelectVersionActivity.this, NumberOfParticipants.class);
+        Intent intent = new Intent(MainSelectVersionActivity.this, NumberOfParticipantsActivity.class);
         startActivity(intent);
-        //finish();
     }
 
+    /**
+     * For local version: SQLiteRepositoriesFactory or FileAndroidRepositoriesFactory
+     */
+
     public void startLocalVersion() {
-        secretSantaApplication.setClient(new ApiWithMyCallback
+        secretSantaApplication.setClient(new ApiWithCallback
                 (new SQLiteRepositoriesFactory(this, FILE_NAME_DB_GAMES, FILE_NAME_DB_PERSONS)));
         Intent intent = new Intent(MainSelectVersionActivity.this, EnterEmailActivity.class);
         startActivity(intent);
-        //finish();
     }
 
     public void startNetworkVersion() {
-        secretSantaApplication.setClient(new ClientRetrofitWithMyCallback());
+        secretSantaApplication.setClient(new ClientRetrofitWithCallback());
         Intent intent = new Intent(MainSelectVersionActivity.this, EnterEmailActivity.class);
         startActivity(intent);
-        //finish();
+
     }
 
 }

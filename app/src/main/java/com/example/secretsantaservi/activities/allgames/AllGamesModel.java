@@ -1,21 +1,21 @@
 package com.example.secretsantaservi.activities.allgames;
 
-import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithCallbackInterface;
+import io.swagger.client.secretsantaclient.Callback;
 import secretsantamodel.Person;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class AllGamesModel {
-    private final ApiWithMyCallbackInterface client;
+    private final ApiWithCallbackInterface client;
 
-    public AllGamesModel(ApiWithMyCallbackInterface client) {
+    public AllGamesModel(ApiWithCallbackInterface client) {
         this.client = client;
     }
 
-    public void getIdAllActiveGamesByPersonId(String email, MyCallback<ArrayList<Integer>> myCallback) {
-        client.getPersonById(email, new MyCallback<Person>() {
+    public void getIdAllActiveGamesByPersonId(String email, Callback<ArrayList<Integer>> myCallback) {
+        client.getPersonById(email, new Callback<Person>() {
 
             @Override
             public void onResponse(Person response) {
@@ -31,8 +31,8 @@ public class AllGamesModel {
         });
     }
 
-    public void getNewID(MyCallback<Integer> myCallback){
-        client.getNewID(new MyCallback<Integer>() {
+    public void getNewID(Callback<Integer> myCallback){
+        client.getNewID(new Callback<Integer>() {
 
             @Override
             public void onResponse(Integer response) {

@@ -8,8 +8,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithCallbackInterface;
+import io.swagger.client.secretsantaclient.Callback;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
 import com.example.secretsantaservi.activities.allgames.AllGamesActivity;
@@ -24,7 +24,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private SecretSantaApplication secretSantaApplication;
-    private ApiWithMyCallbackInterface client;
+    private ApiWithCallbackInterface client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void startGetPersonByIdCheckAndAdd() {
         showProgressBar();
-        client.getPersonById(getEmail(), new MyCallback<Person>() {
+        client.getPersonById(getEmail(), new Callback<Person>() {
             @Override
             public void onResponse(Person response) {
                 if (response == null) {
@@ -89,7 +89,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     private void startAddPerson() {
-        client.addPerson(new Person(getEmail(), getName()), new MyCallback<Object>() {
+        client.addPerson(new Person(getEmail(), getName()), new Callback<Object>() {
 
             @Override
             public void onResponse(Object response) {

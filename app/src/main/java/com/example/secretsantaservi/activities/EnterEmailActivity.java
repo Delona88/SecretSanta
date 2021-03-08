@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithCallbackInterface;
+import io.swagger.client.secretsantaclient.Callback;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
 import com.example.secretsantaservi.activities.allgames.AllGamesActivity;
@@ -29,7 +29,7 @@ public class EnterEmailActivity extends AppCompatActivity {
 
     private SecretSantaApplication secretSantaApplication;
 
-    private ApiWithMyCallbackInterface client;
+    private ApiWithCallbackInterface client;
 
     private String authorizedPersonEmail;
 
@@ -62,10 +62,6 @@ public class EnterEmailActivity extends AppCompatActivity {
         buttonToRegistration.setOnClickListener(onClickListener);
 
         editText = findViewById(R.id.editTextEnterId);
-
-        //TODO test
-
-        //String email = authorizedPerson.getPersonId();
 
         String email = authorizedPersonEmail;
         if (email.length() != 0){
@@ -100,7 +96,7 @@ public class EnterEmailActivity extends AppCompatActivity {
 
     private void startGetPersonByIdAndSetAuthorizedPersonEmail(String email) {
         showProgressBar();
-        client.getPersonById(email, new MyCallback<Person>() {
+        client.getPersonById(email, new Callback<Person>() {
             @Override
             public void onResponse(Person person) {
                 hideProgressBar();
@@ -123,7 +119,6 @@ public class EnterEmailActivity extends AppCompatActivity {
     }
 
     public void setAuthorizedPersonEmailInSharedPreferences(String authorizedPersonEmail) {
-        //сохранение Email в настройках приложения
         SharedPreferences settings = getSharedPreferences(APP_PREFERENCE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(APP_PREFERENCE_AUTHORIZED_PERSON_EMAIL, authorizedPersonEmail);
@@ -141,13 +136,11 @@ public class EnterEmailActivity extends AppCompatActivity {
     private void goToRegistration() {
         Intent intent = new Intent(EnterEmailActivity.this, RegistrationActivity.class);
         startActivity(intent);
-        //finish();
     }
 
     private void goToAllGames() {
         Intent intent = new Intent(EnterEmailActivity.this, AllGamesActivity.class);
         startActivity(intent);
-        //finish();
     }
 
     public boolean isAllInfoEntered() {

@@ -21,6 +21,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-16T11:27:20.662Z[GMT]")
@@ -44,28 +45,28 @@ public class PersonsApiController implements PersonsApi {
         this.converter = new Converter();
     }
 
-    public ResponseEntity<Void> addPerson(@Parameter(in = ParameterIn.DEFAULT, description = "Person", required=true, schema=@Schema()) @Valid @RequestBody Person body) {
+    public ResponseEntity<Void> addPerson(@Parameter(in = ParameterIn.DEFAULT, description = "Person", required = true, schema = @Schema()) @Valid @RequestBody Person body) {
         service.addPerson(converter.convert(body));
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Void> addPersonGameToPerson(@Parameter(in = ParameterIn.PATH, description = "email", required=true, schema=@Schema()) @PathVariable("email") String email,@Parameter(in = ParameterIn.DEFAULT, description = "Array emails", required=true, schema=@Schema()) @Valid @RequestBody PersonGame body) {
+    public ResponseEntity<Void> addPersonGameToPerson(@Parameter(in = ParameterIn.PATH, description = "email", required = true, schema = @Schema()) @PathVariable("email") String email, @Parameter(in = ParameterIn.DEFAULT, description = "Array emails", required = true, schema = @Schema()) @Valid @RequestBody PersonGame body) {
         service.addPersonGameToPerson(email, converter.convert(body));
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> deletePerson(@Parameter(in = ParameterIn.PATH, description = "email", required=true, schema=@Schema()) @PathVariable("email") String email) {
+    public ResponseEntity<Void> deletePerson(@Parameter(in = ParameterIn.PATH, description = "email", required = true, schema = @Schema()) @PathVariable("email") String email) {
         service.deletePerson(email);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> deletePersonGameFromPerson(@Parameter(in = ParameterIn.PATH, description = "email", required=true, schema=@Schema()) @PathVariable("email") String email,@Parameter(in = ParameterIn.PATH, description = "id", required=true, schema=@Schema()) @PathVariable("id") Integer id) {
+    public ResponseEntity<Void> deletePersonGameFromPerson(@Parameter(in = ParameterIn.PATH, description = "email", required = true, schema = @Schema()) @PathVariable("email") String email, @Parameter(in = ParameterIn.PATH, description = "id", required = true, schema = @Schema()) @PathVariable("id") Integer id) {
         service.deletePersonGameFromPerson(id, email);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     public ResponseEntity<List<Person>> getAllPersons() {
-        // TODO заглушка
+        // stub
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -79,7 +80,7 @@ public class PersonsApiController implements PersonsApi {
         return new ResponseEntity<List<Person>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Person> getPersonById(@Parameter(in = ParameterIn.PATH, description = "to get person", required=true, schema=@Schema()) @PathVariable("email") String email) {
+    public ResponseEntity<Person> getPersonById(@Parameter(in = ParameterIn.PATH, description = "to get person", required = true, schema = @Schema()) @PathVariable("email") String email) {
         secretsantamodel.Person person = service.getPersonById(email);
         if (person != null) {
             return new ResponseEntity<Person>(converter.convert(service.getPersonById(email)), HttpStatus.OK);
@@ -88,27 +89,27 @@ public class PersonsApiController implements PersonsApi {
         }
     }
 
-    public ResponseEntity<Void> replacePerson(@Parameter(in = ParameterIn.PATH, description = "to get person", required=true, schema=@Schema()) @PathVariable("email") String email,@Parameter(in = ParameterIn.DEFAULT, description = "Person", required=true, schema=@Schema()) @Valid @RequestBody Person body) {
+    public ResponseEntity<Void> replacePerson(@Parameter(in = ParameterIn.PATH, description = "to get person", required = true, schema = @Schema()) @PathVariable("email") String email, @Parameter(in = ParameterIn.DEFAULT, description = "Person", required = true, schema = @Schema()) @Valid @RequestBody Person body) {
         service.replacePerson(email, converter.convert(body));
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> setNaughtyList(@Parameter(in = ParameterIn.PATH, description = "id", required=true, schema=@Schema()) @PathVariable("id") Integer id,@Parameter(in = ParameterIn.PATH, description = "email", required=true, schema=@Schema()) @PathVariable("email") String email,@Parameter(in = ParameterIn.DEFAULT, description = "Person game", required=true, schema=@Schema()) @Valid @RequestBody List<String> body) {
-        service.setNaughtyList(email, id, converter.fromListToArrayList(body));
+    public ResponseEntity<Void> setNaughtyList(@Parameter(in = ParameterIn.PATH, description = "id", required = true, schema = @Schema()) @PathVariable("id") Integer id, @Parameter(in = ParameterIn.PATH, description = "email", required = true, schema = @Schema()) @PathVariable("email") String email, @Parameter(in = ParameterIn.DEFAULT, description = "Person game", required = true, schema = @Schema()) @Valid @RequestBody List<String> body) {
+        service.setNaughtyList(email, id, new ArrayList<>(body));
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> setPersonGameActive(@Parameter(in = ParameterIn.PATH, description = "id", required=true, schema=@Schema()) @PathVariable("id") Integer id,@Parameter(in = ParameterIn.PATH, description = "email", required=true, schema=@Schema()) @PathVariable("email") String email,@NotNull @Parameter(in = ParameterIn.QUERY, description = "active" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "active", required = true) Boolean active) {
+    public ResponseEntity<Void> setPersonGameActive(@Parameter(in = ParameterIn.PATH, description = "id", required = true, schema = @Schema()) @PathVariable("id") Integer id, @Parameter(in = ParameterIn.PATH, description = "email", required = true, schema = @Schema()) @PathVariable("email") String email, @NotNull @Parameter(in = ParameterIn.QUERY, description = "active", required = true, schema = @Schema()) @Valid @RequestParam(value = "active", required = true) Boolean active) {
         service.setPersonGameActive(id, email, active);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> setReceiver(@Parameter(in = ParameterIn.PATH, description = "id", required=true, schema=@Schema()) @PathVariable("id") Integer id,@Parameter(in = ParameterIn.PATH, description = "email", required=true, schema=@Schema()) @PathVariable("email") String email,@NotNull @Parameter(in = ParameterIn.QUERY, description = "receiverEmail" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "receiverEmail", required = true) String receiverEmail) {
+    public ResponseEntity<Void> setReceiver(@Parameter(in = ParameterIn.PATH, description = "id", required = true, schema = @Schema()) @PathVariable("id") Integer id, @Parameter(in = ParameterIn.PATH, description = "email", required = true, schema = @Schema()) @PathVariable("email") String email, @NotNull @Parameter(in = ParameterIn.QUERY, description = "receiverEmail", required = true, schema = @Schema()) @Valid @RequestParam(value = "receiverEmail", required = true) String receiverEmail) {
         service.setReceiver(email, id, receiverEmail);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> setWhishlist(@Parameter(in = ParameterIn.PATH, description = "id", required=true, schema=@Schema()) @PathVariable("id") Integer id,@Parameter(in = ParameterIn.PATH, description = "email", required=true, schema=@Schema()) @PathVariable("email") String email,@NotNull @Parameter(in = ParameterIn.QUERY, description = "wishlist" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "wish", required = true) String wish) {
+    public ResponseEntity<Void> setWhishlist(@Parameter(in = ParameterIn.PATH, description = "id", required = true, schema = @Schema()) @PathVariable("id") Integer id, @Parameter(in = ParameterIn.PATH, description = "email", required = true, schema = @Schema()) @PathVariable("email") String email, @NotNull @Parameter(in = ParameterIn.QUERY, description = "wishlist", required = true, schema = @Schema()) @Valid @RequestParam(value = "wish", required = true) String wish) {
         service.setWhishlist(email, id, wish);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

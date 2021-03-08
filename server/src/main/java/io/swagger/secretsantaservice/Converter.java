@@ -17,35 +17,24 @@ public class Converter {
         for (io.swagger.model.PersonGame game : gamesList) {
             hashMap.put(game.getIdGame(), convert(game));
         }
-        Person personApp = new Person(personTO.getEmail(), personTO.getName(), hashMap);
 
-        return personApp;
+        return new Person(personTO.getEmail(), personTO.getName(), hashMap);
     }
 
     public PersonGame convert(io.swagger.model.PersonGame personGameTO) {
 
         List<String> emails = personGameTO.getArrayNaughtyListEmail();
-        ArrayList<String> arrayEmails = new ArrayList<>();
-        for (String email : emails) {
-            arrayEmails.add(email);
-        }
-        //arrayEmails.addAll(emails);
-        PersonGame personGame = new PersonGame(personGameTO.getIdGame(), personGameTO.getReceiverEmail(), personGameTO.getWishlist(), personGameTO.isActive(), arrayEmails);
+        ArrayList<String> arrayEmails = new ArrayList<>(emails);
 
-        return personGame;
+        return new PersonGame(personGameTO.getIdGame(), personGameTO.getReceiverEmail(), personGameTO.getWishlist(), personGameTO.isActive(), arrayEmails);
     }
 
     public SecretSantaGame convert(io.swagger.model.SecretSantaGame gameTO) {
 
         List<String> emails = gameTO.getParticipantsEmail();
-        ArrayList<String> arrayEmails = new ArrayList<>();
-        for (String email : emails) {
-            arrayEmails.add(email);
-        }
-        //arrayEmails.addAll(emails);
-        SecretSantaGame game = new SecretSantaGame(gameTO.getIdOfGame(), gameTO.isPlayed(), arrayEmails);
+        ArrayList<String> arrayEmails = new ArrayList<>(emails);
 
-        return game;
+        return new SecretSantaGame(gameTO.getIdOfGame(), gameTO.isPlayed(), arrayEmails);
     }
 
     public io.swagger.model.Person convert(Person person) {
@@ -69,7 +58,7 @@ public class Converter {
         personGameTO.setReceiverEmail(personGame.getReceiverEmail());
         personGameTO.setWishlist(personGame.getWishlist());
         personGameTO.setActive(personGame.isActive());
-        personGameTO.setArrayNaughtyListEmail(personGame.getArrayNaughtyListEmail());
+        personGameTO.setArrayNaughtyListEmail(personGame.getArrayNaughtyListEmails());
 
         return personGameTO;
     }
@@ -83,13 +72,13 @@ public class Converter {
         return gameTO;
     }
 
-    public ArrayList<String> fromListToArrayList(List<String> list) {
-        ArrayList<String> elements = new ArrayList<>();
-        for (String element : list) {
-            elements.add(element);
-        }
-        return elements;
-    }
 
+    public List<io.swagger.model.Person> convertHMToListTO(HashMap<String, Person> personHashMap){
+        List<io.swagger.model.Person> personListTO = new ArrayList<>();
+        for (secretsantamodel.Person person : personHashMap.values()) {
+            personListTO.add(convert(person));
+        }
+        return personListTO;
+    }
 
 }

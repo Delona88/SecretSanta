@@ -4,8 +4,8 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithCallbackInterface;
+import io.swagger.client.secretsantaclient.Callback;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
 import secretsantamodel.Person;
@@ -23,13 +23,12 @@ public class SetParamsActivity extends AppCompatActivity {
     private Button buttonGoBackToSelectNameForSetParams;
     private ProgressBar progressBar;
 
-    private ApiWithMyCallbackInterface client;
+    private ApiWithCallbackInterface client;
 
     private Integer currentGameId;
     private String currentPersonEmail;
 
     private ArrayList<String> arrayNaughtylist;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,7 @@ public class SetParamsActivity extends AppCompatActivity {
 
     private void startGetPersonAndNaughtylist() {
         showProgressBar();
-        client.getPersonById(currentPersonEmail, new MyCallback<Person>() {
+        client.getPersonById(currentPersonEmail, new Callback<Person>() {
             @Override
             public void onResponse(Person person) {
                 String santaName = person.getName();
@@ -83,12 +82,12 @@ public class SetParamsActivity extends AppCompatActivity {
     }
 
     private void setTextWithSantaName(String santaName) {
-        String str = String.format(getResources().getString(R.string.title_choose_receivers_for_santa), santaName);// information.textForTextView.get(Information.NamesOfActivity.SET_PARAMS_FOR_SANTA), santaName);
+        String str = String.format(getResources().getString(R.string.title_choose_receivers_for_santa), santaName);
         textViewSetParams.setText(str);
     }
 
     private void startGetHMWithPersonsInfoAndCreateCheckBoxes() {
-        client.getHMWithPersonsInfo(currentGameId, new MyCallback<HashMap<String, String>>() {
+        client.getHMWithPersonsInfo(currentGameId, new Callback<HashMap<String, String>>() {
             @Override
             public void onResponse(HashMap<String, String> infoHM) {
                 createCheckBoxesWhithParticipantsInfo(infoHM);
@@ -116,7 +115,7 @@ public class SetParamsActivity extends AppCompatActivity {
             checkBox.setText(textInfo);
             checkBox.setOnClickListener(onClickListener);
 
-            if (isEmailInSantaNaughtylist(email)) { //установить невыбранными, если в есть Naughtylist
+            if (isEmailInSantaNaughtylist(email)) {
                 checkBox.setChecked(false);
             } else {
                 checkBox.setChecked(true);
@@ -126,7 +125,7 @@ public class SetParamsActivity extends AppCompatActivity {
             linearLayoutSetParams.addView(checkBox);
             checkBoxHM.put(email, checkBox);
         } else {
-            checkBoxHM.put(email, null); //санты не должно быть в списке, помечаем null
+            checkBoxHM.put(email, null);
         }
     }
 
@@ -148,7 +147,7 @@ public class SetParamsActivity extends AppCompatActivity {
         ArrayList<String> naughtyList = new ArrayList<>();
         for (String email : checkBoxHM.keySet()) {
             CheckBox checkBox = checkBoxHM.get(email);
-            if ((checkBox != null) && !(checkBox.isChecked())) {// && (!isEmailInSantaNaughtylist(email))) {
+            if ((checkBox != null) && !(checkBox.isChecked())) {
                 naughtyList.add(email);
             }
         }
@@ -157,7 +156,7 @@ public class SetParamsActivity extends AppCompatActivity {
 
     private void startSetNaughtylist(ArrayList<String> naughtyList) {
         showProgressBar();
-        client.setNaughtyList(currentPersonEmail, currentGameId, naughtyList, new MyCallback<Object>() {
+        client.setNaughtyList(currentPersonEmail, currentGameId, naughtyList, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 showToastRestrictionsSet();

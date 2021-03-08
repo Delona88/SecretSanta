@@ -5,4 +5,4 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **email** | **String** |  |  [optional]
 **name** | **String** |  |  [optional]
-**games** | [**List&lt;PersonGame&gt;**](PersonGame.md) |  |  [optional]
+**personGames** | [**List&lt;PersonGame&gt;**](PersonGame.md) |  |  [optional]

@@ -1,6 +1,5 @@
 package io.swagger.secretsantaservice;
 
-
 import repositoryapi.repositoriesfactory.RepositoriesFactory;
 import repositoryapi.SecretSantaApi;
 import org.springframework.stereotype.Service;
@@ -13,24 +12,14 @@ import java.util.HashMap;
 @Service
 public class SecretSantaApiService {
 
-    private SecretSantaApi api;
+    private final SecretSantaApi api;
 
-    public SecretSantaApiService(RepositoriesFactory factory) { //создается factory @Bean
+    public SecretSantaApiService(RepositoriesFactory factory) {
         api = new SecretSantaApi(factory);
-    }
-
-/*    // по умолчанию
-    public SecretSantaApiService() {
-        api = new SecretSantaApi(REPO_FACTORY);
-    }*/
-
-    public HashMap<String, Person> getAllPersons() {
-        return api.getAllPersons();
     }
 
     public void addPerson(Person person) {
         api.addPerson(person);
-
     }
 
     public Person getPersonById(String email) {
@@ -43,10 +32,6 @@ public class SecretSantaApiService {
 
     public void deletePerson(String email) {
         api.deletePerson(email);
-    }
-
-    public HashMap<String, String> getHMWithPersonsInfo(Integer gameId) { //не в API, добавить?
-        return api.getHMWithPersonsInfo(gameId);
     }
 
     public HashMap<String, Person> getPersonsByGameId(Integer gameId) {

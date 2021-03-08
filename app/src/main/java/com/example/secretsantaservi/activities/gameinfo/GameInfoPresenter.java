@@ -1,6 +1,6 @@
 package com.example.secretsantaservi.activities.gameinfo;
 
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.Callback;
 import com.example.secretsantaservi.SecretSantaApplication;
 import secretsantamodel.Person;
 import secretsantamodel.PersonGame;
@@ -28,7 +28,7 @@ public class GameInfoPresenter {
 
     public void startGetPersonGameInfo() {
         activity.showProgressBar();
-        model.getPersonGameByPersonIdAndGameId(authorizedPersonEmail, currentGameId, new MyCallback<PersonGame>() {
+        model.getPersonGameByPersonIdAndGameId(authorizedPersonEmail, currentGameId, new Callback<PersonGame>() {
             @Override
             public void onResponse(PersonGame personGame) {
                 activity.addPersonGameInfo("" + personGame.getGameId());
@@ -46,7 +46,7 @@ public class GameInfoPresenter {
     }
 
     public void startGetAndAddReceiverInfo(String receiverEmail) {
-        model.getPersonById(receiverEmail, new MyCallback<Person>() {
+        model.getPersonById(receiverEmail, new Callback<Person>() {
             @Override
             public void onResponse(Person receiver) {
                 String receiverInfo;
@@ -74,7 +74,7 @@ public class GameInfoPresenter {
 
     public void startSetWishlist(String wish) {
         activity.showProgressBar();
-        model.setWhishlist(authorizedPersonEmail, currentGameId, wish, new MyCallback<Object>() {
+        model.setWhishlist(authorizedPersonEmail, currentGameId, wish, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 activity.showToastWishSend();
@@ -92,7 +92,7 @@ public class GameInfoPresenter {
 
     public void startDeleteGame(){
         activity.showProgressBar();
-        model.setPersonGameActiveFalse(currentGameId, authorizedPersonEmail, new MyCallback<Object>() {
+        model.setPersonGameActiveFalse(currentGameId, authorizedPersonEmail, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 activity.showToastGameDelete();

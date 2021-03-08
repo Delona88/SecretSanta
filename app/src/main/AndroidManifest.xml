@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.secretsantaservi">
 
-    <permission android:name="android.permission.INTERNET"/>
-
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -38,17 +36,17 @@
         </activity>
         <activity android:name=".activities.newgame.NewGameActivity">
         </activity>
-        <activity android:name=".quickplay.numbersofparicipantsMVP.NumberOfParticipants">
+        <activity android:name=".quickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity">
         </activity>
-        <activity android:name=".quickplay.SelectNameForShowReceiver">
+        <activity android:name=".quickplayversion.SelectNameForShowReceiverActivity">
         </activity>
-        <activity android:name=".quickplay.ShowSantasReceiver">
+        <activity android:name=".quickplayversion.ShowSantasReceiverActivity">
         </activity>
-        <activity android:name=".quickplay.SetParamsForSanta">
+        <activity android:name=".quickplayversion.SetParamsForSantaActivity">
         </activity>
-        <activity android:name=".quickplay.SelectNameForSetParameters">
+        <activity android:name=".quickplayversion.SelectNameForSetParametersActivity">
         </activity>
-        <activity android:name=".quickplay.NamesOfParticipants">
+        <activity android:name=".quickplayversion.NamesOfParticipantsActivity">
         </activity>
         <activity android:name=".activities.MainSelectVersionActivity">
             <intent-filter>

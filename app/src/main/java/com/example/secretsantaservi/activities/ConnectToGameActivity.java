@@ -4,8 +4,8 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithCallbackInterface;
+import io.swagger.client.secretsantaclient.Callback;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
 import secretsantamodel.*;
@@ -19,8 +19,7 @@ public class ConnectToGameActivity extends AppCompatActivity {
 
     private String authorizedPersonEmail;
 
-
-    private ApiWithMyCallbackInterface client;
+    private ApiWithCallbackInterface client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +73,7 @@ public class ConnectToGameActivity extends AppCompatActivity {
 
     private void startGetGameById(int id) {
         showProgressBar();
-        client.getGameById(id, new MyCallback<SecretSantaGame>() {
+        client.getGameById(id, new Callback<SecretSantaGame>() {
             @Override
             public void onResponse(SecretSantaGame game) {
                 if (game != null && !game.isPlayed()) {
@@ -93,7 +92,7 @@ public class ConnectToGameActivity extends AppCompatActivity {
     }
 
     private void startAddPersonInGame(Integer id) {
-        client.addPersonInGame(id, authorizedPersonEmail, new MyCallback<Object>() {
+        client.addPersonInGame(id, authorizedPersonEmail, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 hideProgressBar();

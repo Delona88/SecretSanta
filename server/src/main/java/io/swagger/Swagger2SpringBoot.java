@@ -1,24 +1,20 @@
 package io.swagger;
 
-import repositoryapi.repositoriesfactory.RepositoriesFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-
-import repositoryapi.repositoriesfactory.FileDropBoxRepositoriesFactory;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
 @SpringBootApplication
 @EnableOpenApi
-@ComponentScan(basePackages = { "io.swagger", "io.swagger.api" , "io.swagger.configuration"})
+@ComponentScan(basePackages = {"io.swagger", "io.swagger.api", "io.swagger.configuration"})
 public class Swagger2SpringBoot implements CommandLineRunner {
 
     public final static String FILE_NAME_HM_GAMES = "HashMapGames.ser";
     public final static String FILE_NAME_HM_PERSONS = "HashMapPersons.ser";
-
-    //public static final RepositoriesFactory REPO_FACTORY = new FileDropBoxRepositoriesFactory(FILE_NAME_HM_GAMES, FILE_NAME_HM_PERSONS);
+    public final static String ACCESS_TOKEN_DROPBOX = "XTsEb5LoWp0AAAAAAAAAAT21MvctfOz_Nl2iAiaDzAgHK3UE-CGr4oZ4Ax5YCm1i";
 
     @Override
     public void run(String... arg0) throws Exception {

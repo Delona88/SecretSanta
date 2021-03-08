@@ -1,11 +1,11 @@
 package com.example.secretsantaservi;
 
-import com.example.secretsantaservi.api.ApiWithMyCallback;
-import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
-import io.swagger.client.secretsantaclient.MyCallback;
+import com.example.secretsantaservi.androidrepository.repositoriesfactory.fortests.HMRepositoriesFactory;
+import com.example.secretsantaservi.api.ApiWithCallback;
+import io.swagger.client.secretsantaclient.ApiWithCallbackInterface;
+import io.swagger.client.secretsantaclient.Callback;
 
 import com.example.secretsantaservi.activities.gameinfo.GameInfoActivity;
-import com.example.secretsantaservi.activities.gameinfo.GameInfoModel;
 import com.example.secretsantaservi.activities.gameinfo.GameInfoPresenter;
 import com.example.secretsantaservi.activities.gameinfo.GameInfoView;
 
@@ -17,30 +17,25 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import repositoryapi.repositoriesfactory.HMRepositoriesFactory;
 import secretsantamodel.*;
 
 public class TestGameInfoActivity {
 
     GameInfoPresenter presenter;
     GameInfoView activity;
-    GameInfoModel model;
 
     SecretSantaApplication application;
-    SecretSantaApplication applicationSpy;
 
-    //тестовые данные для клиента
-    String personName;
     String personEmail;
     Person person;
     Integer gameId;
     String receiverEmail;
     Boolean active;
     PersonGame personGame;
-    ArrayList<String> arrayNaughtylistEmail;//(ArrayList<String>) Arrays.asList(new String[] {"ivan"});
+    ArrayList<String> arrayNaughtylistEmail;
     ArrayList<Integer> gamesId;
     String wish;
-    SecretSantaGame game;
+    SecretSantaGame secretSantaGame;
     Person receiver;
     PersonGame receiverPersonGame;
     String receiverWish;
@@ -48,7 +43,6 @@ public class TestGameInfoActivity {
 
     @Before
     public void setup() {
-        //тестовые данные - person + personGame
         personEmail = "mary";
         person = new Person(personEmail, personEmail);
         receiverEmail = "iren";
@@ -56,12 +50,12 @@ public class TestGameInfoActivity {
 
         wish = "wish";
         active = true;
-        arrayNaughtylistEmail = new ArrayList<String>(Arrays.asList("ivan"));//(ArrayList<String>) Arrays.asList(new String[] {"ivan"});
+        arrayNaughtylistEmail = new ArrayList<>(Arrays.asList("ivan"));
         personGame = new PersonGame(gameId, receiverEmail, wish, active, arrayNaughtylistEmail);
         person.addGame(personGame);
 
-        gamesId = new ArrayList<Integer>(Arrays.asList(gameId));
-        game = new SecretSantaGame(gameId);
+        gamesId = new ArrayList<>(Arrays.asList(gameId));
+        secretSantaGame = new SecretSantaGame(gameId);
 
         receiverWish = "receiverWish";
         receiverPersonGame = new PersonGame(gameId);
@@ -71,10 +65,8 @@ public class TestGameInfoActivity {
 
         receiverInfo = receiver.getName() + "(" + receiver.getEmail() + ")" + "\n";
 
-
-        //тестовые данные добавляются в клиентский HM
-        ApiWithMyCallbackInterface client = new ApiWithMyCallback(new HMRepositoriesFactory());
-        client.addPerson(person, new MyCallback<Object>() {
+        ApiWithCallbackInterface client = new ApiWithCallback(new HMRepositoriesFactory());
+        client.addPerson(person, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
             }
@@ -83,7 +75,7 @@ public class TestGameInfoActivity {
             public void onFailure(Throwable t) {
             }
         });
-        client.addGame(game, new MyCallback<Object>() {
+        client.addGame(secretSantaGame, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
             }
@@ -92,7 +84,7 @@ public class TestGameInfoActivity {
             public void onFailure(Throwable t) {
             }
         });
-        client.addPerson(receiver, new MyCallback<Object>() {
+        client.addPerson(receiver, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
 
@@ -104,22 +96,14 @@ public class TestGameInfoActivity {
             }
         });
 
-
-        //для инициализации presenter нужены activity и application
         application = new SecretSantaApplication();
         application.setClient(client);
 
-        //в application должен быть авторизованный пользователь и игра
         application.setAuthorizedPersonEmail(personEmail);
         application.setCurrentGameId(gameId);
 
-
-        //Mockito для View
         activity = Mockito.mock(GameInfoActivity.class);
 
-        //applicationSpy = Mockito.spy(application);
-
-        // инициализация presenter
         presenter = new GameInfoPresenter(activity, application);
     }
 

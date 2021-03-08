@@ -9,12 +9,11 @@ import java.io.*;
 
 public class IOFileDropBox implements IOInterface{
 
-    private final static String ACCESS_TOKEN = "XTsEb5LoWp0AAAAAAAAAAT21MvctfOz_Nl2iAiaDzAgHK3UE-CGr4oZ4Ax5YCm1i";
     private final DbxClientV2 client;
 
-    public IOFileDropBox() {
+    public IOFileDropBox(String accessToken) {
         DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
-        client = new DbxClientV2(config, ACCESS_TOKEN);
+        client = new DbxClientV2(config, accessToken);
     }
 
     public void writeInFile(Object object, String fileName) {

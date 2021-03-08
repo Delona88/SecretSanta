@@ -15,33 +15,24 @@ public class Converter {
         for (io.swagger.client.model.PersonGame game : gamesList) {
             hashMap.put(game.getIdGame(), convert(game));
         }
-        Person person = new Person(personTO.getEmail(), personTO.getName(), hashMap);
 
-        return person;
+        return new Person(personTO.getEmail(), personTO.getName(), hashMap);
     }
 
     public PersonGame convert(io.swagger.client.model.PersonGame personGameTO) {
 
         List<String> emails = personGameTO.getArrayNaughtyListEmail();
-        ArrayList<String> arrayEmails = new ArrayList<>();
-        for (String email : emails) {
-            arrayEmails.add(email);
-        }
-        PersonGame personGame = new PersonGame(personGameTO.getIdGame(), personGameTO.getReceiverEmail(), personGameTO.getWishlist(), personGameTO.isActive(), arrayEmails);
+        ArrayList<String> arrayEmails = new ArrayList<>(emails);
 
-        return personGame;
+        return new PersonGame(personGameTO.getIdGame(), personGameTO.getReceiverEmail(), personGameTO.getWishlist(), personGameTO.isActive(), arrayEmails);
     }
 
     public SecretSantaGame convert(io.swagger.client.model.SecretSantaGame gameTO) {
 
         List<String> emails = gameTO.getParticipantsEmail();
-        ArrayList<String> arrayEmails = new ArrayList<>();
-        for (String email : emails) {
-            arrayEmails.add(email);
-        }
-        SecretSantaGame game = new SecretSantaGame(gameTO.getIdOfGame(), gameTO.isPlayed(), arrayEmails);
+        ArrayList<String> arrayEmails = new ArrayList<>(emails);
 
-        return game;
+        return new SecretSantaGame(gameTO.getIdOfGame(), gameTO.isPlayed(), arrayEmails);
     }
 
     public io.swagger.client.model.Person convert(Person person) {
@@ -65,7 +56,7 @@ public class Converter {
         personGameTO.setReceiverEmail(personGame.getReceiverEmail());
         personGameTO.setWishlist(personGame.getWishlist());
         personGameTO.setActive(personGame.isActive());
-        personGameTO.setArrayNaughtyListEmail(personGame.getArrayNaughtyListEmail());
+        personGameTO.setArrayNaughtyListEmail(personGame.getArrayNaughtyListEmails());
 
         return personGameTO;
     }

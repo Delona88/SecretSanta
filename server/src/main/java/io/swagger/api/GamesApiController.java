@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-16T11:27:20.662Z[GMT]")
@@ -78,12 +76,8 @@ public class GamesApiController implements GamesApi {
     }
 
     public ResponseEntity<List<Person>> getPersonsByGameId(@Parameter(in = ParameterIn.PATH, description = "id", required=true, schema=@Schema()) @PathVariable("id") Integer id) {
-        List<Person> personList = new ArrayList<>();
-        HashMap<String, secretsantamodel.Person> personHashMap = service.getPersonsByGameId(id);
-        for (secretsantamodel.Person person : personHashMap.values()) {
-            personList.add(converter.convert(person));
-        }
-        return new ResponseEntity<List<Person>>(personList, HttpStatus.OK);
+        List<Person> personListTO = converter.convertHMToListTO(service.getPersonsByGameId(id));
+        return new ResponseEntity<List<Person>>(personListTO, HttpStatus.OK);
     }
 
     public ResponseEntity<Void> setGamePlayed(@Parameter(in = ParameterIn.PATH, description = "id", required=true, schema=@Schema()) @PathVariable("id") Integer id,@NotNull @Parameter(in = ParameterIn.QUERY, description = "played" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "played", required = true) Boolean played) {

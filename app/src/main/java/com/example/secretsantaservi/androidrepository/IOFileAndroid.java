@@ -6,7 +6,7 @@ import java.io.*;
 
 public class IOFileAndroid implements IOInterface {
 
-    Context context; //для записи и чтения файла в Android нужен контекст
+    private final Context context;
 
     public IOFileAndroid(Context context) {
         this.context = context;

@@ -4,8 +4,8 @@ All URIs are relative to *http://localhost:8080/*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addPersonGameToPerson**](PersonGamesApi.md#addPersonGameToPerson) | **POST** persons/{email}/persongame | Add person game
-[**deletePersonGameFromPerson**](PersonGamesApi.md#deletePersonGameFromPerson) | **DELETE** persons/{email}/persongame/{id} | Delete person game
+[**addPersonGameToPerson**](PersonGamesApi.md#addPersonGameToPerson) | **POST** persons/{email}/persongame | Add person personGame
+[**deletePersonGameFromPerson**](PersonGamesApi.md#deletePersonGameFromPerson) | **DELETE** persons/{email}/persongame/{id} | Delete person personGame
 [**setNaughtyList**](PersonGamesApi.md#setNaughtyList) | **POST** persons/{email}/persongame/{id}/naughtylist | Set naughty list
 [**setPersonGameActive**](PersonGamesApi.md#setPersonGameActive) | **POST** persons/{email}/persongame/{id}/active | Set active
 [**setReceiver**](PersonGamesApi.md#setReceiver) | **POST** persons/{email}/persongame/{id}/receiver | Set receiver
@@ -15,9 +15,9 @@ Method | HTTP request | Description
 # **addPersonGameToPerson**
 > Void addPersonGameToPerson(body, email)
 
-Add person game
+Add person personGame
 
-Add person game
+Add person personGame
 
 ### Example
 ```java
@@ -62,9 +62,9 @@ No authorization required
 # **deletePersonGameFromPerson**
 > Void deletePersonGameFromPerson(email, id)
 
-Delete person game
+Delete person personGame
 
-Delete person game
+Delete person personGame
 
 ### Example
 ```java
@@ -121,7 +121,7 @@ Set naughty list
 
 
 PersonGamesApi apiInstance = new PersonGamesApi();
-List<String> body = Arrays.asList("body_example"); // List<String> | Person game
+List<String> body = Arrays.asList("body_example"); // List<String> | Person personGame
 Integer id = 56; // Integer | id
 String email = "email_example"; // String | email
 try {
@@ -137,7 +137,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**List&lt;String&gt;**](String.md)| Person game |
+ **body** | [**List&lt;String&gt;**](String.md)| Person personGame |
  **id** | **Integer**| id |
  **email** | **String**| email |
 

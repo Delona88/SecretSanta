@@ -8,18 +8,16 @@ import com.google.gson.Gson;
 
 import java.util.HashMap;
 
-import repository.RepositoryInterface;
-
 public class RepositorySQLite<K, V> implements RepositoryInterface<K, V> {
-    private SQLiteDatabase db;
-    private Class keyClass;
-    private Class valueClass;
+    private final SQLiteDatabase db;
+    private final Class keyClass;
+    private final Class valueClass;
 
     private static final String TABLE = "repo_table";
     private static final String COLUMN_KEY = "id";
     private static final String COLUMN_VALUE = "value";
 
-    public RepositorySQLite(Context context, String dbFileName, Class keyClass, Class valueClass) { //объекты хранятся в JSON, класс нужен, чтобы распарсить JSON
+    public RepositorySQLite(Context context, String dbFileName, Class keyClass, Class valueClass) {
         this.keyClass = keyClass;
         this.valueClass = valueClass;
         this.db = context.openOrCreateDatabase(dbFileName, Context.MODE_PRIVATE, null);
@@ -35,13 +33,13 @@ public class RepositorySQLite<K, V> implements RepositoryInterface<K, V> {
         Gson gson = new Gson();
         String jsonId = gson.toJson(id);
         String jsonValue = gson.toJson(object);
-/*        Cursor cursor = db.query(TABLE, new String[]{COLUMN_VALUE}, COLUMN_KEY + " LIKE ?", new String[]{jsonId}, null, null, null);
+        Cursor cursor = db.query(TABLE, new String[]{COLUMN_VALUE}, COLUMN_KEY + " LIKE ?", new String[]{jsonId}, null, null, null);
         if (cursor.moveToNext()) {
             db.delete(TABLE, COLUMN_KEY + " LIKE ?", new String[]{jsonId});
         }
-        cursor.close();*/
-        values.put(COLUMN_KEY, gson.toJson(id));
-        values.put(COLUMN_VALUE, gson.toJson(object));
+        cursor.close();
+        values.put(COLUMN_KEY, jsonId);
+        values.put(COLUMN_VALUE, jsonValue);
         db.insert(TABLE, null, values);
     }
 
@@ -79,8 +77,8 @@ public class RepositorySQLite<K, V> implements RepositoryInterface<K, V> {
             db.delete(TABLE, COLUMN_KEY + " LIKE ?", new String[]{jsonId});
         }
         cursor.close();
-        values.put(COLUMN_KEY, gson.toJson(id));
-        values.put(COLUMN_VALUE, gson.toJson(object));
+        values.put(COLUMN_KEY, jsonId);
+        values.put(COLUMN_VALUE, jsonValue);
         db.insert(TABLE, null, values);
     }
 

@@ -28,6 +28,7 @@ public class GameInfoActivity extends AppCompatActivity implements GameInfoView 
 
         presenter = new GameInfoPresenter(this, (SecretSantaApplication) getApplicationContext());
         presenter.init();
+
         buildGUI();
     }
 
@@ -114,10 +115,6 @@ public class GameInfoActivity extends AppCompatActivity implements GameInfoView 
         progressBar.setVisibility(View.INVISIBLE);
     }
 
-    public void showToast(String str) {
-        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
-    }
-
     public void showToastServerProblem(String t) {
         String str = getResources().getString(R.string.title_server_problem) + "\n" + t;
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
@@ -126,7 +123,6 @@ public class GameInfoActivity extends AppCompatActivity implements GameInfoView 
     public void showToastIncorrectInfo() {
         Toast.makeText(this, getResources().getString(R.string.title_incorrect_info), Toast.LENGTH_LONG).show();
     }
-
 
     public void showToastWishSend() {
         Toast.makeText(this, getResources().getString(R.string.title_wish_send), Toast.LENGTH_SHORT).show();

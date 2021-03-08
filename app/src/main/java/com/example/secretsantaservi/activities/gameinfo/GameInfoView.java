@@ -1,6 +1,7 @@
 package com.example.secretsantaservi.activities.gameinfo;
 
 public interface GameInfoView {
+    void buildGUI();
     void addPersonGameInfo(String personGameId);
     void addWishInfo(String wish);
     void addReceiverInfo(String receiverInfo);
@@ -10,7 +11,4 @@ public interface GameInfoView {
     void showToastServerProblem(String str1);
     void showToastWishSend();
     void showToastGameDelete();
-    void buildGUI();
-
-    void showToast(String str);
 }

@@ -5,8 +5,8 @@ import android.widget.Button;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithCallbackInterface;
+import io.swagger.client.secretsantaclient.Callback;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
 
@@ -21,7 +21,7 @@ public class NewParticipantActivity extends AppCompatActivity {
     private Integer currentGameId;
     private String currentPersonEmail;
 
-    private ApiWithMyCallbackInterface client;
+    private ApiWithCallbackInterface client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +49,14 @@ public class NewParticipantActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.editTextParticipantName);
         editTextEmail = findViewById(R.id.editTextParticipantEmail);
 
-        if (currentPersonEmail != null) { //изменяем или добавляем
-            startGetPersonByIdAndDeleteFromGame(); //изменяем
+        if (currentPersonEmail != null) {
+            startGetPersonByIdAndDeleteFromGame();
         }
     }
 
     private void startGetPersonByIdAndDeleteFromGame() {
         showProgressBar();
-        client.getPersonById(currentPersonEmail, new MyCallback<Person>() {
+        client.getPersonById(currentPersonEmail, new Callback<Person>() {
             @Override
             public void onResponse(Person person) {
                 editTextName.setText(person.getName());
@@ -72,9 +72,9 @@ public class NewParticipantActivity extends AppCompatActivity {
         });
     }
 
-    private void startDelete() {//удаляет Person из игры и PersonGame из Person
+    private void startDelete() {
         showProgressBar();
-        client.deletePersonFromGame(currentGameId, currentPersonEmail, new MyCallback<Object>() {
+        client.deletePersonFromGame(currentGameId, currentPersonEmail, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 hideProgressBar();
@@ -108,10 +108,10 @@ public class NewParticipantActivity extends AppCompatActivity {
 
     private void startGetPersonByIdAndCheck() {
         showProgressBar();
-        client.getPersonById(getEmail(), new MyCallback<Person>() {
+        client.getPersonById(getEmail(), new Callback<Person>() {
             @Override
             public void onResponse(Person person) {
-                if (person == null) { //регистрируем игрока или добавляем ему игру
+                if (person == null) {
                     startAddPersonAndPersonInGame();
                 } else {
                     startAddPersonInGameById();
@@ -127,7 +127,7 @@ public class NewParticipantActivity extends AppCompatActivity {
     }
 
     private void startAddPersonAndPersonInGame() {
-        client.addPerson(new Person(getEmail(), getName()), new MyCallback<Object>() {
+        client.addPerson(new Person(getEmail(), getName()), new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 showToastParticipantAdded();
@@ -142,8 +142,8 @@ public class NewParticipantActivity extends AppCompatActivity {
         });
     }
 
-    private void startAddPersonInGameById() {//добавляет Person в игру и PersonGame для Person
-        client.addPersonInGame(currentGameId, getEmail(), new MyCallback<Object>() {
+    private void startAddPersonInGameById() {
+        client.addPersonInGame(currentGameId, getEmail(), new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 showToastParticipantAdded();

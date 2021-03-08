@@ -1,23 +1,23 @@
 package com.example.secretsantaservi.activities.gameinfo;
 
-import io.swagger.client.secretsantaclient.ApiWithMyCallbackInterface;
-import io.swagger.client.secretsantaclient.MyCallback;
+import io.swagger.client.secretsantaclient.ApiWithCallbackInterface;
+import io.swagger.client.secretsantaclient.Callback;
 import secretsantamodel.Person;
 import secretsantamodel.PersonGame;
 
 
 public class GameInfoModel {
-    ApiWithMyCallbackInterface client;
+    ApiWithCallbackInterface client;
 
-    public GameInfoModel(ApiWithMyCallbackInterface client) {
+    public GameInfoModel(ApiWithCallbackInterface client) {
         this.client = client;
     }
 
-    public void getPersonGameByPersonIdAndGameId(String email, Integer gameId, MyCallback<PersonGame> myCallback) {
-        client.getPersonById(email, new MyCallback<Person>() {
+    public void getPersonGameByPersonIdAndGameId(String email, Integer gameId, Callback<PersonGame> myCallback) {
+        client.getPersonById(email, new Callback<Person>() {
             @Override
             public void onResponse(Person person) {
-                PersonGame personGame = person.getPersonGameByID(gameId);
+                PersonGame personGame = person.getGameByID(gameId);
                 myCallback.onResponse(personGame);
             }
 
@@ -28,8 +28,8 @@ public class GameInfoModel {
         });
     }
 
-    public void getPersonById(String email, MyCallback<Person> myCallback) {
-        client.getPersonById(email, new MyCallback<Person>() {
+    public void getPersonById(String email, Callback<Person> myCallback) {
+        client.getPersonById(email, new Callback<Person>() {
             @Override
             public void onResponse(Person response) {
                 myCallback.onResponse(response);
@@ -42,8 +42,8 @@ public class GameInfoModel {
         });
     }
 
-    public void setWhishlist(String email, Integer gameId, String wish, MyCallback<Object> myCallback) {
-        client.setWhishlist(email, gameId, wish, new MyCallback<Object>() {
+    public void setWhishlist(String email, Integer gameId, String wish, Callback<Object> myCallback) {
+        client.setWhishlist(email, gameId, wish, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 myCallback.onResponse(response);
@@ -57,8 +57,8 @@ public class GameInfoModel {
         });
     }
 
-    public void setPersonGameActiveFalse(Integer gameId, String email, MyCallback<Object> myCallback) {
-        client.setPersonGameActive(gameId, email, false, new MyCallback<Object>() {
+    public void setPersonGameActiveFalse(Integer gameId, String email, Callback<Object> myCallback) {
+        client.setPersonGameActive(gameId, email, false, new Callback<Object>() {
             @Override
             public void onResponse(Object response) {
                 myCallback.onResponse(response);

@@ -1,8 +1,8 @@
 package com.example.secretsantaservi.androidrepository;
 
-import repository.RepositoryInterface;
 import android.content.Context;
 
+import com.example.secretsantaservi.androidrepository.repositoriesfactory.fortests.IOFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,26 +13,10 @@ public class RepositoryFileWithHM<Key, Value> implements RepositoryInterface<Key
     private final String fileName;
     private HashMap<Key, Value> hashMap = new HashMap<>();
 
-    //конструктор для IOFileAndroid
     public RepositoryFileWithHM(String fileName, Context context) {
         this.fileName = fileName;
         IOFile = new IOFileAndroid(context);
         File file = new File(context.getFilesDir() + "/" + fileName);
-        if (!file.exists()) { //для первого входа в приложение
-            try {
-                file.createNewFile();
-                IOFile.writeInFile(hashMap, fileName);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    //конструктор для IOFile
-    public RepositoryFileWithHM(String fileName) {
-        this.fileName = fileName;
-        IOFile = new IOFile();
-        File file = new File(fileName);
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -43,12 +27,12 @@ public class RepositoryFileWithHM<Key, Value> implements RepositoryInterface<Key
         }
     }
 
-    //конструктор для IOFile и DropBox
-    public RepositoryFileWithHM(IOInterface IOFile, String fileName) {
-        this.IOFile = IOFile;
+    // For tests
+    public RepositoryFileWithHM(String fileName) {
+        this.IOFile = new IOFile();
         this.fileName = fileName;
         File file = new File(fileName);
-        if (!file.exists()) { //создание файла при первом запуске
+        if (!file.exists()) {
             try {
                 file.createNewFile();
                 IOFile.writeInFile(hashMap, fileName);
