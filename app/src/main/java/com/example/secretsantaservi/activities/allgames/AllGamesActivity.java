@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.secretsantaservi.*;
 import com.example.secretsantaservi.activities.ConnectToGameActivity;
 import com.example.secretsantaservi.activities.newgame.NewGameActivity;
@@ -14,16 +16,16 @@ import com.example.secretsantaservi.activities.gameinfo.GameInfoActivity;
 import java.util.ArrayList;
 
 public class AllGamesActivity extends AppCompatActivity implements AllGamesView {
-    Button buttonGoBack;
-    Button buttonCreateGame;
-    Button buttonConnect;
-    Button buttonPersonInfo;
-    ProgressBar progressBar;
-    ListView listViewAllGames;
+    private Button buttonGoBack;
+    private Button buttonCreateGame;
+    private Button buttonConnect;
+    private Button buttonPersonInfo;
+    private ProgressBar progressBar;
+    private RecyclerView recyclerViewAllGames;
 
-    SecretSantaApplication secretSantaApplication;
+    private SecretSantaApplication secretSantaApplication;
 
-    AllGamesPresenter presenter;
+    private AllGamesPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +39,11 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
 
     }
 
+
     public void buildGUI() {
 
-        listViewAllGames = findViewById(R.id.listView);
-        listViewAllGames.setOnItemClickListener(onItemClickListener);
+        recyclerViewAllGames = findViewById(R.id.all_games_recycler_view);
+        recyclerViewAllGames.setLayoutManager(new LinearLayoutManager(this));
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
@@ -59,26 +62,20 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
     }
 
     public void createGamesList(ArrayList<Integer> gamesId) {
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, gamesId);
-        listViewAllGames.setAdapter(adapter);
+        AllGamesRecyclerViewAdapter adapter1 = new AllGamesRecyclerViewAdapter(gamesId);
+        adapter1.setOnItemClickListener(onItemClickListener1);
+        recyclerViewAllGames.setAdapter(adapter1);
     }
 
+    private AllGamesRecyclerViewAdapter.OnItemClickListener onItemClickListener1= new AllGamesRecyclerViewAdapter.OnItemClickListener(){
 
-    private final AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
-        public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
-            try {
-                Integer gamesId = Integer.parseInt((String) ((TextView) itemClicked).getText());
-                secretSantaApplication.setCurrentGameId(gamesId);
-                goToGameInfo();
-
-            } catch (NumberFormatException | NullPointerException ex) {
-                ex.printStackTrace();
-            }
+        public void onItemClick(View view, int position, String gameId) {
+            Integer gamesId = Integer.parseInt(gameId);
+            secretSantaApplication.setCurrentGameId(gamesId);
+            goToGameInfo();
         }
     };
-
-
 
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
 
