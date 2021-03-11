@@ -31,7 +31,7 @@ public class AllGamesPresenter {
 
             @Override
             public void onResponse(ArrayList<Integer> response) {
-                activity.createGamesButton(response);
+                activity.createGamesList(response);
                 activity.hideProgressBar();
             }
 

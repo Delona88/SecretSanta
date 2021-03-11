@@ -13,7 +13,6 @@ public class ShowSantasReceiverActivity extends AppCompatActivity {
     private Button buttonGoBackToSelectNameForShowReceiver;
     private int indexSanta;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -12,18 +12,14 @@ import com.example.secretsantaservi.activities.PersonInfoActivity;
 import com.example.secretsantaservi.activities.gameinfo.GameInfoActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 public class AllGamesActivity extends AppCompatActivity implements AllGamesView {
     Button buttonGoBack;
     Button buttonCreateGame;
     Button buttonConnect;
     Button buttonPersonInfo;
-    HashMap<Integer, Button> buttonsHM;
-    LinearLayout linearLayoutAllGames;
     ProgressBar progressBar;
+    ListView listViewAllGames;
 
     SecretSantaApplication secretSantaApplication;
 
@@ -42,11 +38,12 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
     }
 
     public void buildGUI() {
+
+        listViewAllGames = findViewById(R.id.listView);
+        listViewAllGames.setOnItemClickListener(onItemClickListener);
+
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
-
-        linearLayoutAllGames = findViewById(R.id.fillableLinearLayoutAllGames);
-        linearLayoutAllGames.removeAllViews();
 
         buttonPersonInfo = findViewById(R.id.buttonPersonInfo);
         buttonPersonInfo.setOnClickListener(onClickListener);
@@ -59,36 +56,35 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
 
         buttonConnect = findViewById(R.id.buttonConnect);
         buttonConnect.setOnClickListener(onClickListener);
-
-        buttonsHM = new HashMap<>();
     }
 
-    public void createGamesButton(ArrayList<Integer> gamesId) {
-        for (Integer id : gamesId) {
-            String textOnButton = "Игра " + id;
-            addButtonInHMAndListener(id, textOnButton);
+    public void createGamesList(ArrayList<Integer> gamesId) {
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, gamesId);
+        listViewAllGames.setAdapter(adapter);
+    }
+
+
+    private final AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
+            try {
+                Integer gamesId = Integer.parseInt((String) ((TextView) itemClicked).getText());
+                secretSantaApplication.setCurrentGameId(gamesId);
+                goToGameInfo();
+
+            } catch (NumberFormatException | NullPointerException ex) {
+                ex.printStackTrace();
+            }
         }
-    }
+    };
 
-    public void addButtonInHMAndListener(int id, String textOnButton) {
-        Button button = new Button(this);
-        button.setText(textOnButton);
-        button.setOnClickListener(onClickListener);
-        button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        linearLayoutAllGames.addView(button);
-        buttonsHM.put(id, button);
-    }
+
 
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            Button pressedButton = (Button) v;
-            Integer id = getKeyByValue(buttonsHM, pressedButton);
-            if (id != null) {
-                secretSantaApplication.setCurrentGameId(id);
-                goToGameInfo();
-            }
+
             if (v.getId() == buttonGoBack.getId()) {
                 finish();
             }
@@ -119,6 +115,11 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
         startActivity(intent);
     }
 
+    public void goToFillInfo() {
+        Intent intent = new Intent(AllGamesActivity.this, NewGameActivity.class);
+        startActivity(intent);
+    }
+
     public void showProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
     }
@@ -128,22 +129,8 @@ public class AllGamesActivity extends AppCompatActivity implements AllGamesView 
     }
 
     public void showToastServerProblem(String t) {
-        String str = getResources().getString(R.string.title_server_problem) + "\n" + t;
+        String str = getString(R.string.title_server_problem) + "\n" + t;
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
-    }
-
-    public void goToFillInfo() {
-        Intent intent = new Intent(AllGamesActivity.this, NewGameActivity.class);
-        startActivity(intent);
-    }
-
-    public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
-        for (Map.Entry<T, E> entry : map.entrySet()) {
-            if (Objects.equals(value, entry.getValue())) {
-                return entry.getKey();
-            }
-        }
-        return null;
     }
 
     @Override

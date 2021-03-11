@@ -3,6 +3,7 @@ package com.example.secretsantaservi.activities.newgame;
 import android.content.Intent;
 import android.view.View;
 import android.widget.*;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.secretsantaservi.R;
@@ -165,7 +166,7 @@ public class NewGameActivity extends AppCompatActivity implements NewGameView {
 
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean("allParticipantsAdded", allParticipantsAdded);
     }

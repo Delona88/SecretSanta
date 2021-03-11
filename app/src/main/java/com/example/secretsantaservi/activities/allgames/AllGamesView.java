@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface AllGamesView {
     void buildGUI();
-    void createGamesButton(ArrayList<Integer> gamesId);
+    void createGamesList(ArrayList<Integer> gamesId);
     void goToFillInfo();
     void showProgressBar();
     void hideProgressBar();

@@ -87,7 +87,7 @@ public class TestAllGamesActivity {
     public void testStartGetPersonWithIdAllGames() {
         presenter.startGetPersonWithIdAllGames();
         Mockito.verify(activity, Mockito.times(1)).showProgressBar();
-        Mockito.verify(activity).createGamesButton(gamesId);
+        Mockito.verify(activity).createGamesList(gamesId);
         Mockito.verify(activity, Mockito.times(1)).hideProgressBar();
     }
 

@@ -53,15 +53,15 @@
                         android:text="@string/title_select_game"
                         android:textSize="14pt"/>
 
-                <LinearLayout
-                        android:id="@+id/fillableLinearLayoutAllGames"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"/>
-
             </LinearLayout>
 
         </ScrollView>
+
+        <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
 
     </LinearLayout>
 
