@@ -1,4 +1,4 @@
-package com.example.secretsantaservi.quickplayversion;
+package com.example.secretsantaservi.mytrainingquickplayversion;
 
 import android.content.Intent;
 import android.view.View;
@@ -6,38 +6,43 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.secretsantaservi.R;
+import com.example.secretsantaservi.mytrainingquickplayversion.model.SecretSantaQuickGame;
 
 import java.util.ArrayList;
 
-import static com.example.secretsantaservi.quickplayversion.numbersofparicipantsMVP.NumberOfParticipantsPresenter.toss;
+import static com.example.secretsantaservi.mytrainingquickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity.game;
+
 
 public class NamesOfParticipantsActivity extends AppCompatActivity {
 
-    private ArrayList<EditText> listOfEditTextForNames = new ArrayList<>(toss.getNumberOfParticipants());
+    private final ArrayList<EditText> listOfEditTextForNames = new ArrayList<>();
     private Button buttonGoToSetParams;
     private LinearLayout linearLayoutNamesOfParticipants;
-    
+    private int numberOfParticipants;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_names_of_participants);
 
+        numberOfParticipants = getIntent().getIntExtra("numberOfParticipants", 0);
+
         buildGUI();
     }
 
-    public void buildGUI(){
+    public void buildGUI() {
 
         buttonGoToSetParams = findViewById(R.id.buttonGoToSetParameters);
         buttonGoToSetParams.setOnClickListener(onClickListener);
 
         linearLayoutNamesOfParticipants = findViewById(R.id.fillableLinearLayoutNamesOfParticipants);
-        for (int i = 0; i < toss.getNumberOfParticipants(); i++) {
+        for (int i = 0; i < numberOfParticipants; i++) {
             addNewEditTextForName(i);
         }
     }
 
-    public void addNewEditTextForName(int index){
+    public void addNewEditTextForName(int index) {
         listOfEditTextForNames.add(new EditText(this));
         listOfEditTextForNames.get(index).setId(index);
         listOfEditTextForNames.get(index).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -50,31 +55,31 @@ public class NamesOfParticipantsActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             if (v.getId() == buttonGoToSetParams.getId()) {
-                if (isAllNamesEntered()){
+                if (isAllNamesEntered()) {
                     addNamesInToss();
                     Intent intent = new Intent(NamesOfParticipantsActivity.this, SelectNameForSetParametersActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
-                    showToastIncorrectInfo ();
+                    showToastIncorrectInfo();
                 }
             }
         }
     };
 
-    public boolean isAllNamesEntered(){
+    public boolean isAllNamesEntered() {
         boolean namesNotEmpty = true;
-        for (int i = 0; i < toss.getNumberOfParticipants(); i++) {
-            if (listOfEditTextForNames.get(i).getText().toString().length() == 0){
+        for (int i = 0; i < numberOfParticipants; i++) {
+            if (listOfEditTextForNames.get(i).getText().toString().length() == 0) {
                 namesNotEmpty = false;
             }
         }
         return namesNotEmpty;
     }
 
-    public void addNamesInToss(){
-        for (int i = 0; i < toss.getNumberOfParticipants(); i++) {
-            toss.addNewPersonByName(listOfEditTextForNames.get(i).getText().toString());
+    public void addNamesInToss() {
+        for (int i = 0; i < numberOfParticipants; i++) {
+            game.addNewPersonByName(listOfEditTextForNames.get(i).getText().toString());
         }
     }
 

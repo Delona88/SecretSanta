@@ -16,6 +16,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity
+                android:name=".mytrainingquickplayversion.versionwithfragments.QuickPlayActivity"
+                android:label="@string/title_activity_quick_play"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".activities.PersonInfoActivity">
         </activity>
         <activity android:name=".activities.RegistrationActivity">
@@ -36,17 +41,17 @@
         </activity>
         <activity android:name=".activities.newgame.NewGameActivity">
         </activity>
-        <activity android:name=".quickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity">
+        <activity android:name=".mytrainingquickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity">
         </activity>
-        <activity android:name=".quickplayversion.SelectNameForShowReceiverActivity">
+        <activity android:name=".mytrainingquickplayversion.SelectNameForShowReceiverActivity">
         </activity>
-        <activity android:name=".quickplayversion.ShowSantasReceiverActivity">
+        <activity android:name=".mytrainingquickplayversion.ShowSantasReceiverActivity">
         </activity>
-        <activity android:name=".quickplayversion.SetParamsForSantaActivity">
+        <activity android:name=".mytrainingquickplayversion.SetParamsForSantaActivity">
         </activity>
-        <activity android:name=".quickplayversion.SelectNameForSetParametersActivity">
+        <activity android:name=".mytrainingquickplayversion.SelectNameForSetParametersActivity">
         </activity>
-        <activity android:name=".quickplayversion.NamesOfParticipantsActivity">
+        <activity android:name=".mytrainingquickplayversion.NamesOfParticipantsActivity">
         </activity>
         <activity android:name=".activities.MainSelectVersionActivity">
             <intent-filter>

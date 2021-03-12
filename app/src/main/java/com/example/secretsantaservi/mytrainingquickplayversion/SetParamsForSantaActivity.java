@@ -1,4 +1,4 @@
-package com.example.secretsantaservi.quickplayversion;
+package com.example.secretsantaservi.mytrainingquickplayversion;
 
 import android.view.View;
 import android.widget.Button;
@@ -11,14 +11,13 @@ import com.example.secretsantaservi.R;
 
 import java.util.ArrayList;
 
-
-import static com.example.secretsantaservi.quickplayversion.numbersofparicipantsMVP.NumberOfParticipantsPresenter.toss;
+import static com.example.secretsantaservi.mytrainingquickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity.game;
 
 
 public class SetParamsForSantaActivity extends AppCompatActivity {
     private int indexSanta;
 
-    private ArrayList<CheckBox> namesCheckBox = new ArrayList<>(toss.getNumberOfParticipants());
+    private ArrayList<CheckBox> namesCheckBox = new ArrayList<>(game.getNumberOfParticipants());
     private LinearLayout linearLayoutSetParamsForSanta;
     private TextView textViewSetParamsForSanta;
     private Button buttonGoBackToSelectNameForSetParameters;
@@ -38,14 +37,14 @@ public class SetParamsForSantaActivity extends AppCompatActivity {
 
         textViewSetParamsForSanta = findViewById(R.id.textViewSetParamsForSanta);
         String str1 = getResources().getString(R.string.title_choose_receivers_for_santa);
-        String str = String.format(str1, toss.getNameByIndex(indexSanta));
+        String str = String.format(str1, game.getNameByIndex(indexSanta));
         textViewSetParamsForSanta.setText(str);
 
         buttonGoBackToSelectNameForSetParameters = findViewById(R.id.buttonGoBackToSelectNameForSetParameters);
         buttonGoBackToSelectNameForSetParameters.setOnClickListener(onClickListener);
 
         linearLayoutSetParamsForSanta = findViewById(R.id.fillableLinearLayoutSetParamsForSanta);
-        for (int i = 0; i < toss.getNumberOfParticipants(); i++) {
+        for (int i = 0; i < game.getNumberOfParticipants(); i++) {
             addNewCheckBox(i);
         }
     }
@@ -53,9 +52,9 @@ public class SetParamsForSantaActivity extends AppCompatActivity {
     private void addNewCheckBox(int index) {
         if (indexSanta != index) {
             namesCheckBox.add(new CheckBox(this));
-            namesCheckBox.get(index).setText(toss.getNameByIndex(index));
+            namesCheckBox.get(index).setText(game.getNameByIndex(index));
             namesCheckBox.get(index).setOnClickListener(onClickListener);
-            if (toss.isPersonInSantaNaughtyList(toss.getPersonByIndex(indexSanta), toss.getPersonByIndex(index))) {
+            if (game.isPersonInSantaNaughtyList(game.getPersonByIndex(indexSanta), game.getPersonByIndex(index))) {
                 namesCheckBox.get(index).setChecked(false);
             } else {
                 namesCheckBox.get(index).setChecked(true);
@@ -79,9 +78,9 @@ public class SetParamsForSantaActivity extends AppCompatActivity {
     };
 
     private void fillNaughtyList() {
-        for (int i = 0; i < toss.getNumberOfParticipants(); i++) {
-            if (namesCheckBox.get(i) != null && !namesCheckBox.get(i).isChecked() && !toss.isPersonInSantaNaughtyList(toss.getPersonByIndex(indexSanta), toss.getPersonByIndex(i))) {
-                toss.getPersonByIndex(indexSanta).addInNaughtyList(toss.getPersonByIndex(i));
+        for (int i = 0; i < game.getNumberOfParticipants(); i++) {
+            if (namesCheckBox.get(i) != null && !namesCheckBox.get(i).isChecked() && !game.isPersonInSantaNaughtyList(game.getPersonByIndex(indexSanta), game.getPersonByIndex(i))) {
+                game.getPersonByIndex(indexSanta).addInNaughtyList(game.getPersonByIndex(i));
             }
         }
     }

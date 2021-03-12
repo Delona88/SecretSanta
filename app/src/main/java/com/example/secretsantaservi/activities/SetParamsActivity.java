@@ -51,7 +51,7 @@ public class SetParamsActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
-        textViewSetParams = findViewById(R.id.textViewSetParams);
+        textViewSetParams = findViewById(R.id.textViewShowReceiver);
 
         buttonGoBackToSelectNameForSetParams = findViewById(R.id.buttonGoNext);
         buttonGoBackToSelectNameForSetParams.setOnClickListener(onClickListener);

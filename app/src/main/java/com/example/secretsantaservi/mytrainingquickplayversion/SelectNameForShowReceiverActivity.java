@@ -1,19 +1,19 @@
-package com.example.secretsantaservi.quickplayversion;
+package com.example.secretsantaservi.mytrainingquickplayversion;
 
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.secretsantaservi.R;
 
 import java.util.ArrayList;
-import static com.example.secretsantaservi.quickplayversion.numbersofparicipantsMVP.NumberOfParticipantsPresenter.toss;
+
+import static com.example.secretsantaservi.mytrainingquickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity.game;
 
 public class SelectNameForShowReceiverActivity extends AppCompatActivity {
-    private ArrayList<Button> namesButton = new ArrayList<>(toss.getNumberOfParticipants());
+    private ArrayList<Button> namesButton = new ArrayList<>(game.getNumberOfParticipants());
     private Button buttonFinish;
     private LinearLayout linearLayoutAddNames;
 
@@ -30,14 +30,14 @@ public class SelectNameForShowReceiverActivity extends AppCompatActivity {
         buttonFinish.setOnClickListener(onClickListener);
 
         linearLayoutAddNames = findViewById(R.id.fillableLinearLayoutAddNames);
-        for (int i = 0; i < toss.getNumberOfParticipants(); i++) {
+        for (int i = 0; i < game.getNumberOfParticipants(); i++) {
             addNewNameButtonAndListener(i);
         }
     }
 
     private void addNewNameButtonAndListener(int index) {
         namesButton.add(new Button(this));
-        namesButton.get(index).setText(toss.getNameByIndex(index));
+        namesButton.get(index).setText(game.getNameByIndex(index));
         namesButton.get(index).setOnClickListener(onClickListener);
         namesButton.get(index).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         linearLayoutAddNames.addView(namesButton.get(index));

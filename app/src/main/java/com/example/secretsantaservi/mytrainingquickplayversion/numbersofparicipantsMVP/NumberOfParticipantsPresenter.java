@@ -1,10 +1,8 @@
-package com.example.secretsantaservi.quickplayversion.numbersofparicipantsMVP;
-
-import com.example.secretsantaservi.quickplayversion.model.SecretSantaQuickGame;
+package com.example.secretsantaservi.mytrainingquickplayversion.numbersofparicipantsMVP;
 
 public class NumberOfParticipantsPresenter {
     private final NumberOfParticipantsView activity;
-    public static SecretSantaQuickGame toss;
+
 
     public NumberOfParticipantsPresenter(NumberOfParticipantsView activity) {
         this.activity = activity;
@@ -22,8 +20,7 @@ public class NumberOfParticipantsPresenter {
     public void createNewTossAndStartNextActivityOrGetMessageWindow(String str) {
         if (isNumeric(str)) {
             int num = Integer.parseInt(str);
-            toss = new SecretSantaQuickGame(num);
-            activity.startActivityNamesOfParticipants();
+            activity.startActivityNamesOfParticipants(num);
         } else {
             activity.showToastIncorrectInfo();
         }

@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".quickplayversion.SelectNameForShowReceiverActivity">
+        tools:context=".mytrainingquickplayversion.SelectNameForShowReceiverActivity">
     <LinearLayout
             android:id="@+id/mainLinearLayoutSelectNameForShowReceiver"
             android:layout_width="match_parent"
@@ -17,18 +17,23 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_select_name_for_show_receiver"
                 android:textSize="14pt"/>
-
-        <LinearLayout
-                android:id="@+id/fillableLinearLayoutAddNames"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"/>
-
-
         <Button
                 android:id="@+id/buttonFinish"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_end"/>
+        <ScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+            <LinearLayout
+                    android:id="@+id/fillableLinearLayoutAddNames"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+        </ScrollView>
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

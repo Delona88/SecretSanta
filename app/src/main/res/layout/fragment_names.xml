@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".mytrainingquickplayversion.versionwithfragments.NamesFragment"
+        android:background="#F8F6F6">
+    <LinearLayout
+            android:id="@+id/mainLinearLayoutAllGames"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_names_of_participants"
+                android:textSize="14pt"/>
+        <EditText
+                android:id="@+id/editTextPersonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="12pt"/>
+
+        <Button
+                android:id="@+id/buttonAddName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_add"/>
+        <Button
+                android:id="@+id/buttonBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_go_next"/>
+
+        <ListView
+                android:id="@+id/listViewNames"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+
+    </LinearLayout>
+</FrameLayout>

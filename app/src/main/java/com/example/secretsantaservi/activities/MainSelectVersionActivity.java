@@ -10,7 +10,8 @@ import android.os.Bundle;
 
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
-import com.example.secretsantaservi.quickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity;
+import com.example.secretsantaservi.mytrainingquickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity;
+import com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragments.QuickPlayActivity;
 
 import com.example.secretsantaservi.androidrepository.repositoriesfactory.SQLiteRepositoriesFactory;
 import io.swagger.client.secretsantaclient.ClientRetrofitWithCallback;
@@ -72,8 +73,13 @@ public class MainSelectVersionActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * For QuickPlay version: QuickPlayActivity (with fragments) or NumberOfParticipantsActivity
+     */
+
+
     public void startQuick() {
-        Intent intent = new Intent(MainSelectVersionActivity.this, NumberOfParticipantsActivity.class);
+        Intent intent = new Intent(MainSelectVersionActivity.this, QuickPlayActivity.class);
         startActivity(intent);
     }
 

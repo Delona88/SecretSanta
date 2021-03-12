@@ -1,4 +1,4 @@
-package com.example.secretsantaservi.quickplayversion;
+package com.example.secretsantaservi.mytrainingquickplayversion;
 
 import android.view.View;
 import android.widget.Button;
@@ -7,7 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.secretsantaservi.R;
 
-import static com.example.secretsantaservi.quickplayversion.numbersofparicipantsMVP.NumberOfParticipantsPresenter.toss;
+import static com.example.secretsantaservi.mytrainingquickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity.game;
+
 
 public class ShowSantasReceiverActivity extends AppCompatActivity {
     private Button buttonGoBackToSelectNameForShowReceiver;
@@ -26,10 +27,10 @@ public class ShowSantasReceiverActivity extends AppCompatActivity {
 
     private void buildGUI() {
 
-        TextView textViewShowSantasReceiver = findViewById(R.id.textViewShowSantasReceiver);
+        TextView textViewShowReceiver = findViewById(R.id.textViewShowSantasReceiver);
         String str1 = getResources().getString(R.string.title_santa_nd_receiver);
-        String str = String.format(str1, toss.getNameByIndex(indexSanta), toss.getNameReceiverBySantasIndex(indexSanta));
-        textViewShowSantasReceiver.setText(str);
+        String str = String.format(str1, game.getNameByIndex(indexSanta), game.getNameReceiverBySantaIndex(indexSanta));
+        textViewShowReceiver.setText(str);
 
         buttonGoBackToSelectNameForShowReceiver = findViewById(R.id.buttonGoBackToSelectNameForShowReceiver);
         buttonGoBackToSelectNameForShowReceiver.setOnClickListener(onClickListener);

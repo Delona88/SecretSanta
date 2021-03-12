@@ -1,20 +1,21 @@
-package com.example.secretsantaservi.quickplayversion;
+package com.example.secretsantaservi.mytrainingquickplayversion;
 
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.secretsantaservi.R;
+import com.example.secretsantaservi.mytrainingquickplayversion.model.BadConditionsException;
 
 import java.util.ArrayList;
 
-import static com.example.secretsantaservi.quickplayversion.numbersofparicipantsMVP.NumberOfParticipantsPresenter.toss;
-
+import static com.example.secretsantaservi.mytrainingquickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity.game;
 
 public class SelectNameForSetParametersActivity extends AppCompatActivity {
-    private ArrayList<Button> namesButton = new ArrayList<>(toss.getNumberOfParticipants());
+    private ArrayList<Button> namesButton = new ArrayList<>(game.getNumberOfParticipants());
     private Button buttonGoToResult;
     private LinearLayout linearLayoutSelectNameForSetParameters;
 
@@ -31,14 +32,14 @@ public class SelectNameForSetParametersActivity extends AppCompatActivity {
         buttonGoToResult.setOnClickListener(onClickListener);
 
         linearLayoutSelectNameForSetParameters = findViewById(R.id.fillableLinearLayoutSelectNameForSetParameters);
-        for (int i = 0; i < toss.getNumberOfParticipants(); i++) {
+        for (int i = 0; i < game.getNumberOfParticipants(); i++) {
             addNewNameButtonAndListener(i);
         }
     }
 
     private void addNewNameButtonAndListener(int index) {
         namesButton.add(new Button(this));
-        namesButton.get(index).setText(toss.getNameByIndex(index));
+        namesButton.get(index).setText(game.getNameByIndex(index));
         namesButton.get(index).setOnClickListener(onClickListener);
         namesButton.get(index).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         linearLayoutSelectNameForSetParameters.addView(namesButton.get(index));
@@ -48,7 +49,6 @@ public class SelectNameForSetParametersActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            //проверка кнопки
             Button pressedButton = (Button) v;
             int indexOfPressedButton = namesButton.indexOf(pressedButton);
             if (indexOfPressedButton != -1) {
@@ -57,13 +57,21 @@ public class SelectNameForSetParametersActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             if ((v.getId() == buttonGoToResult.getId())) {
-                toss.fillReceivers();
-                Intent intent = new Intent(SelectNameForSetParametersActivity.this, SelectNameForShowReceiverActivity.class);
-                startActivity(intent);
-                finish();
+                try {
+                    game.fillReceivers();
+                    Intent intent = new Intent(SelectNameForSetParametersActivity.this, SelectNameForShowReceiverActivity.class);
+                    startActivity(intent);
+                    finish();
+                } catch (BadConditionsException e) {
+                    e.printStackTrace();
+                    showToastIncorrectInfo();
+                }
+
             }
         }
     };
 
-
+    public void showToastIncorrectInfo() {
+        Toast.makeText(this, getResources().getString(R.string.title_bad_conditions), Toast.LENGTH_LONG).show();
+    }
 }

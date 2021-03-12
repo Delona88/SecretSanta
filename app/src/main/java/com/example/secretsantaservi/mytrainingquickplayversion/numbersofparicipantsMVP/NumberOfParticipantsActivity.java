@@ -1,4 +1,4 @@
-package com.example.secretsantaservi.quickplayversion.numbersofparicipantsMVP;
+package com.example.secretsantaservi.mytrainingquickplayversion.numbersofparicipantsMVP;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.secretsantaservi.R;
-import com.example.secretsantaservi.quickplayversion.NamesOfParticipantsActivity;
+import com.example.secretsantaservi.mytrainingquickplayversion.NamesOfParticipantsActivity;
+import com.example.secretsantaservi.mytrainingquickplayversion.model.SecretSantaQuickGame;
 
 public class NumberOfParticipantsActivity extends AppCompatActivity implements NumberOfParticipantsView {
+
+    public static SecretSantaQuickGame game;
+
     private Button buttonGoToNamesOfParticipants;
 
     private NumberOfParticipantsPresenter presenter;
@@ -21,6 +25,8 @@ public class NumberOfParticipantsActivity extends AppCompatActivity implements N
         setContentView(R.layout.activity_number_of_participants);
 
         buildGUI();
+
+        game = new SecretSantaQuickGame();
 
         presenter = new NumberOfParticipantsPresenter(this);
     }
@@ -46,8 +52,9 @@ public class NumberOfParticipantsActivity extends AppCompatActivity implements N
         Toast.makeText(this, getResources().getString(R.string.title_incorrect_info), Toast.LENGTH_LONG).show();
     }
 
-    public void startActivityNamesOfParticipants() {
+    public void startActivityNamesOfParticipants(int num) {
         Intent intent = new Intent(NumberOfParticipantsActivity.this, NamesOfParticipantsActivity.class);
+        intent.putExtra("numberOfParticipants", num);
         startActivity(intent);
         finish();
     }
