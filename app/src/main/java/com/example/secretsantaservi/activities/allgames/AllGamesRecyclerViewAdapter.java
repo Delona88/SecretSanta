@@ -10,7 +10,7 @@ import com.example.secretsantaservi.R;
 
 import java.util.List;
 
-public class AllGamesRecyclerViewAdapter extends RecyclerView.Adapter<AllGamesRecyclerViewAdapter.GameViewHolder> {
+public class AllGamesRecyclerViewAdapter extends RecyclerView.Adapter<AllGamesRecyclerViewAdapter.GamesViewHolder> {
 
     private final List<Integer> gamesId;
 
@@ -22,14 +22,14 @@ public class AllGamesRecyclerViewAdapter extends RecyclerView.Adapter<AllGamesRe
 
     @NonNull
     @Override
-    public GameViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GamesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.game_item, parent, false);
-        return new GameViewHolder(view);
+        return new GamesViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GameViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GamesViewHolder holder, int position) {
         holder.getTextViewGameId().setText("" + gamesId.get(position));
     }
 
@@ -38,7 +38,7 @@ public class AllGamesRecyclerViewAdapter extends RecyclerView.Adapter<AllGamesRe
         return gamesId.size();
     }
 
-    class GameViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class GamesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView textViewGameId;
 
@@ -46,7 +46,7 @@ public class AllGamesRecyclerViewAdapter extends RecyclerView.Adapter<AllGamesRe
             return textViewGameId;
         }
 
-        public GameViewHolder(View itemView) {
+        public GamesViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             textViewGameId = itemView.findViewById(R.id.textViewGameId);

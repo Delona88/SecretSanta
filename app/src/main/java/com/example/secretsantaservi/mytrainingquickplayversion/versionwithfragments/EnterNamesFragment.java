@@ -2,6 +2,7 @@ package com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragm
 
 import android.content.Context;
 import android.widget.*;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -12,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.secretsantaservi.R;
 
-import static com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragments.QuickPlayActivity.quickGame;
+import static com.example.secretsantaservi.activities.MainSelectVersionActivity.quickGame;
 
-public class NamesFragment extends Fragment {
+public class EnterNamesFragment extends Fragment {
     private Button buttonAddName;
     private Button buttonContinue;
     private ListView listViewAllParticipants;
@@ -27,14 +28,14 @@ public class NamesFragment extends Fragment {
 
     private NamesViewModel mViewModel;
 
-    public static NamesFragment newInstance() {
-        return new NamesFragment();
+    public static EnterNamesFragment newInstance() {
+        return new EnterNamesFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_names, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_enter_names, container, false);
 
         buttonAddName = rootView.findViewById(R.id.buttonAddName);
         buttonAddName.setOnClickListener(onClickListener);
@@ -45,10 +46,20 @@ public class NamesFragment extends Fragment {
 
         listViewAllParticipants = rootView.findViewById(R.id.listViewNames);
 
+
+
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(NamesViewModel.class);
+        // TODO: Use the ViewModel
+
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, quickGame.getParticipantsNames());
         listViewAllParticipants.setAdapter(adapter);
 
-        return rootView;
     }
 
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -67,7 +78,7 @@ public class NamesFragment extends Fragment {
                 }
             }
             if (v.getId() == buttonContinue.getId()) {
-                activity.goToSelectNamesForSetParams();
+                activity.goToSelectNameForSetParams();
             }
         }
     };
@@ -76,11 +87,13 @@ public class NamesFragment extends Fragment {
         Toast.makeText(getActivity(), getResources().getString(R.string.title_incorrect_info), Toast.LENGTH_LONG).show();
     }
 
+
+
+
+    @NonNull
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NamesViewModel.class);
-        // TODO: Use the ViewModel
+    public Lifecycle getLifecycle() {
+        return super.getLifecycle();
     }
 
     @Override

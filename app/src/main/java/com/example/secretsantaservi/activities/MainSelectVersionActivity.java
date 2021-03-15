@@ -10,8 +10,8 @@ import android.os.Bundle;
 
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
-import com.example.secretsantaservi.mytrainingquickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity;
-import com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragments.QuickPlayActivity;
+import com.example.secretsantaservi.mytrainingquickplayversion.model.SecretSantaQuickGame;
+import com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragments.QuickPlayActivityWithViewPager;
 
 import com.example.secretsantaservi.androidrepository.repositoriesfactory.SQLiteRepositoriesFactory;
 import io.swagger.client.secretsantaclient.ClientRetrofitWithCallback;
@@ -26,6 +26,8 @@ public class MainSelectVersionActivity extends AppCompatActivity {
     private Button buttonGoToQuick;
 
     private SecretSantaApplication secretSantaApplication;
+
+    public static SecretSantaQuickGame quickGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +76,14 @@ public class MainSelectVersionActivity extends AppCompatActivity {
     };
 
     /**
-     * For QuickPlay version: QuickPlayActivity (with fragments) or NumberOfParticipantsActivity
+     * For QuickPlay version: NumberOfParticipantsActivity, QuickPlayActivityWithFragments (FragmentContainerView with fragments) or
+     * QuickPlayActivityWithViewPager (ViewPager with fragments)
      */
 
 
     public void startQuick() {
-        Intent intent = new Intent(MainSelectVersionActivity.this, QuickPlayActivity.class);
+        quickGame = new SecretSantaQuickGame();
+        Intent intent = new Intent(MainSelectVersionActivity.this, QuickPlayActivityWithViewPager.class);
         startActivity(intent);
     }
 

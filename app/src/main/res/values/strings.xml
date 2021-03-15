@@ -203,9 +203,12 @@
     <string name="title_add">Добавить</string>
     <string name="title_set">Установить</string>
 
+    <string name="title_names">Участники</string>
+    <string name="title_conditions">Ограничения</string>
+    <string name="title_set_params">Установить ограничение</string>
+    <string name="title_santa">Просмотреть получателя</string>
 
 
-    
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 

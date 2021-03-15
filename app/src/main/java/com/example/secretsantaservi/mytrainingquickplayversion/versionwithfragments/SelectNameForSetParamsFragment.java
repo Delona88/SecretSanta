@@ -13,7 +13,8 @@ import android.view.ViewGroup;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.mytrainingquickplayversion.model.BadConditionsException;
 
-import static com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragments.QuickPlayActivity.quickGame;
+import static com.example.secretsantaservi.activities.MainSelectVersionActivity.quickGame;
+
 
 public class SelectNameForSetParamsFragment extends Fragment {
 
@@ -25,8 +26,8 @@ public class SelectNameForSetParamsFragment extends Fragment {
 
     private NamesViewModel mViewModel;
 
-    public static NamesFragment newInstance() {
-        return new NamesFragment();
+    public static SelectNameForSetParamsFragment newInstance() {
+        return new SelectNameForSetParamsFragment();
     }
 
     @Override
@@ -45,6 +46,25 @@ public class SelectNameForSetParamsFragment extends Fragment {
 
         return rootView;
     }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, quickGame.getParticipantsNames());
+        listViewAllParticipants.setAdapter(adapter);
+        listViewAllParticipants.setOnItemClickListener(onItemClickListener);
+
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, quickGame.getParticipantsNames());
+        listViewAllParticipants.setAdapter(adapter);
+        listViewAllParticipants.setOnItemClickListener(onItemClickListener);
+
+    }
+
 
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
 
@@ -81,6 +101,7 @@ public class SelectNameForSetParamsFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(NamesViewModel.class);
         // TODO: Use the ViewModel
     }
+
 
     @Override
     public void onAttach(@NonNull Context context) {

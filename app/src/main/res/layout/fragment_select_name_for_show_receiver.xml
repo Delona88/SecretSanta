@@ -3,7 +3,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".mytrainingquickplayversion.versionwithfragments.SelectSantaForShowReceiverFragment"
+             tools:context=".mytrainingquickplayversion.versionwithfragments.SelectNameForShowReceiverFragment"
              android:background="#F8F6F6">
 
     <LinearLayout
@@ -26,8 +26,6 @@
                 android:id="@+id/listViewNames"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-
-
 
     </LinearLayout>
 </FrameLayout>

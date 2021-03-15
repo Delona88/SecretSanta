@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.secretsantaservi.R;
 
-import static com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragments.QuickPlayActivity.quickGame;
+import static com.example.secretsantaservi.activities.MainSelectVersionActivity.quickGame;
 
-public class SelectSantaForShowReceiverFragment extends Fragment {
+public class SelectNameForShowReceiverFragment extends Fragment {
 
     private Button buttonContinue;
     private ListView listViewAllParticipants;
@@ -24,14 +24,14 @@ public class SelectSantaForShowReceiverFragment extends Fragment {
 
     private NamesViewModel mViewModel;
 
-    public static NamesFragment newInstance() {
-        return new NamesFragment();
+    public static SelectNameForShowReceiverFragment newInstance() {
+        return new SelectNameForShowReceiverFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_select_santa_for_show_receiver, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_select_name_for_show_receiver, container, false);
 
         buttonContinue = rootView.findViewById(R.id.buttonBack);
         buttonContinue.setOnClickListener(onClickListener);
@@ -49,7 +49,6 @@ public class SelectSantaForShowReceiverFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-
             if (v.getId() == buttonContinue.getId()) {
                 activity.finish();
             }

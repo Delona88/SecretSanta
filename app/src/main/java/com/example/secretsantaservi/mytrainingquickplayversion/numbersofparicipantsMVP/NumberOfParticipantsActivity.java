@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.secretsantaservi.R;
-import com.example.secretsantaservi.mytrainingquickplayversion.NamesOfParticipantsActivity;
+import com.example.secretsantaservi.mytrainingquickplayversion.EnterNamesOfParticipantsActivity;
 import com.example.secretsantaservi.mytrainingquickplayversion.model.SecretSantaQuickGame;
 
 public class NumberOfParticipantsActivity extends AppCompatActivity implements NumberOfParticipantsView {
@@ -53,7 +53,7 @@ public class NumberOfParticipantsActivity extends AppCompatActivity implements N
     }
 
     public void startActivityNamesOfParticipants(int num) {
-        Intent intent = new Intent(NumberOfParticipantsActivity.this, NamesOfParticipantsActivity.class);
+        Intent intent = new Intent(NumberOfParticipantsActivity.this, EnterNamesOfParticipantsActivity.class);
         intent.putExtra("numberOfParticipants", num);
         startActivity(intent);
         finish();

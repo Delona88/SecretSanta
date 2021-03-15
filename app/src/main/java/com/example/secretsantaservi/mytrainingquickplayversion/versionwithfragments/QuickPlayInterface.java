@@ -2,10 +2,13 @@ package com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragm
 
 public interface QuickPlayInterface {
     void goToEnterNames();
-    void goToSelectNamesForSetParams();
+    void goToSelectNameForSetParams();
     void goToSetParams(int indexSanta);
     void goToSelectNameForShowReceiver();
     void goToShowReceivers(int indexSanta);
     void finish();
-    void popBackStack();
+    void removeFragmentSetParams();
+    void removeFragmentSelectNameForSetParams();
+    void removeFragmentNames();
+    void removeFragmentShowReceiver();
 }

@@ -14,7 +14,7 @@ import com.example.secretsantaservi.mytrainingquickplayversion.model.PersonForQu
 
 import java.util.ArrayList;
 
-import static com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragments.QuickPlayActivity.quickGame;
+import static com.example.secretsantaservi.activities.MainSelectVersionActivity.quickGame;
 
 public class SetParamsFragment extends Fragment {
 
@@ -27,18 +27,19 @@ public class SetParamsFragment extends Fragment {
     private int indexSanta;
     private ArrayList<String> receiverNames;
 
-    public SetParamsFragment() {
-
-    }
-
-    public static SetParamsFragment newInstance(String param1, String param2) {
-
-        return new SetParamsFragment();
+    public static SetParamsFragment newInstance(int indexSanta) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("indexSanta", indexSanta);
+        SetParamsFragment fragment = new SetParamsFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        indexSanta = getArguments().getInt("indexSanta", 0);
 
     }
 
@@ -71,12 +72,12 @@ public class SetParamsFragment extends Fragment {
         public void onClick(View v) {
             if (v.getId() == buttonBack.getId()) {
                 addChosenInSantaNaughtyList();
-                activity.popBackStack();
+                activity.removeFragmentSetParams();
             }
         }
     };
 
-    private void addChosenInSantaNaughtyList(){
+    private void addChosenInSantaNaughtyList() {
         SparseBooleanArray chosen = listViewAllParticipants.getCheckedItemPositions();
         for (int i = 0; i < chosen.size(); i++) {
             if (chosen.valueAt(i)) {
@@ -85,7 +86,6 @@ public class SetParamsFragment extends Fragment {
             }
         }
     }
-
 
     @Override
     public void onAttach(@NonNull Context context) {

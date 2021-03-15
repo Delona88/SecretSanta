@@ -10,29 +10,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.secretsantaservi.R;
 
-import static com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragments.QuickPlayActivity.quickGame;
+import static com.example.secretsantaservi.activities.MainSelectVersionActivity.quickGame;
 
 public class ShowReceiverFragment extends Fragment {
 
     private Button buttonBack;
-    private TextView textView;
-
     private QuickPlayInterface activity;
     private int indexSanta;
 
-    public ShowReceiverFragment() {
+    public static ShowReceiverFragment newInstance(int indexSanta) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("indexSanta", indexSanta);
+        ShowReceiverFragment fragment = new ShowReceiverFragment();
+        fragment.setArguments(bundle);
+        return fragment;
 
-    }
-
-    public static SetParamsFragment newInstance(String param1, String param2) {
-
-        return new SetParamsFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        indexSanta = getArguments().getInt("indexSanta", 0);
     }
 
     @Override
@@ -44,9 +43,9 @@ public class ShowReceiverFragment extends Fragment {
         buttonBack.setOnClickListener(onClickListener);
 
         String str1 = getResources().getString(R.string.title_santa_nd_receiver);
-        indexSanta = requireArguments().getInt("indexSanta",0);
-        String str = String.format(str1, quickGame.getNameByIndex(indexSanta),quickGame.getNameReceiverBySantaIndex(indexSanta));
-        textView = rootView.findViewById(R.id.textViewShowReceiver);
+        indexSanta = requireArguments().getInt("indexSanta", 0);
+        String str = String.format(str1, quickGame.getNameByIndex(indexSanta), quickGame.getNameReceiverBySantaIndex(indexSanta));
+        TextView textView = rootView.findViewById(R.id.textViewShowReceiver);
         textView.setText(str);
 
 
@@ -58,7 +57,7 @@ public class ShowReceiverFragment extends Fragment {
         @Override
         public void onClick(View v) {
             if (v.getId() == buttonBack.getId()) {
-                activity.popBackStack();
+                activity.removeFragmentShowReceiver();
             }
         }
     };

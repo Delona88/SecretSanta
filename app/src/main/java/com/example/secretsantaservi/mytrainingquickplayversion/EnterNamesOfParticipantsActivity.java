@@ -6,14 +6,13 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.secretsantaservi.R;
-import com.example.secretsantaservi.mytrainingquickplayversion.model.SecretSantaQuickGame;
 
 import java.util.ArrayList;
 
 import static com.example.secretsantaservi.mytrainingquickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity.game;
 
 
-public class NamesOfParticipantsActivity extends AppCompatActivity {
+public class EnterNamesOfParticipantsActivity extends AppCompatActivity {
 
     private final ArrayList<EditText> listOfEditTextForNames = new ArrayList<>();
     private Button buttonGoToSetParams;
@@ -24,7 +23,7 @@ public class NamesOfParticipantsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_names_of_participants);
+        setContentView(R.layout.activity_enter_names_of_participants);
 
         numberOfParticipants = getIntent().getIntExtra("numberOfParticipants", 0);
 
@@ -57,7 +56,7 @@ public class NamesOfParticipantsActivity extends AppCompatActivity {
             if (v.getId() == buttonGoToSetParams.getId()) {
                 if (isAllNamesEntered()) {
                     addNamesInToss();
-                    Intent intent = new Intent(NamesOfParticipantsActivity.this, SelectNameForSetParametersActivity.class);
+                    Intent intent = new Intent(EnterNamesOfParticipantsActivity.this, SelectNameForSetParametersActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

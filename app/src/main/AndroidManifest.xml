@@ -17,9 +17,10 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
         <activity
-                android:name=".mytrainingquickplayversion.versionwithfragments.QuickPlayActivity"
-                android:label="@string/title_activity_quick_play"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:name=".mytrainingquickplayversion.versionwithfragments.QuickPlayActivityWithViewPager">
+        </activity>
+        <activity
+                android:name=".mytrainingquickplayversion.versionwithfragments.QuickPlayActivityWithFragments">
         </activity>
         <activity android:name=".activities.PersonInfoActivity">
         </activity>
@@ -51,7 +52,7 @@
         </activity>
         <activity android:name=".mytrainingquickplayversion.SelectNameForSetParametersActivity">
         </activity>
-        <activity android:name=".mytrainingquickplayversion.NamesOfParticipantsActivity">
+        <activity android:name=".mytrainingquickplayversion.EnterNamesOfParticipantsActivity">
         </activity>
         <activity android:name=".activities.MainSelectVersionActivity">
             <intent-filter>
