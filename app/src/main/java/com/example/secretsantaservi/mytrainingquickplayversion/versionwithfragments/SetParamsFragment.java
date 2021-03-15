@@ -2,6 +2,7 @@ package com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragm
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.widget.*;
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.example.secretsantaservi.mytrainingquickplayversion.model.PersonForQu
 import java.util.ArrayList;
 
 import static com.example.secretsantaservi.activities.MainSelectVersionActivity.quickGame;
+import static com.example.secretsantaservi.mytrainingquickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity.game;
 
 public class SetParamsFragment extends Fragment {
 
@@ -61,6 +63,7 @@ public class SetParamsFragment extends Fragment {
         receiverNames = quickGame.getParticipantsNamesWithoutSanta(indexSanta);
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_multiple_choice, receiverNames);
         listViewAllParticipants.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
         listViewAllParticipants.setAdapter(adapter);
 
         return rootView;
@@ -71,6 +74,7 @@ public class SetParamsFragment extends Fragment {
         @Override
         public void onClick(View v) {
             if (v.getId() == buttonBack.getId()) {
+                quickGame.getPersonByIndex(indexSanta).setNaughtyList(new ArrayList<>());
                 addChosenInSantaNaughtyList();
                 activity.removeFragmentSetParams();
             }
@@ -83,6 +87,10 @@ public class SetParamsFragment extends Fragment {
             if (chosen.valueAt(i)) {
                 PersonForQuickGame person = quickGame.getPersonByName(receiverNames.get(chosen.keyAt(i)));
                 quickGame.getPersonByIndex(indexSanta).addInNaughtyList(person);
+
+
+                Log.d("fillNaughtyList", "NaughtyList ------>" + person.toString());
+                Log.d("fillNaughtyList", "NaughtyList ------>" + quickGame.getPersonByIndex(indexSanta).getNaughtyList().toString());
             }
         }
     }

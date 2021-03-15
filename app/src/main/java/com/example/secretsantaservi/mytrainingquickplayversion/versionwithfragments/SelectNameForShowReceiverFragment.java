@@ -66,14 +66,6 @@ public class SelectNameForShowReceiverFragment extends Fragment {
         }
     };
 
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NamesViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

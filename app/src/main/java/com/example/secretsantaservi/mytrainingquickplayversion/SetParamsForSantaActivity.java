@@ -28,7 +28,7 @@ public class SetParamsForSantaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_params_for_santa);
 
         int defaultValue = 0;
-        indexSanta = getIntent().getIntExtra("indexButton", defaultValue); //получаем из SelectNameForSetParameters
+        indexSanta = getIntent().getIntExtra("indexButton", defaultValue);
 
         buildGUI();
     }
@@ -47,6 +47,7 @@ public class SetParamsForSantaActivity extends AppCompatActivity {
         for (int i = 0; i < game.getNumberOfParticipants(); i++) {
             addNewCheckBox(i);
         }
+
     }
 
     private void addNewCheckBox(int index) {
@@ -71,6 +72,7 @@ public class SetParamsForSantaActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             if (v.getId() == buttonGoBackToSelectNameForSetParameters.getId()) {
+                game.getPersonByIndex(indexSanta).setNaughtyList(new ArrayList<>());
                 fillNaughtyList();
                 finish();
             }

@@ -17,8 +17,8 @@ public class Toss {//для локальной игры, для серверно
         int numberOfParticipants = participants.size();
         mixArray = createMixArray2(numberOfParticipants);
         for (int i = 0; i < numberOfParticipants; i++) {
-            Person santa =  participants.get(i); //понятнее??
-            Person receiver =  participants.get(mixArray.get(i));
+            Person santa = participants.get(i); //понятнее??
+            Person receiver = participants.get(mixArray.get(i));
             santa.setReceiverByGameId(receiver, gameId);
             //santas.get(i).setReceiver(santas.get((Integer) mixArray.get(i))); //короче
         }
@@ -42,19 +42,19 @@ public class Toss {//для локальной игры, для серверно
             }
             numIterations++;
         }
-        if (numIterations==1000){
+        if (numIterations == 1000) {
             throw new BadConditionsException();
         }
         return array;
     }
 
-    private boolean isPersonInSantaNaughtyListEmail(Person santa, String emailReceiver){
+    private boolean isPersonInSantaNaughtyListEmail(Person santa, String emailReceiver) {
         ArrayList<String> arrayNaughtyListEmail;
         arrayNaughtyListEmail = santa.getArrayNaughtyListEmailByGameId(gameId);
 /*        if (arrayNaughtyListEmail==null){
             return false;
         }*/
-        return  arrayNaughtyListEmail.contains(emailReceiver);
+        return arrayNaughtyListEmail.contains(emailReceiver);
     }
 
 

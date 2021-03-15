@@ -11,6 +11,8 @@ import android.os.Bundle;
 import com.example.secretsantaservi.R;
 import com.example.secretsantaservi.SecretSantaApplication;
 import com.example.secretsantaservi.mytrainingquickplayversion.model.SecretSantaQuickGame;
+import com.example.secretsantaservi.mytrainingquickplayversion.numbersofparicipantsMVP.NumberOfParticipantsActivity;
+import com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragments.QuickPlayActivityWithFragments;
 import com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragments.QuickPlayActivityWithViewPager;
 
 import com.example.secretsantaservi.androidrepository.repositoriesfactory.SQLiteRepositoriesFactory;

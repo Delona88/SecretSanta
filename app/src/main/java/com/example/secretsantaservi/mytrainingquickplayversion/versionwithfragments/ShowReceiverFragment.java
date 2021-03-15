@@ -24,7 +24,6 @@ public class ShowReceiverFragment extends Fragment {
         ShowReceiverFragment fragment = new ShowReceiverFragment();
         fragment.setArguments(bundle);
         return fragment;
-
     }
 
     @Override
@@ -47,7 +46,6 @@ public class ShowReceiverFragment extends Fragment {
         String str = String.format(str1, quickGame.getNameByIndex(indexSanta), quickGame.getNameReceiverBySantaIndex(indexSanta));
         TextView textView = rootView.findViewById(R.id.textViewShowReceiver);
         textView.setText(str);
-
 
         return rootView;
     }

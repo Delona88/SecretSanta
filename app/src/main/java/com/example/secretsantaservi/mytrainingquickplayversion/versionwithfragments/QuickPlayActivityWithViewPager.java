@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import android.os.Parcelable;
+import androidx.annotation.Nullable;
 import com.example.secretsantaservi.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -18,11 +20,15 @@ public class QuickPlayActivityWithViewPager extends AppCompatActivity implements
     private ViewPager viewPager;
     private QuickPlayFragmentPagerAdapter pagerAdapter;
 
-    private EnterNamesFragment enterNamesFragment;
-    private SelectNameForSetParamsFragment selectNameForSetParamsFragment;
-    private SetParamsFragment setParamsFragment;
-    private SelectNameForShowReceiverFragment selectNameForShowReceiverFragment;
-    private ShowReceiverFragment showReceiverFragment;
+    private boolean selectNameForSetParamsFragmentOpen;
+    private boolean setParamsFragmentOpen;
+    private boolean showReceiverFragmentOpen;
+
+    private static final int ENTER_NAME_FRAGMENT_ID = 0;
+    private static final int SELECT_NAME_FOR_SET_PARAMS_FRAGMENT_ID = 1;
+    private static final int SET_PARAMS_FRAGMENT_ID = 2;
+    private static final int SELECT_NAME_FOR_SHOW_RECEIVER_FRAGMENT_ID = 3;
+    private static final int SHOW_RECEIVER_FRAGMENT_ID = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,50 +46,73 @@ public class QuickPlayActivityWithViewPager extends AppCompatActivity implements
         if (savedInstanceState == null){
             goToEnterNames();
         }
-
     }
 
+
     private static class QuickPlayFragmentPagerAdapter extends FragmentStatePagerAdapter {
-        private final ArrayList<Fragment> fragments = new ArrayList<>();
-        private final ArrayList<String> titles = new ArrayList<>();
+        private ArrayList<String> titles = new ArrayList<>();
+        private ArrayList<Integer> show = new ArrayList<>();
+
+        private int indexSanta;
 
         public QuickPlayFragmentPagerAdapter(@NonNull FragmentManager fm) {
             super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
+            Log.d("getItem ", "position ------>" + position);
 
-            Log.d("getItem fragment", "position ------>" + position);
-
-            return fragments.get(position);
+            switch (show.get(position)) {
+                case ENTER_NAME_FRAGMENT_ID:
+                    return new EnterNamesFragment();
+                case SELECT_NAME_FOR_SET_PARAMS_FRAGMENT_ID:
+                    return new SelectNameForSetParamsFragment();
+                case SET_PARAMS_FRAGMENT_ID:
+                    return SetParamsFragment.newInstance(indexSanta);
+                case SELECT_NAME_FOR_SHOW_RECEIVER_FRAGMENT_ID:
+                    return new SelectNameForShowReceiverFragment();
+                case SHOW_RECEIVER_FRAGMENT_ID:
+                    return ShowReceiverFragment.newInstance(indexSanta);
+                default:
+                    return new EnterNamesFragment();
+            }
         }
+
+        @Nullable
+        @Override
+        public Parcelable saveState() {
+            Bundle bundle = (Bundle) super.saveState();
+            if (bundle != null) {
+                bundle.putIntegerArrayList("array", show);
+                bundle.putStringArrayList("titles",titles);
+            }
+
+            Log.d("saveState ", "show ------>" + show.toString());
+            Log.d("saveState ", "titles ------>" + titles.toString());
+
+            return bundle;
+        }
+
+        @Override
+        public void restoreState(@Nullable Parcelable state, @Nullable ClassLoader loader) {
+            super.restoreState(state, loader);
+            Bundle bundle = (Bundle) state;
+            if (bundle != null) {
+                show = bundle.getIntegerArrayList("array");
+                titles = bundle.getStringArrayList("titles");
+            }
+            notifyDataSetChanged();
+
+            Log.d("restoreState ", "show ------>" + show.toString());
+            Log.d("restoreState ", "titles ------>" + titles.toString());
+        }
+
 
         @Override
         public int getCount() {
             return titles.size();
-        }
-
-        public int addFragmentAndReturnIndex(Fragment fragment, String title) {
-            fragments.add(fragment);
-            titles.add(title);
-            notifyDataSetChanged();
-            int i = fragments.indexOf(fragment);
-
-            Log.d("add fragment", "index ------>" + fragment.getId());
-
-            return i;
-        }
-
-        public int removeFragmentAndReturnLastIndex(Fragment fragment) {
-            int i = fragments.indexOf(fragment);
-            fragments.remove(i);
-            titles.remove(i);
-            notifyDataSetChanged();
-
-            Log.d("remove fragment", "index ------>" + i);
-
-            return i - 1;
         }
 
         @Override
@@ -96,99 +125,120 @@ public class QuickPlayActivityWithViewPager extends AppCompatActivity implements
             return titles.get(position);
         }
 
+        public void setIndexSanta(int indexSanta) {
+            this.indexSanta = indexSanta;
+        }
+
+        public int addFragmentAndReturnIndex(int fragmentId, String title) {
+            titles.add(title);
+            show.add(fragmentId);
+            notifyDataSetChanged();
+            int i = titles.indexOf(title);
+
+            Log.d("add fragment", "fragmentId ------>" + fragmentId);
+
+            return i;
+        }
+
+        public int removeFragmentAndReturnLastIndex(int fragmentId) {
+            int i = show.indexOf(fragmentId);
+            show.remove(i);
+            titles.remove(i);
+            notifyDataSetChanged();
+
+            Log.d("remove fragment", "fragmentId ------>" + fragmentId);
+
+            return i - 1;
+        }
+
     }
 
 
     @Override
     public void goToEnterNames() {
-        enterNamesFragment = new EnterNamesFragment();
-        int index = pagerAdapter.addFragmentAndReturnIndex(enterNamesFragment, getResources().getString(R.string.title_names));
+        int index = pagerAdapter.addFragmentAndReturnIndex(ENTER_NAME_FRAGMENT_ID, getResources().getString(R.string.title_names));
         viewPager.setCurrentItem(index);
 
 
-        Log.d("EnterNames fragment", "index ------>" + index);
+        Log.d("EnterNames ", "index ------>" + index);
     }
 
     @Override
     public void goToSelectNameForSetParams() {
-        if (selectNameForSetParamsFragment != null) {
+        if (selectNameForSetParamsFragmentOpen){
             removeFragmentSelectNameForSetParams();
         }
 
-        selectNameForSetParamsFragment = new SelectNameForSetParamsFragment();
-        int index = pagerAdapter.addFragmentAndReturnIndex(selectNameForSetParamsFragment, getResources().getString(R.string.title_conditions));
+        selectNameForSetParamsFragmentOpen = true;
+        int index = pagerAdapter.addFragmentAndReturnIndex(SELECT_NAME_FOR_SET_PARAMS_FRAGMENT_ID, getResources().getString(R.string.title_conditions));
         viewPager.setCurrentItem(index);
 
 
-        Log.d("SelectNameForShowReceiver fragment", "index ------>" + index);
-
+        Log.d("SelectNameForShowReceiver ", "index ------>" + index);
     }
-
 
     @Override
     public void goToSetParams(int indexSanta) {
-        if (setParamsFragment != null) {
+        if (setParamsFragmentOpen){
             removeFragmentSetParams();
         }
 
-        setParamsFragment = SetParamsFragment.newInstance(indexSanta);
-        int index = pagerAdapter.addFragmentAndReturnIndex(setParamsFragment, getResources().getString(R.string.title_set_params));
+        setParamsFragmentOpen = true;
+        pagerAdapter.setIndexSanta(indexSanta);
+        int index = pagerAdapter.addFragmentAndReturnIndex(SET_PARAMS_FRAGMENT_ID, getResources().getString(R.string.title_set_params));
         viewPager.setCurrentItem(index);
 
 
-        Log.d("SetParams fragment", "index ------>" + index);
-
+        Log.d("SetParams ", "index ------>" + index);
     }
 
     @Override
     public void goToSelectNameForShowReceiver() {
-        removeFragmentNames();
+        removeFragmentEnterNames();
         removeFragmentSelectNameForSetParams();
-        if (selectNameForShowReceiverFragment != null) {
-            removeFragmentSelectNameForSetParams();
-        }
-
-        selectNameForShowReceiverFragment = new SelectNameForShowReceiverFragment();
-        int index = pagerAdapter.addFragmentAndReturnIndex(selectNameForShowReceiverFragment, getResources().getString(R.string.title_santa));
+        int index = pagerAdapter.addFragmentAndReturnIndex(SELECT_NAME_FOR_SHOW_RECEIVER_FRAGMENT_ID, getResources().getString(R.string.title_santa));
         viewPager.setCurrentItem(index);
 
-        Log.d("SelectNameForShowReceiver fragment", "index ------>" + index);
-
+        Log.d("SelectNameForShowReceiver ", "index ------>" + index);
     }
 
     @Override
     public void goToShowReceivers(int indexSanta) {
-        if (showReceiverFragment != null) {
+        if (showReceiverFragmentOpen) {
             removeFragmentShowReceiver();
         }
 
-        showReceiverFragment = ShowReceiverFragment.newInstance(indexSanta);
-        int index = pagerAdapter.addFragmentAndReturnIndex(showReceiverFragment, getResources().getString(R.string.title_names));
+        showReceiverFragmentOpen = true;
+        pagerAdapter.setIndexSanta(indexSanta);
+        int index = pagerAdapter.addFragmentAndReturnIndex(SHOW_RECEIVER_FRAGMENT_ID, getResources().getString(R.string.title_names));
         viewPager.setCurrentItem(index);
 
 
-        Log.d("ShowReceivers fragment", "index ------>" + index);
+        Log.d("ShowReceivers ", "index ------>" + index);
     }
 
-    public void removeFragmentNames() {
-        pagerAdapter.removeFragmentAndReturnLastIndex(enterNamesFragment);
+    public void removeFragmentEnterNames() {
+        pagerAdapter.removeFragmentAndReturnLastIndex(ENTER_NAME_FRAGMENT_ID);
     }
 
     public void removeFragmentSelectNameForSetParams() {
-        pagerAdapter.removeFragmentAndReturnLastIndex(selectNameForSetParamsFragment);
+        pagerAdapter.removeFragmentAndReturnLastIndex(SELECT_NAME_FOR_SET_PARAMS_FRAGMENT_ID);
+        selectNameForSetParamsFragmentOpen = false;
     }
 
     @Override
     public void removeFragmentSetParams() {
-        pagerAdapter.removeFragmentAndReturnLastIndex(setParamsFragment);
-        viewPager.setCurrentItem(selectNameForSetParamsFragment.getId());
-        setParamsFragment = null;
+        pagerAdapter.removeFragmentAndReturnLastIndex(SET_PARAMS_FRAGMENT_ID);
+        viewPager.setCurrentItem(1);
+        setParamsFragmentOpen = false;
     }
 
     public void removeFragmentShowReceiver() {
-        pagerAdapter.removeFragmentAndReturnLastIndex(showReceiverFragment);
-        viewPager.setCurrentItem(selectNameForShowReceiverFragment.getId());
-        showReceiverFragment = null;
+        pagerAdapter.removeFragmentAndReturnLastIndex(SHOW_RECEIVER_FRAGMENT_ID);
+        viewPager.setCurrentItem(0);
+        showReceiverFragmentOpen = false;
     }
 
 }
+
+

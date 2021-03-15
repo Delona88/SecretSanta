@@ -1,6 +1,7 @@
 package com.example.secretsantaservi.mytrainingquickplayversion.versionwithfragments;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.*;
 import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
@@ -47,7 +48,6 @@ public class SelectNameForSetParamsFragment extends Fragment {
         return rootView;
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -65,7 +65,6 @@ public class SelectNameForSetParamsFragment extends Fragment {
 
     }
 
-
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
 
         @Override
@@ -74,6 +73,7 @@ public class SelectNameForSetParamsFragment extends Fragment {
             if (v.getId() == buttonContinue.getId()) {
                 try {
                     quickGame.fillReceivers();
+                    Log.d("fillReceivers","Receivers" + quickGame.toString());
                     activity.goToSelectNameForShowReceiver();
                 } catch (BadConditionsException e) {
                     e.printStackTrace();
@@ -94,15 +94,6 @@ public class SelectNameForSetParamsFragment extends Fragment {
         }
     };
 
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NamesViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -114,7 +105,6 @@ public class SelectNameForSetParamsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
     public void showToastIncorrectInfo() {
         Toast.makeText(getActivity(), getResources().getString(R.string.title_bad_conditions), Toast.LENGTH_LONG).show();

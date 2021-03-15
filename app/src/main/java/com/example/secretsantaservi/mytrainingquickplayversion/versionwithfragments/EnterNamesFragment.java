@@ -24,8 +24,6 @@ public class EnterNamesFragment extends Fragment {
 
     private QuickPlayInterface activity;
 
-    private boolean allParticipantsAdded = false;
-
     private NamesViewModel mViewModel;
 
     public static EnterNamesFragment newInstance() {
@@ -44,9 +42,9 @@ public class EnterNamesFragment extends Fragment {
 
         editText = rootView.findViewById(R.id.editTextPersonName);
 
+        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, quickGame.getParticipantsNames());
         listViewAllParticipants = rootView.findViewById(R.id.listViewNames);
-
-
+        listViewAllParticipants.setAdapter(adapter);
 
         return rootView;
     }
@@ -56,10 +54,6 @@ public class EnterNamesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(NamesViewModel.class);
         // TODO: Use the ViewModel
-
-        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, quickGame.getParticipantsNames());
-        listViewAllParticipants.setAdapter(adapter);
-
     }
 
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -87,9 +81,6 @@ public class EnterNamesFragment extends Fragment {
         Toast.makeText(getActivity(), getResources().getString(R.string.title_incorrect_info), Toast.LENGTH_LONG).show();
     }
 
-
-
-
     @NonNull
     @Override
     public Lifecycle getLifecycle() {
@@ -107,6 +98,5 @@ public class EnterNamesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
 }

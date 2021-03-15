@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class PersonForQuickGame {
     private final String name;
-    private final ArrayList<PersonForQuickGame> naughtyList = new ArrayList<>();
+    private ArrayList<PersonForQuickGame> naughtyList = new ArrayList<>();
     private PersonForQuickGame receiver;
 
     public PersonForQuickGame(String name) {
@@ -33,6 +33,10 @@ public class PersonForQuickGame {
 
     public ArrayList<PersonForQuickGame> getNaughtyList() {
         return naughtyList;
+    }
+
+    public void setNaughtyList(ArrayList<PersonForQuickGame> naughtyList){
+        this.naughtyList = naughtyList;
     }
 
     @Override

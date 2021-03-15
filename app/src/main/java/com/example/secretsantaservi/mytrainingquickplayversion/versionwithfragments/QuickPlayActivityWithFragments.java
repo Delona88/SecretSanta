@@ -4,17 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.secretsantaservi.R;
-import com.example.secretsantaservi.mytrainingquickplayversion.model.SecretSantaQuickGame;
 
-public class QuickPlayActivity extends AppCompatActivity implements QuickPlayInterface {
-
-    public static SecretSantaQuickGame quickGame;
+public class QuickPlayActivityWithFragments extends AppCompatActivity implements QuickPlayInterface {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quick_play);
-        quickGame = new SecretSantaQuickGame();
+        setContentView(R.layout.activity_quick_play2);
         if (savedInstanceState == null) {
             goToEnterNames();
         }
@@ -23,14 +19,14 @@ public class QuickPlayActivity extends AppCompatActivity implements QuickPlayInt
     @Override
     public void goToEnterNames() {
         getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, NamesFragment.class, null)
+                .add(R.id.fragment_container_view, EnterNamesFragment.class, null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit();
     }
 
     @Override
-    public void goToSelectNamesForSetParams() {
+    public void goToSelectNameForSetParams() {
         getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
                 .add(R.id.fragment_container_view, SelectNameForSetParamsFragment.class, null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -53,7 +49,7 @@ public class QuickPlayActivity extends AppCompatActivity implements QuickPlayInt
     @Override
     public void goToSelectNameForShowReceiver() {
         getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, SelectSantaForShowReceiverFragment.class, null)
+                .add(R.id.fragment_container_view, SelectNameForShowReceiverFragment.class, null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit();
@@ -68,13 +64,26 @@ public class QuickPlayActivity extends AppCompatActivity implements QuickPlayInt
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit();
-
     }
 
     @Override
-    public void popBackStack() {
+    public void removeFragmentSetParams() {
         getSupportFragmentManager().popBackStack();
     }
 
+    @Override
+    public void removeFragmentSelectNameForSetParams() {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void removeFragmentEnterNames() {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void removeFragmentShowReceiver() {
+        getSupportFragmentManager().popBackStack();
+    }
 
 }

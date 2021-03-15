@@ -9,6 +9,6 @@ public interface QuickPlayInterface {
     void finish();
     void removeFragmentSetParams();
     void removeFragmentSelectNameForSetParams();
-    void removeFragmentNames();
+    void removeFragmentEnterNames();
     void removeFragmentShowReceiver();
 }

@@ -32,10 +32,15 @@ public class SecretSantaQuickGame {
             }
             count++;
         }
-        if (count == 100) {
+        if (count == 1000) {
             throw new BadConditionsException();
         }
         return array;
+    }
+
+    public boolean isPersonInSantaNaughtyList(PersonForQuickGame santa, PersonForQuickGame receiver) {
+
+        return santa.isPersonInNaughtyList(receiver);
     }
 
     public ArrayList<String> getParticipantsNames() {
@@ -61,9 +66,7 @@ public class SecretSantaQuickGame {
         return null;
     }
 
-    public boolean isPersonInSantaNaughtyList(PersonForQuickGame santa, PersonForQuickGame receiver) {
-        return santa.isPersonInNaughtyList(receiver);
-    }
+
 
     public void addNewPersonByName(String name) {
         PersonForQuickGame person = new PersonForQuickGame(name);
@@ -92,11 +95,11 @@ public class SecretSantaQuickGame {
 
     @Override
     public String toString() {
-        String str = "";
-        for (PersonForQuickGame personQuickGame : participants) {
-            str += personQuickGame.getName() + "->" + personQuickGame.getNaughtyList().toString() + "\n";
+        StringBuilder str = new StringBuilder();
+        for (PersonForQuickGame person : participants) {
+            str.append(person.getName()).append("->").append(person.getNaughtyList().toString()).append("\n");
         }
-        return str;
+        return str.toString();
     }
 }
 
